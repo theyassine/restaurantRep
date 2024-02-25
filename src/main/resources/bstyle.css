@@ -1,0 +1,30 @@
+.text-field {
+    -fx-background-color: linear-gradient(to bottom, #de465d, #800c02); /* Rouge dégradé */
+    -fx-background-radius: 5;
+    -fx-border-color: #990000; /* Bordure rouge foncé */
+    -fx-border-radius: 5;
+    -fx-text-fill: #ffffff; /* Texte blanc */
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-background-color: linear-gradient(to bottom, #de465d, #800c02); /* Rouge dégradé plus clair au focus */
+    -fx-border-color: #990000; /* Bordure rouge foncé au focus */
+}
+
+.text-field:hover {
+    -fx-background-color: linear-gradient(to bottom, #dc7171, #dc7171); /* Rouge dégradé plus clair au survol */
+}
+
+.text-field .text-input {
+    -fx-background-color: transparent;
+}
+
+
+/* Animation hover pour les boutons */
+.button {
+    -fx-background-color: #050505;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}

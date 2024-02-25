@@ -1,0 +1,8 @@
+
+.text{
+-fx-background-color: linear-gradient(to bottom, #ffffff, #ffffff); /* Rouge dégradé */
+-fx-background-radius: 5;
+-fx-border-color: #990000; /* Bordure rouge foncé */
+-fx-border-radius: 5;
+-fx-text-fill: #800c02; /* Texte blanc */
+-fx-font-size: 14px;}
