@@ -10,7 +10,7 @@ public class Restaurantmanagement extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("/liste.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/modifier.fxml"));
 
         // Set the stage title
         primaryStage.setTitle("Recipe Application");

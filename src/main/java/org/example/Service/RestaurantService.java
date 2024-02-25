@@ -247,4 +247,5 @@ public class RestaurantService implements ISevice<Restaurant> {
 
         return filteredRestaurants;
     }
+
 }

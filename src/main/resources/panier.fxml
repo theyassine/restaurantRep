@@ -17,7 +17,7 @@
             <String fx:value="radius" />
         </styleClass>
         <children>
-            <TableView fx:id="menu_tableView" layoutX="13.0" layoutY="14.0" onMouseClicked="#menuSelectOrder" prefHeight="249.0" prefWidth="295.0" AnchorPane.bottomAnchor="303.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+            <TableView fx:id="menu_tableView" layoutX="13.0" layoutY="14.0"  prefHeight="249.0" prefWidth="295.0" AnchorPane.bottomAnchor="303.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
                 <columns>
                     <TableColumn fx:id="menu_col_productName" prefWidth="184.0" text="Product Name" />
                     <TableColumn fx:id="menu_col_quantity" prefWidth="160.0" text="Quantity" />
@@ -39,7 +39,7 @@
                     <Font size="15.0" />
                 </font>
             </Label>
-            <TextField fx:id="menu_amount" layoutX="182.0" layoutY="311.0" onAction="#menuAmount" prefHeight="25.0" prefWidth="126.0" promptText="\$0.0" AnchorPane.bottomAnchor="230.0" AnchorPane.rightAnchor="12.0" />
+            <TextField fx:id="menu_amount" layoutX="182.0" layoutY="311.0"  prefHeight="25.0" prefWidth="126.0" promptText="\$0.0" AnchorPane.bottomAnchor="230.0" AnchorPane.rightAnchor="12.0" />
             <Label layoutX="121.0" layoutY="343.0" text="Change:" AnchorPane.bottomAnchor="202.0" AnchorPane.rightAnchor="144.0">
                 <font>
                     <Font size="15.0" />
