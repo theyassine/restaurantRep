@@ -12,7 +12,7 @@ public class DataSource {
 
     private static DataSource instance;
 
-    public DataSource(){
+    private DataSource(){
         try {
             cnx= DriverManager.getConnection(url,login,pwd);
             System.out.println("success");
@@ -20,7 +20,6 @@ public class DataSource {
             throw new RuntimeException(e);
         }
     }
-
     public static DataSource getInstance(){
         if(instance==null)
             instance=new DataSource();
@@ -31,3 +30,5 @@ public class DataSource {
         return cnx;
     }
 }
+
+

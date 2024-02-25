@@ -1,94 +1,129 @@
 package org.example;
 
-import entities.Menu;
-import entities.Supplement;
-import services.MenuService;
-import services.SupplementService;
+import entite.Avis;
+import entite.Recette;
+import services.AvisService;
+import services.PdfExporter;
+import services.RecetteService;
+import utils.DataSource;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        MenuService menuService = new MenuService();
-        SupplementService supplementService = new SupplementService();
+        //test de connection
+        // DataSource ds1 = DataSource.getInstance();
+        // System.out.println(ds1);
 
-        Menu menu = new Menu();
-        Supplement supplement = new Supplement();
+        RecetteService recetteService = new RecetteService();
+        Recette recette = new Recette();
+/*
+        String imagePath = "C:\\Users\\asus\\OneDrive\\Bureau\\rev\\restaurant\\src\\main\\java\\image\\recipe-image.jpg";
+        String videoPath = "C:\\Users\\asus\\OneDrive\\Bureau\\rev\\restaurant\\src\\main\\java\\image\\Cheesefacile.mp4";
 
-        // Add a menu
-        menu.setNom("panuzzo");
-        menu.setPrix(10.5);
-        menu.setDescription("delicieux");
-        menu.setCategories("italien");
-        menu.setCalories(1000);
-        menu.setImage("image.jpg");
-        menu.setId_user(1);
-        menuService.add(menu);
+        try {
+            byte[] imageBytes = readImageBytes(imagePath);
+            byte[] videoBytes = readVideoBytes(videoPath);
+            Recette recipe = new Recette();
+            recipe.setTitre("Pasta Carbonara");
+            recipe.setDescription("Classic Italian pasta dish with eggs, cheese, and pancetta");
+            recipe.setIngredients("Spaghetti, eggs, Parmesan cheese, pancetta");
+            recipe.setEtape("Cook pancetta, mix eggs and cheese, combine with cooked spaghetti");
+            recipe.setId_user(1);
+            recipe.setImage(imageBytes);
+            recipe.setVideo(videoBytes);
+            recetteService.add(recipe);
 
-        // Update a menu
-        menu.setId_menu(13); // Assuming the ID of the menu to update is 13
-        menu.setNom("kaskrout");
-        menu.setPrix(5000);
-        menu.setDescription("");
-        menu.setCategories("");
-        menu.setCalories(50);
-        menu.setImage("");
-        menuService.update(menu);
-
-        // Delete a menu
-        menu.setId_menu(28); // Assuming the ID of the menu to delete is 28
-        menuService.delete(menu);
-
-        // Read all menus
-        List<Menu> menuList = menuService.readAll();
-        System.out.println("Liste des menus :");
-        for (Menu m : menuList) {
-            System.out.println(m);
+            System.out.println("Recipe added successfully!");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        // Read a menu by ID
-        int id = 40; // Change this to the ID you want to read
-        Menu readMenu = menuService.readById(id);
-        if (readMenu != null) {
-            System.out.println("Menu trouvé :");
-            System.out.println(readMenu);
+*/
+        /*
+        Recette recetteToDelete = new Recette();
+        recetteToDelete.setId(6);
+        recetteService.delete(recetteToDelete);
+        */
+
+        /*
+        Recette recetteUpdate = new Recette();
+        recetteUpdate.setId(1);
+        recetteUpdate.setTitre("Updated Spaghetti Carbonara");
+        recetteUpdate.setDescription("Updated description");
+        recetteService.update(recetteUpdate);
+       */
+
+
+        System.out.println("List of Recipes:");
+        List<Recette> recipes = recetteService.readAll();
+        for (Recette recipe : recipes) {
+        System.out.println(recipe);
+        }
+
+
+        /*
+          Recette recetteById = recetteService.readById(3);
+          if (recetteById != null) {
+          System.out.println("Recette with ID 3: " + recetteById);
+          } else {
+          System.out.println("Recette with ID 3 not found");
+          }
+        */
+
+         /*
+        // imprimé
+        List<Recette> recettes = recetteService.readAll();
+        PdfExporter pdfExporter = new PdfExporter();
+        pdfExporter.exportToPdf(recettes, "recette.pdf",13);
+          */
+
+        AvisService serviceAvis = new AvisService();
+        /*
+        Avis nouvelAvis = new Avis();
+        nouvelAvis.setNote(5);
+        nouvelAvis.setCommentaire("délicieux !");
+        nouvelAvis.setIdUser(1);
+        nouvelAvis.setIdRecette(1);
+        serviceAvis.add(nouvelAvis);
+        */
+
+
+        /*
+        List<Avis> listeAvis = serviceAvis.readAll();
+        for (Avis avis : listeAvis) {
+            System.out.println(avis);
+        }
+         */
+
+        /*
+        Avis AvisToDelete = new Avis();
+        AvisToDelete.setIdAvis(1);
+        serviceAvis.delete(AvisToDelete);
+         */
+
+
+        /*
+        Avis avisById = serviceAvis.readById(2);
+        if (avisById != null) {
+            System.out.println("Avis with ID 2: " + avisById);
         } else {
-            System.out.println("Menu non trouvé pour l'ID : " + id);
+            System.out.println("Avis with ID 2 not found");
         }
+      */
+    }
 
-        // Add a supplement
-        supplement.setNom("coca");
-        supplement.setPrix(3.5);
-        supplement.setImage("supp.jpg");
-        supplement.setId_user(1);
-        supplementService.add(supplement);
-
-        // Update a supplement
-        supplement.setId_supp(1); // Assuming the ID of the supplement to update is 1
-        supplement.setNom("fanta");
-        supplement.setPrix(15);
-        supplement.setImage("coca.jpg");
-        supplementService.update(supplement);
-
-        // Delete a supplement
-        supplement.setId_supp(11); // Assuming the ID of the supplement to delete is 11
-        supplementService.delete(supplement);
-
-        // Read all supplements
-        List<Supplement> supplementList = supplementService.readAll();
-        System.out.println("Liste des supplements :");
-        for (Supplement s : supplementList) {
-            System.out.println(s);
-        }
-
-        // Read a supplement by ID
-        int suppId = 40; // Change this to the ID you want to read
-        Supplement readSupplement = supplementService.readById(suppId);
-        if (readSupplement != null) {
-            System.out.println("Supplement trouvé :");
-            System.out.println(readSupplement);
-        } else {
-            System.out.println("Supplement non trouvé pour l'ID : " + suppId);
-        }
+    private static byte[] readImageBytes(String imagePath) throws IOException {
+        Path path = Paths.get(imagePath);
+        return Files.readAllBytes(path);
+    }
+    private static byte[] readVideoBytes(String videoPath) throws IOException {
+        Path path = Paths.get(videoPath);
+        byte[] videoBytes = Files.readAllBytes(path);
+        return videoBytes;
     }
 }
