@@ -15,10 +15,10 @@ public class MainFX extends Application {
         stage.setScene(scene);
         stage.setTitle("gérer menu");
         stage.show();
-     }
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    }
+}
