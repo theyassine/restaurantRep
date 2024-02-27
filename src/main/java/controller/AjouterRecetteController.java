@@ -3,6 +3,8 @@ package controller;
 import entite.Recette;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -52,6 +54,15 @@ public class AjouterRecetteController {
     public void initialize() {
         // Ajoutez le premier champ d'étape au chargement de la vue
         addEtapeField(null);
+    }
+    @FXML
+    void Anuuler(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ListeDesRecette.fxml"));
+            titreField.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
