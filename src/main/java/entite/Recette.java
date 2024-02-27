@@ -1,6 +1,7 @@
 package entite;
 
 public class Recette {
+
     private int id;
     private String titre;
     private String description;
