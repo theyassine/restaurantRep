@@ -53,6 +53,7 @@ public class AjouterRecetteController {
         // Ajoutez le premier champ d'étape au chargement de la vue
         addEtapeField(null);
     }
+
     @FXML
     private void addEtapeField(ActionEvent event) {
         int etapeNumber = etapeBoxes.size() + 1;
@@ -78,7 +79,6 @@ public class AjouterRecetteController {
             etapeFields.remove(etapeFields.size() - 1);
         }
     }
-
     @FXML
     private void addIngredientField(ActionEvent event) {
         TextField newIngredientField = new TextField();
