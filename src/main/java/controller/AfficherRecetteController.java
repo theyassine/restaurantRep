@@ -8,7 +8,9 @@ import entite.Recette;
 
 import entite.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -93,7 +95,26 @@ public class AfficherRecetteController implements Initializable {
     @FXML
     private ImageView qrCodeImageView;
 
-    // Existing code...
+    @FXML
+    void MesRecette_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/test.fxml"));
+            titleLabel.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @FXML
+    void addRecette_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterRecette.fxml"));
+            titleLabel.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void generateQRCode(int recipeId) {
         try {
@@ -211,6 +232,8 @@ public class AfficherRecetteController implements Initializable {
         }
 
         avisService = new AvisService();
+        videoView.setFitWidth(400);
+        videoView.setFitHeight(250);
     }
 
 

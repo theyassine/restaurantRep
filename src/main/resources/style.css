@@ -82,3 +82,12 @@
 #id_imageee,#id_logo {
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 10, 0.0 , 0 , 1 );
 }
+.text-field ,TextArea,etapeBox1{
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 4px;
+    -fx-border-radius: 4px;
+    -fx-font-size: 13px;
+    -fx-font-family: Arial;
+}

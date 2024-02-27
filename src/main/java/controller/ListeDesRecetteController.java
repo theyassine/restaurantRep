@@ -21,9 +21,19 @@ public class ListeDesRecetteController {
 
     @FXML
     private ScrollPane scroll;
+    @FXML
+    void MesRecette_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/test.fxml"));
+            grid.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @FXML
-    void AfficherRecette(ActionEvent event) {
+    void addRecette_btn(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjouterRecette.fxml"));
             grid.getScene().setRoot(root); // Assuming grid is a control from the current scene
@@ -31,15 +41,9 @@ public class ListeDesRecetteController {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
-    void AfficherMesRecettes(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/MesRecette.fxml"));
-            grid.getScene().setRoot(root); // Assuming grid is a control from the current scene
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     public void initialize() {
         // Retrieve all recipes from the data source
@@ -59,7 +63,7 @@ public class ListeDesRecetteController {
                 cardController.displayRecetteData(recette.getId());
                 cardRecetteNode.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> handleCardClick(recette.getId()));
                 columnIndex++;
-                if (columnIndex == 3) { // Change this number according to your desired number of columns
+                if (columnIndex == 4) { // Change this number according to your desired number of columns
                     columnIndex = 0;
                     ++rowIndex;
                 }

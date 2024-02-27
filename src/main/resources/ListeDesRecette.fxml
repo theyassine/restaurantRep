@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,84 +15,59 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1370.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ListeDesRecetteController">
    <children>
       <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox prefHeight="810.0" prefWidth="341.0" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
+            <VBox prefHeight="700.0" prefWidth="247.0" styleClass="right-bar" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="130.0" prefWidth="425.0" style="-fx-background-color: #FFFFFF;">
+                  <AnchorPane prefHeight="700.0" prefWidth="247.0" style="-fx-background-color: C21A1ADD;" styleClass="nav-form" stylesheets="@dashboardDesign.css">
                      <children>
-                        <ImageView fx:id="id_logo" fitHeight="127.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+                        <Line endX="85.0" layoutX="109.0" layoutY="173.0" startX="-100.0" stroke="WHITE" />
+                        <Button fx:id="home_btn" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="1.5em" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="addRecette_btn" layoutX="12.0" layoutY="246.0" mnemonicParsing="false" onAction="#addRecette_btn" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Add Recette">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PLUS_CIRCLE" size="1.5em" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="MesRecette_btn" layoutX="12.0" layoutY="281.0" mnemonicParsing="false" onAction="#MesRecette_btn" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Mes Recettes">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.5em" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="studentGrade_btn" layoutX="12.0" layoutY="316.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="évènement ">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="CLIPBOARD" size="1.5em" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="logout" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="logout" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                        </Button>
+                        <Label layoutX="58.0" layoutY="516.0" text="Sign Out" textFill="WHITE">
+                           <font>
+                              <Font name="Tahoma" size="15.0" />
+                           </font>
+                        </Label>
+                        <ImageView fitHeight="102.0" fitWidth="114.0" layoutX="39.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/yammifood.png" />
                            </image>
                         </ImageView>
                      </children>
-                  </HBox>
-                  <Pane prefHeight="57.0" prefWidth="435.0" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS">
-                     <children>
-                        <HBox alignment="CENTER" layoutX="68.0" layoutY="21.0" prefHeight="38.0" prefWidth="245.0" stylesheets="@style.css">
-                           <children>
-                              <TextField prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@style.css">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font name="Cambria" size="18.0" />
-                                 </font>
-                              </TextField>
-                              <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="162.0" styleClass="search-button" stylesheets="@style.css" text="Search" textFill="WHITE" />
-                           </children>
-                           <styleClass>
-                              <String fx:value="search-box" />
-                              <String fx:value="shadow" />
-                           </styleClass>
-                        </HBox>
-                        <VBox fx:id="chosenFruitCard" alignment="CENTER" layoutX="44.0" layoutY="89.0" prefHeight="431.0" prefWidth="260.0" stylesheets="@style.css">
-                           <children>
-                              <Button fx:id="id_ajouter" mnemonicParsing="false" onAction="#AfficherRecette" prefHeight="45.0" prefWidth="202.0" stylesheets="@style.css" text="Ajouter Recette" textAlignment="RIGHT">
-                                 <graphic>
-                                    <ImageView fitHeight="41.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@img/ajouter-recette.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <font>
-                                    <Font name="System Italic" size="12.0" />
-                                 </font></Button>
-                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                                 <children>
-                                    <HBox alignment="CENTER" prefHeight="34.0" prefWidth="244.0">
-                                       <children>
-                                          <Separator prefHeight="0.0" prefWidth="118.0" />
-                                          <Separator prefHeight="0.0" prefWidth="118.0" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </HBox>
-                              <Button fx:id="id_recette" mnemonicParsing="false" onAction="#AfficherMesRecettes" prefHeight="62.0" prefWidth="209.0" text="Mes Recettes">
-                                 <graphic>
-                                    <ImageView fitHeight="34.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@img/site-internet.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic></Button>
-                              <HBox alignment="CENTER" prefHeight="53.0" prefWidth="335.0" />
-                           </children>
-                           <styleClass>
-                              <String fx:value="chosen-fruit-card" />
-                              <String fx:value="shadow" />
-                           </styleClass>
-                        </VBox>
-                     </children></Pane>
+                  </AnchorPane>
                </children>
             </VBox>
          </left>
@@ -105,18 +79,18 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                      <children>
-                        <Label prefHeight="29.0" prefWidth="122.0" text="language" textFill="#6d071a">
+                        <Label prefHeight="29.0" prefWidth="122.0" text="language" textFill="#c21a1a">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="29.0" prefWidth="77.0" text="Français " textFill="#6d071a" underline="true">
+                        <Label prefHeight="29.0" prefWidth="77.0" text="Français " textFill="#c21a1a" underline="true">
                            <font>
                               <Font name="Cambria" size="14.0" />
                            </font>
                         </Label>
                         <Pane prefHeight="65.0" prefWidth="393.0" HBox.hgrow="ALWAYS" />
-                        <Label prefHeight="62.0" prefWidth="100.0" text="My Account" textFill="#6d071a">
+                        <Label prefHeight="62.0" prefWidth="100.0" text="My Account" textFill="#c21a1a">
                            <font>
                               <Font name="Cambria" size="18.0" />
                            </font>
@@ -128,11 +102,11 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox prefHeight="137.0" prefWidth="974.0">
+                  <HBox prefHeight="165.0" prefWidth="1083.0">
                      <children>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
-                        <Pane prefHeight="137.0" prefWidth="81.0" />
-                        <ImageView fx:id="id_imageee" fitHeight="137.0" fitWidth="573.0" pickOnBounds="true" preserveRatio="true">
+                        <Pane prefHeight="137.0" prefWidth="131.0" />
+                        <ImageView fx:id="id_imageee" fitHeight="225.0" fitWidth="638.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@img/img1.PNG" />
                            </image>
@@ -144,7 +118,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="886.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <ScrollPane fx:id="scroll" prefHeight="478.0" prefWidth="739.0" styleClass="transparent" stylesheets="@style.css">
+                        <ScrollPane fx:id="scroll" prefHeight="478.0" prefWidth="1069.0" styleClass="transparent" stylesheets="@style.css">
                            <content>
                               <GridPane fx:id="grid" prefHeight="0.0" prefWidth="0.0">
                                  <rowConstraints>

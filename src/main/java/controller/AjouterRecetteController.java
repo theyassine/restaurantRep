@@ -3,10 +3,9 @@ package controller;
 import entite.Recette;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import services.RecetteService;
 
@@ -16,9 +15,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AjouterRecetteController {
 
+    public HBox etapeBox1;
     @FXML
     private TextField titreField;
 
@@ -28,14 +30,70 @@ public class AjouterRecetteController {
     @FXML
     private TextField ingredientsField;
 
+
     @FXML
-    private TextField etapeField;
+    private TextArea etapeField;
 
     @FXML
     private Label selectedImagePathLabel;
 
     @FXML
     private Label selectedVideoPathLabel;
+    @FXML
+    private VBox ingredientsVBox;
+
+    private List<TextField> additionalIngredientFields = new ArrayList<>();
+    @FXML
+    private VBox etapesVBox;
+
+    private List<HBox> etapeBoxes = new ArrayList<>();
+    private List<TextArea> etapeFields = new ArrayList<>();
+    @FXML
+    public void initialize() {
+        // Ajoutez le premier champ d'étape au chargement de la vue
+        addEtapeField(null);
+    }
+    @FXML
+    private void addEtapeField(ActionEvent event) {
+        int etapeNumber = etapeBoxes.size() + 1;
+
+        HBox newEtapeBox = new HBox();
+        Label etapeLabel = new Label("Étape " + etapeNumber + ":");
+        TextArea newEtapeField = new TextArea();
+        newEtapeField.setPromptText("Étape");
+        newEtapeField.setPrefHeight(60.0);
+        newEtapeField.setPrefWidth(250.0);
+        newEtapeBox.getChildren().addAll(etapeLabel, newEtapeField);
+        etapesVBox.getChildren().add(newEtapeBox);
+
+        etapeBoxes.add(newEtapeBox);
+        etapeFields.add(newEtapeField);
+    }
+
+    @FXML
+    private void removeEtapeField(ActionEvent event) {
+        if (!etapeBoxes.isEmpty()) {
+            HBox removedBox = etapeBoxes.remove(etapeBoxes.size() - 1);
+            etapesVBox.getChildren().remove(removedBox);
+            etapeFields.remove(etapeFields.size() - 1);
+        }
+    }
+
+    @FXML
+    private void addIngredientField(ActionEvent event) {
+        TextField newIngredientField = new TextField();
+        newIngredientField.setPromptText("Ingrédients");
+        ingredientsVBox.getChildren().add(newIngredientField);
+        additionalIngredientFields.add(newIngredientField);
+    }
+
+    @FXML
+    private void removeIngredientField(ActionEvent event) {
+        if (!additionalIngredientFields.isEmpty()) {
+            TextField removedField = additionalIngredientFields.remove(additionalIngredientFields.size() - 1);
+            ingredientsVBox.getChildren().remove(removedField);
+        }
+    }
 
     @FXML
     private void browseImage(ActionEvent event) {
@@ -62,54 +120,66 @@ public class AjouterRecetteController {
     @FXML
     private void ajouterRecette(ActionEvent event) {
         try {
-            // Get data from UI fields
             String titre = titreField.getText();
             String description = descriptionField.getText();
             String ingredients = ingredientsField.getText();
-            String etape = etapeField.getText();
+            String premierEtape = etapeField.getText();
+            String etapesText = etapeField.getText();
             String imagePath = selectedImagePathLabel.getText();
             String videoPath = selectedVideoPathLabel.getText();
 
-            // Validate required fields
-            if (titre.isEmpty() || description.isEmpty() || ingredients.isEmpty() || etape.isEmpty()) {
-                // Display an alert or handle validation error as needed
-                System.out.println("Please fill in all required fields.");
+            // Concaténer les valeurs des champs d'ingrédients supplémentaires
+            StringBuilder ingredientsBuilder = new StringBuilder();
+            ingredientsBuilder.append(ingredients);
+            for (TextField field : additionalIngredientFields) {
+                String additionalIngredient = field.getText();
+                if (!additionalIngredient.isEmpty()) {
+                    ingredientsBuilder.append(", ").append(additionalIngredient);
+                }
+            }
+            String combinedIngredients = ingredientsBuilder.toString();
+
+            if (titre.isEmpty() || description.isEmpty() || combinedIngredients.isEmpty() || etapesText.isEmpty()) {
+                System.out.println("Veuillez remplir tous les champs obligatoires.");
+                return;
+            }
+            StringBuilder etapesBuilder = new StringBuilder();
+            etapesBuilder.append(premierEtape).append("\n");
+            for (TextArea etapeField : etapeFields) {
+                String etapeText = etapeField.getText();
+                if (!etapesText.isEmpty()) {
+                    etapesBuilder.append(etapeText).append("\n"); // Utilisation du caractère de nouvelle ligne comme séparateur
+                }
+            }
+            String etapes = etapesBuilder.toString();
+
+            // Le reste du code pour ajouter la recette dans la base de données
+            if (titre.isEmpty() || description.isEmpty() || ingredients.isEmpty() || etapes.isEmpty()) {
+                System.out.println("Veuillez remplir tous les champs obligatoires.");
                 return;
             }
 
-            // Create a Recette object with the data
             Recette recette = new Recette();
             recette.setTitre(titre);
             recette.setDescription(description);
-            recette.setIngredients(ingredients);
-            recette.setEtape(etape);
-
-            // Add logic to handle image and video byte arrays based on file paths
-            // For simplicity, let's assume you have methods getImageBytes and getVideoBytes for conversion
-            // You may need to handle exceptions and implement these methods based on your requirements
-
-
+            recette.setIngredients(combinedIngredients);
+            recette.setEtape(etapes);
             recette.setImage(imagePath);
             recette.setVideo(videoPath);
             recette.setId_user(1);
 
-            // Assuming you have an instance of RecetteService
             RecetteService recetteService = new RecetteService();
             recetteService.add(recette);
 
-            // Optionally, you can display a success message or reset the form
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setContentText("Recette est ajouter");
+            alert.setTitle("Succès");
+            alert.setContentText("Recette ajoutée avec succès");
             alert.showAndWait();
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("erreur");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
             alert.setContentText("Veuillez compléter tous les champs, s'il vous plaît");
             alert.showAndWait();
         }
     }
-
-
-
 }
