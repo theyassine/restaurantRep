@@ -38,7 +38,7 @@ public class MenuService implements IService<Menu>{
         String query = "DELETE FROM menu WHERE id_menu = ?";
 
         try (PreparedStatement pst = connexion.prepareStatement(query)) {
-            pst.setInt(1, menu.getId());
+            pst.setInt(1, menu.getId_menu());
             int rowsDeleted = pst.executeUpdate();
 
             if (rowsDeleted > 0) {
@@ -62,7 +62,7 @@ public class MenuService implements IService<Menu>{
             pst.setString(4, menu.getCategories());
             pst.setInt(5, menu.getCalories());
             pst.setString(6, menu.getImage());
-            pst.setInt(7, menu.getId());
+            pst.setInt(7, menu.getId_menu());
 
             int updatedRows = pst.executeUpdate();
             if (updatedRows > 0) {
@@ -84,7 +84,7 @@ public class MenuService implements IService<Menu>{
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
                 Menu menu = new Menu();
-                menu.setId(resultSet.getInt("id_menu"));
+                menu.setId_menu(resultSet.getInt("id_menu"));
                 menu.setNom(resultSet.getString("nom"));
                 menu.setPrix(resultSet.getDouble("prix"));
                 menu.setDescription(resultSet.getString("description"));
@@ -109,7 +109,7 @@ public class MenuService implements IService<Menu>{
             try (ResultSet resultSet = pst.executeQuery()) {
                 if (resultSet.next()) {
                     menu = new Menu();
-                    menu.setId(resultSet.getInt("id_menu"));
+                    menu.setId_menu(resultSet.getInt("id_menu"));
                     menu.setNom(resultSet.getString("nom"));
                     menu.setPrix(resultSet.getDouble("prix"));
                     menu.setDescription(resultSet.getString("description"));

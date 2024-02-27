@@ -1,15 +1,15 @@
 package entities;
 
-public class user {
 
+public class User {
     private int id_user;
-    private String nom ;
+    private String nom;
     private String prenom;
 
-    public user() {
+    public User() {
     }
 
-    public user(int id_user, String nom, String prenom) {
+    public User(int id_user, String nom, String prenom) {
         this.id_user = id_user;
         this.nom = nom;
         this.prenom = prenom;
@@ -41,7 +41,7 @@ public class user {
 
     @Override
     public String toString() {
-        return "user{" +
+        return "User{" +
                 "id_user=" + id_user +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +

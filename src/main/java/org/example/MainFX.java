@@ -13,7 +13,7 @@ public class MainFX extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("gérer menu");
+        stage.setTitle("gestion des menus");
         stage.show();
     }
 

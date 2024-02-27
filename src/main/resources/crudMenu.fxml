@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -28,7 +30,7 @@
                 <Font name="Arial Black" size="21.0" />
             </font>
         </Label>
-        <Button layoutX="669.0" layoutY="224.0" mnemonicParsing="false" text="OK" />
+        <Button layoutX="669.0" layoutY="224.0" mnemonicParsing="false" onAction="#enregistrerModif" text="OK" />
         <Label layoutX="231.0" layoutY="279.0" text="Supplements">
             <font>
                 <Font name="System Bold" size="15.0" />
@@ -41,38 +43,39 @@
         <Label layoutX="228.0" layoutY="340.0" text="Nom :" />
         <Label layoutX="444.0" layoutY="340.0" text="Prix : " />
         <Label layoutX="665.0" layoutY="340.0" text="Calorie : " />
-        <Button layoutX="941.0" layoutY="406.0" mnemonicParsing="false" text="Importer" />
-        <Button layoutX="514.0" layoutY="406.0" mnemonicParsing="false" text="Ajouter" />
-        <Button layoutX="669.0" layoutY="406.0" mnemonicParsing="false" text="OK" />
-        <ScrollPane layoutX="229.0" layoutY="455.0" prefHeight="250.0" prefWidth="860.0">
-            <content>
-                <!-- Content inside the ScrollPane -->
-                <AnchorPane prefHeight="500.0" prefWidth="800.0">
-                    <children>
-                        <ImageView fitHeight="100.0" fitWidth="133.0" layoutX="84.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../Downloads/makloub.jpg" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="91.0" fitWidth="170.0" layoutX="305.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../Downloads/pizza.jpg" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="107.0" fitWidth="157.0" layoutX="526.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../Downloads/ojja.jpg" />
-                            </image>
-                        </ImageView>
-                        <Button layoutX="84.0" layoutY="127.0" mnemonicParsing="false" text="Modifier" />
-                        <Button layoutX="165.0" layoutY="127.0" mnemonicParsing="false" text="Supprimer" />
-                        <Button layoutX="305.0" layoutY="127.0" mnemonicParsing="false" text="Modifier" />
-                        <Button layoutX="389.0" layoutY="127.0" mnemonicParsing="false" text="Supprimer" />
-                        <Button layoutX="526.0" layoutY="127.0" mnemonicParsing="false" text="Modifier" />
-                        <Button layoutX="620.0" layoutY="127.0" mnemonicParsing="false" text="Supprimer" />
-                    </children></AnchorPane>
-            </content>
-        </ScrollPane>
+        <Button layoutX="941.0" layoutY="406.0" mnemonicParsing="false" onAction="#importerImage" text="Importer" />
+        <Button layoutX="514.0" layoutY="406.0" mnemonicParsing="false" onAction="#ajouterSupplement" text="Ajouter" />
+        <Button layoutX="669.0" layoutY="406.0" mnemonicParsing="false" onAction="#enregistrerModif" text="OK" />
+            <ScrollPane layoutX="229.0" layoutY="455.0" prefHeight="250.0" prefWidth="860.0">
+                <content>
+                    <AnchorPane prefHeight="497.0" prefWidth="810.0">
+                        <children>
+                            <!-- TableView for displaying data -->
+                            <TableView fx:id="tableView" layoutX="10.0" layoutY="10.0" prefHeight="230.0" prefWidth="840.0">
+                                <!-- Define columns for the TableView -->
+                                <columns>
+                                    <!-- Column for "nom" -->
+                                    <TableColumn fx:id="nomColumn" prefWidth="120" text="Nom" />
+                                    <!-- Column for "prix" -->
+                                    <TableColumn fx:id="prixColumn" prefWidth="120" text="Prix" />
+                                    <!-- Column for "description" -->
+                                    <TableColumn fx:id="descriptionColumn" prefWidth="120" text="Description" />
+                                    <!-- Column for "calorie" -->
+                                    <TableColumn fx:id="calorieColumn" prefWidth="120" text="Calorie" />
+
+                                    <!-- Column for "image" -->
+                                    <TableColumn fx:id="imageColumn" prefWidth="120" text="Image" />
+
+                                </columns>
+
+                            </TableView>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </ScrollPane>
+
+
+
         <VBox prefHeight="738.0" prefWidth="216.0" styleClass="sidebar">
             <children>
                 <!-- Logo image adjusted as a logo -->
@@ -109,5 +112,7 @@
                 <Image url="@../../../../Downloads/coca.jpg" />
             </image>
         </ImageView>
+      <Button layoutX="406.0" layoutY="224.0" mnemonicParsing="false" onAction="#supprimermenu" text="Supprimer" />
+      <Button layoutX="406.0" layoutY="406.0" mnemonicParsing="false" text="Supprimer" />
     </children>
 </AnchorPane>

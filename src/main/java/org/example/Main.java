@@ -26,6 +26,7 @@ public class Main {
         menuService.add(menu);
 
         // Update a menu
+        menu.setId_user(1);
         menu.setId_menu(13); // Assuming the ID of the menu to update is 13
         menu.setNom("kaskrout");
         menu.setPrix(5000);
@@ -36,7 +37,8 @@ public class Main {
         menuService.update(menu);
 
         // Delete a menu
-        menu.setId_menu(28); // Assuming the ID of the menu to delete is 28
+        menu.setId_user(1);
+        menu.setId_menu(50); // Assuming the ID of the menu to delete is 28
         menuService.delete(menu);
 
         // Read all menus
@@ -57,6 +59,7 @@ public class Main {
         }
 
         // Add a supplement
+        menu.setId_user(1);
         supplement.setNom("coca");
         supplement.setPrix(3.5);
         supplement.setImage("supp.jpg");
@@ -64,6 +67,7 @@ public class Main {
         supplementService.add(supplement);
 
         // Update a supplement
+        menu.setId_user(1);
         supplement.setId_supp(1); // Assuming the ID of the supplement to update is 1
         supplement.setNom("fanta");
         supplement.setPrix(15);
@@ -71,6 +75,7 @@ public class Main {
         supplementService.update(supplement);
 
         // Delete a supplement
+        menu.setId_user(1);
         supplement.setId_supp(11); // Assuming the ID of the supplement to delete is 11
         supplementService.delete(supplement);
 
