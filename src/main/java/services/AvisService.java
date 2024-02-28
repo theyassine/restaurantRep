@@ -1,6 +1,7 @@
 package services;
 
 import entite.Avis;
+import entite.User;
 import utils.DataSource;
 
 import java.sql.*;
@@ -103,6 +104,27 @@ public class AvisService implements IService<Avis>{
         }
 
         return avis;
+    }
+    public User getUserById(int userId) {
+        String query = "SELECT * FROM User WHERE id_user = ?";
+        User user = null;
+
+        try (PreparedStatement pst = connexion.prepareStatement(query)) {
+            pst.setInt(1, userId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                user = new User(
+                        rs.getInt("id_user"),
+                        rs.getString("nom"),
+                        rs.getString("prenom")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();  // Handle the exception properly in your application
+        }
+
+        return user;
     }
 
 }

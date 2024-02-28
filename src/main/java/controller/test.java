@@ -7,6 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -19,6 +21,7 @@ import javafx.stage.FileChooser;
 import services.RecetteService;
 
 import java.io.File;
+import java.io.IOException;
 
 public class test {
 
@@ -238,7 +241,35 @@ public class test {
 
     @FXML
     private Label selectedVideoPathLabel;
+    @FXML
+    void MesRecette_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/test.fxml"));
+            descriptionField.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+
+    @FXML
+    void addRecette_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AjouterRecette.fxml"));
+            descriptionField.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    void Home_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ListeDesRecette.fxml"));
+            descriptionField.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @FXML
     void browseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();

@@ -105,11 +105,19 @@ public class AfficherRecetteController implements Initializable {
         }
     }
 
-
     @FXML
     void addRecette_btn(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/AjouterRecette.fxml"));
+            titleLabel.getScene().setRoot(root); // Assuming grid is a control from the current scene
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    void Home_btn(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/ListeDesRecette.fxml"));
             titleLabel.getScene().setRoot(root); // Assuming grid is a control from the current scene
         } catch (IOException e) {
             throw new RuntimeException(e);
