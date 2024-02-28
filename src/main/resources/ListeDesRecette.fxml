@@ -106,11 +106,6 @@
                      <children>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
                         <Pane prefHeight="137.0" prefWidth="131.0" />
-                        <ImageView fx:id="id_imageee" fitHeight="225.0" fitWidth="638.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@img/img1.PNG" />
-                           </image>
-                        </ImageView>
                      </children>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />

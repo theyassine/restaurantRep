@@ -126,5 +126,28 @@ public class AvisService implements IService<Avis>{
 
         return user;
     }
+    public List<Avis> readAvisByRecetteId(int recetteId) {
+        String requete = "SELECT * FROM Avis WHERE id_recette = ?";
+        List<Avis> list = new ArrayList<>();
+
+        try (PreparedStatement pst = connexion.prepareStatement(requete)) {
+            pst.setInt(1, recetteId);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Avis(
+                        rs.getInt("id_avis"),
+                        rs.getDate("Date"),
+                        rs.getInt("Note"),
+                        rs.getString("Commentaire"),
+                        rs.getInt("id_user"),
+                        rs.getInt("id_recette")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
 
 }

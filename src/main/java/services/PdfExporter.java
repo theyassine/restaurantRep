@@ -1,10 +1,10 @@
 package services;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import entite.Recette;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,19 +23,52 @@ public class PdfExporter {
             // Adding recipes to the PDF
             for (Recette recipe : recipes) {
                 if (recipe.getId() == targetRecipeId) {
-                    document.add(new Paragraph("Title: " + recipe.getTitre()));
-                    document.add(new Paragraph("Description: " + recipe.getDescription()));
-                    document.add(new Paragraph("Ingredients: " + recipe.getIngredients()));
-                    document.add(new Paragraph("Steps: " + recipe.getEtape()));
-                    // Adding image if available
+                    Paragraph titreLabel = new Paragraph("Titre: ");
+                    titreLabel.getFont().setColor(BaseColor.RED);
+                    document.add(titreLabel);
+
+
+                    document.add(new Paragraph(recipe.getTitre()));
+
+
+                    Paragraph descriptionLabel = new Paragraph("Description: ");
+                    descriptionLabel.getFont().setColor(BaseColor.RED);
+                    document.add(descriptionLabel);
+
+
+                    document.add(new Paragraph(recipe.getDescription()));
+                    Paragraph ingredientsLabel = new Paragraph("Ingredients: ");
+                    ingredientsLabel.getFont().setColor(BaseColor.RED);
+                    document.add(ingredientsLabel);
+
+
+                    String[] ingredientsArray = recipe.getIngredients().split(",");
+                    for (String ingredient : ingredientsArray) {
+                        // Adding each ingredient on a new line
+                        document.add(new Paragraph("  " + ingredient.trim()));
+                    }
+
+                    Paragraph stepsLabel = new Paragraph("Steps: ");
+                    stepsLabel.getFont().setColor(BaseColor.RED);
+                    document.add(stepsLabel);
+
+
+                    String[] stepsArray = recipe.getEtape().split("\n");
+                    for (int i = 0; i < stepsArray.length; i++) {
+
+                        document.add(new Paragraph("  Step " + (i + 1) + ": " + stepsArray[i].trim()));
+                    }
+
                     String imagePath = recipe.getImage();
                     if (imagePath != null && !imagePath.isEmpty()) {
                         Image img = Image.getInstance(imagePath);
+                        img.scaleAbsolute(200f, 150f);
+
                         document.add(img);
                     }
 
                     document.add(new Paragraph("----------------------------------------------"));
-                    break;  // Stop after exporting the desired recipe
+                    break;
                 }
             }
 
@@ -45,7 +78,7 @@ public class PdfExporter {
             document.close();
         }
 
-        // Ouvrir automatiquement le PDF généré
+
         try {
             File file = new File(outputPath);
             if (Desktop.isDesktopSupported()) {

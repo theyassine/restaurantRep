@@ -52,7 +52,6 @@ public class AjouterRecetteController {
     private List<TextArea> etapeFields = new ArrayList<>();
     @FXML
     public void initialize() {
-        // Ajoutez le premier champ d'étape au chargement de la vue
         addEtapeField(null);
     }
     @FXML
@@ -135,7 +134,7 @@ public class AjouterRecetteController {
             String description = descriptionField.getText();
             String ingredients = ingredientsField.getText();
             String premierEtape = etapeField.getText();
-            String etapesText = etapeField.getText();
+
             String imagePath = selectedImagePathLabel.getText();
             String videoPath = selectedVideoPathLabel.getText();
 
@@ -150,23 +149,23 @@ public class AjouterRecetteController {
             }
             String combinedIngredients = ingredientsBuilder.toString();
 
-            if (titre.isEmpty() || description.isEmpty() || combinedIngredients.isEmpty() || etapesText.isEmpty()) {
-                System.out.println("Veuillez remplir tous les champs obligatoires.");
+            if (titre.isEmpty() || description.isEmpty() || combinedIngredients.isEmpty() || premierEtape.isEmpty()|| imagePath.isEmpty()||videoPath.isEmpty()) {
+                showAlert("Veuillez remplir tous les champs obligatoires.");
                 return;
             }
+
             StringBuilder etapesBuilder = new StringBuilder();
             etapesBuilder.append(premierEtape).append("\n");
-            for (TextArea etapeField : etapeFields) {
-                String etapeText = etapeField.getText();
-                if (!etapesText.isEmpty()) {
-                    etapesBuilder.append(etapeText).append("\n"); // Utilisation du caractère de nouvelle ligne comme séparateur
+            for (TextArea etapeTextArea : etapeFields) {
+                String etapeText = etapeTextArea.getText();
+                if (!etapeText.isEmpty()) {
+                    etapesBuilder.append(etapeText).append("\n");
                 }
             }
             String etapes = etapesBuilder.toString();
 
-            // Le reste du code pour ajouter la recette dans la base de données
-            if (titre.isEmpty() || description.isEmpty() || ingredients.isEmpty() || etapes.isEmpty()) {
-                System.out.println("Veuillez remplir tous les champs obligatoires.");
+            if (titre.isEmpty() || description.isEmpty() || combinedIngredients.isEmpty() || etapes.isEmpty()|| imagePath.isEmpty()||videoPath.isEmpty()) {
+                showAlert("Veuillez remplir tous les champs obligatoires.");
                 return;
             }
 
@@ -186,6 +185,7 @@ public class AjouterRecetteController {
             alert.setTitle("Succès");
             alert.setContentText("Recette ajoutée avec succès");
             alert.showAndWait();
+            clearFields();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -193,4 +193,26 @@ public class AjouterRecetteController {
             alert.showAndWait();
         }
     }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    private void clearFields() {
+        // Clear or update fields, text areas, or other components
+        titreField.clear();
+        descriptionField.clear();
+        ingredientsField.clear();
+        etapeField.clear();
+        selectedImagePathLabel.setText("");
+        selectedVideoPathLabel.setText("");
+
+        // Clear additional ingredient fields
+        additionalIngredientFields.forEach(TextField::clear);
+
+        // Clear etape fields
+        etapeFields.forEach(TextArea::clear);
+}
 }

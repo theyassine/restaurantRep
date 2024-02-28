@@ -220,14 +220,13 @@ public class AfficherRecetteController implements Initializable {
         avis.setIdRecette(targetRecipeId);
         avis.setIdUser(targetAvisId);
 
-        // Add the logic to set other attributes of the avis object if needed
 
         try {
             avisService.add(avis);
             showAlert("Avis ajouté", "Votre avis a été ajouté avec succès.");
         } catch (RuntimeException e) {
             showAlert("Erreur", "Une erreur est survenue lors de l'ajout de l'avis. Veuillez réessayer.");
-            e.printStackTrace();  // You may want to log the exception for debugging purposes
+            e.printStackTrace();
         }
     }
 
@@ -312,7 +311,6 @@ public class AfficherRecetteController implements Initializable {
     List<Recette> recettes = recetteService.readAll();
     private String outputPath = "recette.pdf";
     private int targetRecipeId;
-
     private int targetAvisId;
 
     public void displayRecetteData(int recetteId) {

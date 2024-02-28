@@ -2,17 +2,12 @@ package controller;
 
 import entite.Recette;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import services.RecetteService;
-
-import java.awt.event.ActionEvent;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
+
 
 public class InformationRecetteController {
 

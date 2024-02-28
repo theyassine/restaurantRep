@@ -18,7 +18,7 @@
    <VBox fx:id="ingredientsVBox" layoutX="133.0" layoutY="267.0" spacing="5">
       <TextField fx:id="ingredientsField" prefHeight="90.0" prefWidth="385.0" promptText="Ingrédients" />
    </VBox>
-   <Button layoutX="554.0" layoutY="272.0" mnemonicParsing="false" onAction="#addIngredientField" style="-fx-background-color: #66FF66;" text="+" />
+   <Button layoutX="554.0" layoutY="272.0" mnemonicParsing="false" onAction="#addIngredientField" style="-fx-background-color: #a7beae;" text="+" />
    <Button layoutX="554.0" layoutY="327.0" mnemonicParsing="false" onAction="#removeIngredientField" prefHeight="25.0" prefWidth="22.0" style="-fx-background-color: #CC3336;" text="-" />
    <VBox fx:id="etapesVBox" layoutX="753.0" layoutY="269.0" spacing="5">
       <HBox fx:id="etapeBox1">
@@ -31,8 +31,8 @@
 
       </HBox>
    </VBox>
-   <Label fx:id="selectedImagePathLabel" layoutX="640.0" layoutY="515.0" />
-   <Label fx:id="selectedVideoPathLabel" layoutX="638.0" layoutY="662.0" />
+   <Label fx:id="selectedImagePathLabel" layoutX="610.0" layoutY="647.0" />
+   <Label fx:id="selectedVideoPathLabel" layoutX="612.0" layoutY="678.0" />
    <Button layoutX="581.0" layoutY="421.0" mnemonicParsing="false" onAction="#browseImage" prefHeight="87.0" prefWidth="131.0" style="-fx-background-color: #E37A7A;">
       <graphic>
          <ImageView fitHeight="82.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
@@ -41,7 +41,7 @@
             </image>
          </ImageView>
       </graphic></Button>
-   <Button layoutX="585.0" layoutY="565.0" mnemonicParsing="false" onAction="#browseVideo" prefHeight="87.0" prefWidth="131.0" style="-fx-background-color: #E37A7A;">
+   <Button layoutX="580.0" layoutY="549.0" mnemonicParsing="false" onAction="#browseVideo" prefHeight="87.0" prefWidth="131.0" style="-fx-background-color: #E37A7A;">
       <graphic>
          <ImageView fitHeight="66.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -49,12 +49,12 @@
             </image>
          </ImageView>
       </graphic></Button>
-   <Button layoutX="1166.0" layoutY="604.0" onAction="#ajouterRecette" prefHeight="46.0" prefWidth="112.0" style="-fx-background-color: #66FF66;" text="Ajouter Recette" />
+   <Button layoutX="1192.0" layoutY="609.0" onAction="#ajouterRecette" prefHeight="46.0" prefWidth="112.0" style="-fx-background-color: #a7beae;" text="Ajouter Recette" />
 
    <Label layoutX="606.0" layoutY="392.0" text="votre photo ici" textFill="#6d071a" />
-   <Label layoutX="608.0" layoutY="542.0" text="votre vidéo ici" textFill="#6d071a" />
-   <Button layoutX="1034.0" layoutY="604.0" mnemonicParsing="false" onAction="#Anuuler" prefHeight="46.0" prefWidth="112.0" style="-fx-background-color: #CC3336;" text="Annuler" />
-   <Button layoutX="1212.0" layoutY="272.0" mnemonicParsing="false" onAction="#addEtapeField" style="-fx-background-color: #66FF66;" text="+" />
+   <Label layoutX="607.0" layoutY="518.0" text="votre vidéo ici" textFill="#6d071a" />
+   <Button layoutX="1060.0" layoutY="609.0" mnemonicParsing="false" onAction="#Anuuler" prefHeight="46.0" prefWidth="112.0" style="-fx-background-color: #b85042;" text="Annuler" />
+   <Button layoutX="1212.0" layoutY="272.0" mnemonicParsing="false" onAction="#addEtapeField" style="-fx-background-color: #a7beae;" text="+" />
    <Button layoutX="1216.0" layoutY="333.0" mnemonicParsing="false" onAction="#removeEtapeField" style="-fx-background-color: #CC3336;" text="-" />
    <Label layoutX="714.0" layoutY="171.0" text="Description: " textFill="#c21a1a">
       <font>

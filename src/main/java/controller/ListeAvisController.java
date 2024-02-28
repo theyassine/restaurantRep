@@ -4,8 +4,6 @@ import entite.Avis;
 import entite.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import services.AvisService;
 public class ListeAvisController {
 
@@ -26,7 +24,7 @@ public class ListeAvisController {
 
 
     public void initialize() {
-        displayAvisData(2);
+        displayAvisData(13);
     }
 
 
@@ -40,13 +38,11 @@ public class ListeAvisController {
     public void displayAvisData(int recetteId) {
         Avis avis = avisService.readById(recetteId);
 
+        if (avis != null) {
         int totalAvisCount = avis.getNote();
         String totalAvisStars = convertCountToStars(totalAvisCount);
-        if (avis != null) {
 
-            // Assuming 'id_date', 'id_nom', 'id_commentaire', 'id_nbreavis' are your other UI components
             id_date.setText(avis.getDate().toString());
-             // Adjust based on your 'Avis' class
             id_commentaire.setText(avis.getCommentaire());
             id_nbreavis.setText(totalAvisStars);
             id_nom.setText(getUserNomById(avis.getIdUser()));
