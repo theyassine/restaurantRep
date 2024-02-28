@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="818.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ListEventsControllers">
+    <children>
+        <AnchorPane layoutX="-10.0" prefHeight="818.0" prefWidth="260.0" style="-fx-background-color: rgba(194,26,26,0.87)">
+            <children>
+            <Button fx:id="Addeventbutton" layoutX="37.0" layoutY="327.0" mnemonicParsing="false" onAction="#AddEvent" prefHeight="50.0" prefWidth="194.0" text="Ajouter Evenement" />
+                  <ImageView fitHeight="249.0" fitWidth="186.0" layoutX="41.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@image/logo.png" />
+                      </image>
+                  </ImageView>
+            </children>
+        </AnchorPane>
+
+        <TableView fx:id="eventTableView" layoutX="266.0" layoutY="159.0" prefHeight="520.0" prefWidth="886.0">
+            <columns>
+                <TableColumn fx:id="nomEventColumn" prefWidth="89.60000610351562" text="Nom" />
+                <TableColumn fx:id="descEventColumn" prefWidth="79.99996948242188" text="Description" />
+                <TableColumn fx:id="dateDebutColumn" prefWidth="72.7999267578125" text="Date Début" />
+                <TableColumn fx:id="dateFinColumn" prefWidth="51.999969482421875" text="Date Fin" />
+                <TableColumn fx:id="lieuEvenementColumn" prefWidth="94.4000244140625" text="Lieu Événement" />
+                <TableColumn fx:id="nbrParticipantsColumn" prefWidth="102.4000244140625" text="Nbr Participants" />
+                <TableColumn fx:id="timeDebutColumn" minWidth="4.0" prefWidth="74.4000244140625" text="Time Début" />
+                <TableColumn fx:id="timeFinColumn" minWidth="4.0" prefWidth="59.199951171875" text="Time Fin" />
+                <TableColumn fx:id="nomRestoColumn" prefWidth="94.4000244140625" text="Nom Resto" />
+                <TableColumn fx:id="imageColumn" prefWidth="160.00006103515625" text="Image" />
+            </columns>
+        </TableView>
+      <Label layoutX="468.0" layoutY="28.0" prefHeight="67.0" prefWidth="410.0" text="Listes des évènements" textFill="#9c2222">
+         <font>
+            <Font size="39.0" />
+         </font>
+      </Label>
+      <Button layoutX="613.0" layoutY="715.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="122.0" text="Modifier" />
+      <Button layoutX="798.0" layoutY="714.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="122.0" text="Supprimer" />
+    </children>
+</AnchorPane>
