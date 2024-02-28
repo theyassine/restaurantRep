@@ -1,0 +1,175 @@
+package services;
+
+import entities.User;
+import entities.role;
+import org.mindrot.jbcrypt.BCrypt;
+import utiles.DataSource;
+import utiles.LocalStorage;
+
+import java.io.IOException;
+import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
+
+
+
+public class UserService implements IService<User> {
+    private Connection conn;
+    private PreparedStatement pst;
+    private Statement ste;
+
+    public UserService(){
+        conn= DataSource.getInstance().getCnx();
+    }
+    public static User currentUser = new User();
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+
+    @Override
+    public void add(User user) {
+        String REQUETE ="INSERT INTO user (nom,prenom, email, pwd, role) VALUES (?,?, ?, ?, ?)";
+
+        try {
+
+        pst=conn.prepareStatement(REQUETE);
+        pst.setString(1,user.getNom());
+        pst.setString(2,user.getPrenom());
+        pst.setString(3,user.getEmail());
+        String hashedPassword = BCrypt.hashpw(user.getPwd(), BCrypt.gensalt());
+        pst.setString(4, hashedPassword);
+        pst.setString(5,user.getRole().toString());
+        pst.executeUpdate();
+            }
+        catch (Exception e) {
+            System.out.println(e);
+            }
+
+
+
+
+    }
+    public String login(String email, String password) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        String result = "failed";
+        try {
+            PreparedStatement ste = conn.prepareStatement(sql);
+            ste.setString(1, email);
+            ResultSet rs = ste.executeQuery();
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password");
+                if (BCrypt.checkpw(password, hashedPassword)) {
+                    result = "success";
+                    User user = new User();
+                    user.setId(rs.getInt("id"));
+                    user.setNom(rs.getString("nom"));
+                    user.setPrenom(rs.getString("prenom"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPwd(rs.getString("pwd"));
+                    user.setRole(role.valueOf(rs.getString("role")));
+                    updateCurrentUser(user);
+                    try {
+                        LocalStorage localStorage = new LocalStorage();
+                        localStorage.writeToStorage(user);
+                    } catch (IOException ex) {
+                        System.out.println("failed init storage :" + ex.getMessage());
+                        result = "failed init storage :" + ex.getMessage();
+                    }
+                } else {
+                    System.out.println("mot de passe incorrect");
+                    result = "mot de passe incorrect";
+                }
+            } else {
+                System.out.println("email introuvable");
+                result = "email introuvable";
+            }
+        } catch (SQLException ex) {
+            System.out.println("exception SQL :" + ex.getMessage());
+            result = "exception SQL :" + ex.getMessage();
+        }
+        return result;
+    }
+    public void updateCurrentUser(User user) {
+        currentUser.setId(user.getId());
+        currentUser.setNom(user.getNom());
+        currentUser.setPrenom(user.getPrenom());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPwd(user.getPwd());
+        currentUser.setRole(user.getRole());
+
+    }
+
+    @Override
+    public void delete(User user) {
+
+    }
+    public void deleteById(int id) {
+        try{
+            String REQUETE="DELETE FROM `user` WHERE id=?";
+            PreparedStatement pst=conn.prepareStatement(REQUETE);
+            pst.setInt(1,id);
+            pst.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("erreur:"+e.getMessage());
+        }
+
+    }
+
+
+    @Override
+    public void update(User user) {
+        try{
+            String REQUETE="UPDATE `user` SET " +
+                    "`id`=?,`nom`=?," +
+                    "`prenom`=?,`email`=?," +
+                    "`pwd`=?," +
+                    "`role`=? WHERE id=?";
+            PreparedStatement pst=conn.prepareStatement(REQUETE);
+            pst.setInt(1,user.getId());
+            pst.setString(2,user.getNom());
+            pst.setString(3,user.getPrenom());
+            pst.setString(4,user.getEmail());
+            pst.setString(5,user.getPwd());
+            pst.setString(6,user.getRole().toString());
+            pst.setInt(7,user.getId());
+            pst.executeUpdate();
+            System.out.println("succes");
+        }catch (SQLException e){
+            System.out.println("erreur:"+e.getMessage());
+        }
+    }
+
+
+
+    @Override
+    public List<User> readAll() {
+        List<User> list=new ArrayList<>();
+        try{
+            String REQUETE="SELECT * FROM `user`";
+            Statement st= conn.createStatement();
+            ResultSet rs=st.executeQuery(REQUETE);
+            while(rs.next()){
+                User u=new User();
+                u.setId(rs.getInt("id"));
+                u.setNom(rs.getString("nom"));
+                u.setPrenom(rs.getString("prenom"));
+                u.setEmail(rs.getString("email"));
+                u.setPwd(rs.getString("pwd"));
+                u.setRole(role.valueOf(rs.getString("role")));
+
+                list.add(u);
+            }
+        }catch (SQLException e){
+            System.out.println("erreur:"+e.getMessage());
+        }
+
+        return list;
+    }
+
+
+    @Override
+    public User readById(int id) {
+        return null;
+    }
+}

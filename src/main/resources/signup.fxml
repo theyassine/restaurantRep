@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="signUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.signupController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="228.0" style="-fx-background-color: #C85F5F;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/img.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="3.0" layoutY="371.0" prefHeight="15.0" prefWidth="223.0" text="Copyright © 2024 . Tous droits réservés." textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="379.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="22.0" layoutY="119.0" text="Nom" textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="inputNom" layoutX="63.0" layoutY="114.0" prefHeight="25.0" prefWidth="97.0" />
+            <Label layoutX="172.0" layoutY="119.0" text="Prenom" textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="inputPrenom" layoutX="229.0" layoutY="114.0" prefHeight="25.0" prefWidth="101.0" />
+            <Label layoutX="22.0" layoutY="163.0" text="Email" textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="inputEmail" layoutX="63.0" layoutY="158.0" prefHeight="25.0" prefWidth="267.0" />
+            <Label layoutX="22.0" layoutY="200.0" text="Mot de passe" textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="inputPwd" layoutX="112.0" layoutY="195.0" prefHeight="25.0" prefWidth="216.0" />
+            <Label layoutX="15.0" layoutY="239.0" text="Confirmer votre mot de passe" textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="confirmPwd" layoutX="180.0" layoutY="234.0" prefHeight="25.0" prefWidth="147.0" />
+            <ComboBox fx:id="inputRole" layoutX="89.0" layoutY="275.0" onAction="#selectRole" prefHeight="25.0" prefWidth="246.0" style="-fx-background-color: #C85F5F;" />
+            <Label layoutX="19.0" layoutY="280.0" prefHeight="18.0" prefWidth="55.0" text="Vous êtes " textFill="#8d8282">
+               <font>
+                  <Font name="Segoe UI" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="registerButton" layoutX="244.0" layoutY="330.0" mnemonicParsing="false" onAction="#signupAction" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #C85F5F;" text="suivant " />
+            <Hyperlink fx:id="hyperlinkLogin" layoutX="29.0" layoutY="331.0" onAction="#redirectToLogin" text="Se connecter à un compte existant" />
+            <Label layoutX="92.0" layoutY="42.0" text="Créer un compte" textFill="#c85f5f">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
