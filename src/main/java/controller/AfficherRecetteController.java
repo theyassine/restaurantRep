@@ -10,6 +10,8 @@ import entite.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,11 +19,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.MediaView;
 import com.google.zxing.BarcodeFormat;
 
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import services.AvisService;
 import services.PdfExporter;
 import services.RecetteService;
@@ -34,6 +40,7 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -81,6 +88,8 @@ public class AfficherRecetteController implements Initializable {
 
     @FXML
     private ImageView star5;
+    @FXML
+    private GridPane grid;
 
     private ImageView[] starImageViews;
 
@@ -131,21 +140,13 @@ public class AfficherRecetteController implements Initializable {
             if (recette != null) {
                 // Customize the data string to include more details
                 String data = "RecipeID: " + recette.getId() +
-                        "\nTitle: " + recette.getTitre() +
-                        "\nDescription: " + recette.getDescription() +
-                        "\nIngredients: " + recette.getIngredients() +
-                        "\nSteps: " + recette.getEtape() +
-                        "\nOtherDetails: ...";  // Add any other details you want
+                        "|Title: " + recette.getTitre() +
+                        "|Ingredients: " + recette.getIngredients() +
+                        "|Steps: " + recette.getEtape();
 
-                BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 200, 200);
-                WritableImage image = new WritableImage(200, 200);
 
-                for (int y = 0; y < 200; y++) {
-                    for (int x = 0; x < 200; x++) {
-                        image.getPixelWriter().setArgb(x, y, matrix.get(x, y) ? 0xFF000000 : 0xFFFFFFFF);
-                    }
-                }
-
+                BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 226, 174);
+                Image image = createImageFromBitMatrix(matrix);
                 qrCodeImageView.setImage(image);
             } else {
                 // Handle the case when the recipe with the given ID is not found
@@ -156,6 +157,24 @@ public class AfficherRecetteController implements Initializable {
             showAlert("Error", "An error occurred while generating the QR code.");
         }
     }
+
+    private Image createImageFromBitMatrix(BitMatrix bitMatrix) {
+        int width = bitMatrix.getWidth();
+        int height = bitMatrix.getHeight();
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                // Use Color.BLACK and Color.WHITE directly
+                Paint color = bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE;
+                pixelWriter.setColor(x, y, (Color) color);
+            }
+        }
+
+        return writableImage;
+    }
+
 
 
     @FXML
@@ -238,11 +257,45 @@ public class AfficherRecetteController implements Initializable {
         for (ImageView starImageView : starImageViews) {
             starImageView.setImage(emptyStarImage);
         }
-
         avisService = new AvisService();
         videoView.setFitWidth(400);
         videoView.setFitHeight(250);
+
+        AvisService avisService1 = new AvisService();
+        List<Avis> allRecettes = avisService1.readAll();
+
+        // Load and display each recipe in a CardRecette
+        int columnIndex = 0;
+        int rowIndex = 1;
+
+        for (Avis avis : allRecettes) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeAvis.fxml"));
+                Node cardRecetteNode = loader.load();
+
+                ListeAvisController cardController = loader.getController();
+                cardController.displayAvisData(avis.getIdAvis());
+
+                // Set columnIndex to 0 for each recipe to place it in a new row
+                columnIndex = 0;
+
+                // Increment rowIndex for each new row
+                rowIndex++;
+
+                grid.add(cardRecetteNode, columnIndex, rowIndex);
+                this.grid.setMinWidth(-1.0);
+                this.grid.setPrefWidth(-1.0);
+                this.grid.setMaxWidth(Double.NEGATIVE_INFINITY);
+                this.grid.setMinHeight(-1.0);
+                this.grid.setPrefHeight(-1.0);
+                this.grid.setMaxHeight(Double.NEGATIVE_INFINITY);
+                GridPane.setMargin(cardRecetteNode, new Insets(10.0));
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle exception appropriately
+            }
+        }
     }
+
 
 
     @FXML
@@ -270,10 +323,17 @@ public class AfficherRecetteController implements Initializable {
         if (recette != null) {
             titleLabel.setText("" + recette.getTitre());
             descriptionLabel.setText("" + recette.getDescription());
-            ingredientsLabel.setText("" + recette.getIngredients());
-            stepsLabel.setText("" + recette.getEtape());
+            ingredientsLabel.setText(String.join("\n", recette.getIngredients().split(", ")));
+            String[] steps = recette.getEtape().split("\\n");
+            StringBuilder labeledSteps = new StringBuilder();
+            for (int i = 0; i < steps.length; i++) {
+                labeledSteps.append("Etape ").append(i + 1).append(": ").append(steps[i]);
+                if (i < steps.length - 1) {
+                    labeledSteps.append("\n");
+                }
+                stepsLabel.setText(labeledSteps.toString());
 
-            if (recette.getImage() != null) {
+                if (recette.getImage() != null) {
                 try {
                     String imagePath = recette.getImage();
                     File file = new File(imagePath);
@@ -299,4 +359,4 @@ public class AfficherRecetteController implements Initializable {
     }
 
 
-}
+}}

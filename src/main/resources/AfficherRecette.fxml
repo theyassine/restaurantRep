@@ -10,13 +10,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="1324.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AfficherRecetteController">
-    <AnchorPane prefHeight="1311.0" prefWidth="1368.0" style="-fx-background-color: white;">
+<ScrollPane prefHeight="1540.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AfficherRecetteController">
+    <AnchorPane prefHeight="1509.0" prefWidth="1368.0" style="-fx-background-color: white;">
 
         <!-- Your existing content goes here -->
         <children>
@@ -29,10 +32,6 @@
                <Font name="Franklin Gothic Demi Cond" size="18.0" />
             </font></Label>
             <Label fx:id="ingredientsLabel" layoutX="305.0" layoutY="408.0" styleClass="ingredients-label" text="in">
-            <font>
-               <Font name="System Bold" size="14.0" />
-            </font></Label>
-            <Label fx:id="stepsLabel" layoutX="837.0" layoutY="409.0" styleClass="steps-label" text="step">
             <font>
                <Font name="System Bold" size="14.0" />
             </font></Label>
@@ -53,7 +52,7 @@
                <Font name="Berlin Sans FB Demi Bold" size="18.0" />
             </font>
          </Label>
-         <Label layoutX="863.0" layoutY="377.0" text="Steps: " textFill="#c21a1a">
+         <Label layoutX="863.0" layoutY="377.0" text="Etapes" textFill="#c21a1a">
             <font>
                <Font name="Berlin Sans FB Demi Bold" size="18.0" />
             </font>
@@ -95,7 +94,7 @@
             </image>
          </ImageView>
 
-            <AnchorPane layoutX="-2.0" prefHeight="1311.0" prefWidth="205.0" style="-fx-background-color: C21A1ADD;" styleClass="nav-form" stylesheets="@dashboardDesign.css">
+            <AnchorPane layoutX="-2.0" prefHeight="1507.0" prefWidth="205.0" style="-fx-background-color: C21A1ADD;" styleClass="nav-form" stylesheets="@dashboardDesign.css">
             <children>
                <Line endX="85.0" layoutX="109.0" layoutY="173.0" startX="-100.0" stroke="WHITE" />
                <Button fx:id="home_btn" layoutX="12.0" layoutY="211.0" mnemonicParsing="false" onAction="#Home_btn" prefHeight="35.0" prefWidth="180.0" styleClass="nav-btn" stylesheets="@dashboardDesign.css" text="Home">
@@ -118,16 +117,16 @@
                      <FontAwesomeIcon fill="WHITE" glyphName="CLIPBOARD" size="1.5em" />
                   </graphic>
                </Button>
-               <Button fx:id="logout" layoutX="12.0" layoutY="509.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
+               <Button fx:id="logout" layoutX="39.0" layoutY="1411.0" mnemonicParsing="false" stylesheets="@dashboardDesign.css">
                   <graphic>
-                     <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
+                     <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" text="" />
                   </graphic>
                   <styleClass>
                      <String fx:value="logout" />
                      <String fx:value="shadow" />
                   </styleClass>
                </Button>
-               <Label layoutX="58.0" layoutY="516.0" text="Sign Out" textFill="WHITE">
+               <Label layoutX="93.0" layoutY="1421.0" text="Sign Out" textFill="WHITE">
                   <font>
                      <Font name="Tahoma" size="15.0" />
                   </font>
@@ -168,7 +167,7 @@
             <font>
                <Font size="14.0" />
             </font></Label>
-         <ImageView fx:id="qrCodeImageView" fitHeight="150.0" fitWidth="200.0" layoutX="1157.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="qrCodeImageView" fitHeight="174.0" fitWidth="226.0" layoutX="1140.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
          <Label layoutX="894.0" layoutY="64.0" text="le QR code de notre recette :" textFill="#c21a1a">
             <font>
                <Font name="System Bold" size="18.0" />
@@ -179,6 +178,47 @@
                <Image url="@img/examen.png" />
             </image>
          </ImageView>
+         <ScrollPane layoutX="388.0" layoutY="1111.0" prefHeight="356.0" prefWidth="484.0" style="-fx-background-color: red;">
+            <content>
+               <GridPane fx:id="grid" prefHeight="354.0" prefWidth="474.0">
+                 <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                 </columnConstraints>
+                 <rowConstraints>
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                 </rowConstraints>
+               </GridPane>
+            </content>
+         </ScrollPane>
+         <Line endX="-100.0" endY="375.0" layoutX="782.0" layoutY="158.0" startX="-100.0" startY="490.0" />
+         <Line endX="-100.0" endY="-44.0" layoutX="1072.0" layoutY="711.0" startX="-100.0" startY="490.0" />
+         <Label layoutX="342.0" layoutY="1056.0" text="Quelque " textFill="#c21a1a">
+            <font>
+               <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+            </font>
+         </Label>
+         <Label layoutX="401.0" layoutY="1073.0" text=" Avis" textFill="#c21a1a">
+            <font>
+               <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+            </font>
+         </Label>
+         <ImageView fitHeight="40.0" fitWidth="74.0" layoutX="465.0" layoutY="1057.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@img/vision.png" />
+            </image>
+         </ImageView>
+         <ScrollPane layoutX="747.0" layoutY="424.0" prefHeight="232.0" prefWidth="606.0" style="-fx-background-color: red;">
+            <content>
+                  <Label fx:id="stepsLabel" styleClass="steps-label" text="Etapes">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+            </content>
+         </ScrollPane>
         </children>
         <stylesheets>
          <URL value="@style/styleaffichageRecette.css" />
