@@ -1,10 +1,8 @@
 package org.example;
-
 import entities.Menu;
 import entities.Supplement;
 import services.MenuService;
 import services.SupplementService;
-
 import java.util.List;
 
 public class Main {
@@ -64,10 +62,12 @@ public class Main {
         supplement.setPrix(3.5);
         supplement.setImage("supp.jpg");
         supplement.setId_user(1);
+
         supplementService.add(supplement);
 
         // Update a supplement
         menu.setId_user(1);
+
         supplement.setId_supp(1); // Assuming the ID of the supplement to update is 1
         supplement.setNom("fanta");
         supplement.setPrix(15);
@@ -76,6 +76,7 @@ public class Main {
 
         // Delete a supplement
         menu.setId_user(1);
+
         supplement.setId_supp(11); // Assuming the ID of the supplement to delete is 11
         supplementService.delete(supplement);
 
