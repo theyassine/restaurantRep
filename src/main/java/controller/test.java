@@ -270,6 +270,13 @@ public class test {
             throw new RuntimeException(e);
         }
     }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @FXML
     void browseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -292,6 +299,7 @@ public class test {
             selectedVideoPathLabel.setText(selectedFile.getAbsolutePath());
         }
     }
+
     @FXML
     void ModiferRecette(ActionEvent event) {
 
@@ -306,7 +314,7 @@ public class test {
         // Validate required fields
         if (titre.isEmpty() || description.isEmpty() || ingredients.isEmpty() || etape.isEmpty()) {
             // Display an alert or handle validation error as needed
-            System.out.println("Please fill in all required fields.");
+            showAlert("Please fill in all required fields.");
             return;
         }
 
@@ -315,7 +323,7 @@ public class test {
 
         if (selectedRecette == null) {
             // Display an alert or handle the case where no recipe is selected
-            System.out.println("Aucune recette sélectionnée pour la modification.");
+            showAlert("Aucune recette sélectionnée pour la modification.");
             return;
         }
 
@@ -336,11 +344,12 @@ public class test {
             selectedRecette.setEtape(etape);
         }
 
-        if (!imagePath.equals(selectedRecette.getImage())) {
+        if (!imagePath.isEmpty() && !imagePath.equals(selectedRecette.getImage())) {
             selectedRecette.setImage(imagePath);
         }
 
-        if (!videoPath.equals(selectedRecette.getVideo())) {
+        // Check if the video path has changed
+        if (!videoPath.isEmpty() && !videoPath.equals(selectedRecette.getVideo())) {
             selectedRecette.setVideo(videoPath);
         }
 
@@ -354,10 +363,25 @@ public class test {
         alert.setTitle("Success");
         alert.setContentText("Recette est modifiée avec succès");
         alert.showAndWait();
+        clearFields();
 
         // Clear the form or reset fields
     }
+    private void clearFields() {
+        titreField.clear();
+        descriptionField.clear();
+        ingredientsField.clear();
+        etapeField.clear();
+        selectedImagePathLabel.setText("");
+        selectedVideoPathLabel.setText("");
+        imagetxf.clear(); // Assuming these are TextField controls
+        videotxf1.clear(); // Assuming these are TextField controls
+        img1.setImage(null); // Assuming img1 is an ImageView
+        vid1.setMediaPlayer(null); // Assuming vid1 is a MediaView
 
+        // Additionally, you might want to clear the selection in your TableView
+        tv_recette.getSelectionModel().clearSelection();
+    }
 
 
     @FXML
