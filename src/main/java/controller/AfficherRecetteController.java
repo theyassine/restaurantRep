@@ -259,7 +259,6 @@ public class AfficherRecetteController implements Initializable {
         avisService = new AvisService();
         videoView.setFitWidth(400);
         videoView.setFitHeight(250);
-
         AvisService avisService1 = new AvisService();
         List<Avis> allRecettes = avisService1.readAll();
 

@@ -109,20 +109,46 @@ public class AjouterRecetteController {
     private void browseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg");
+        fileChooser.getExtensionFilters().add(extFilter);
+
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
+            String[] allowedExtensions = {".png", ".jpg", ".jpeg"};
+            if (!isValidFileExtension(selectedFile, allowedExtensions)) {
+                showAlert("Le type de fichier image sélectionné n'est pas pris en charge. Veuillez sélectionner un fichier .png, .jpg ou .jpeg.");
+                return;
+            }
+
             selectedImagePathLabel.setText(selectedFile.getAbsolutePath());
         }
+    }
+
+    private boolean isValidFileExtension(File file, String[] allowedExtensions) {
+        for (String extension : allowedExtensions) {
+            if (file.getName().toLowerCase().endsWith(extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @FXML
     private void browseVideo(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Video File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Video Files (*.mp4)", "*.mp4");
+        fileChooser.getExtensionFilters().add(extFilter);
+
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
+            if (!selectedFile.getName().toLowerCase().endsWith(".mp4")) {
+                showAlert("Le type de fichier vidéo sélectionné n'est pas pris en charge. Veuillez sélectionner un fichier .mp4.");
+                return;
+            }
+
             selectedVideoPathLabel.setText(selectedFile.getAbsolutePath());
         }
     }
@@ -138,7 +164,6 @@ public class AjouterRecetteController {
             String imagePath = selectedImagePathLabel.getText();
             String videoPath = selectedVideoPathLabel.getText();
 
-            // Concaténer les valeurs des champs d'ingrédients supplémentaires
             StringBuilder ingredientsBuilder = new StringBuilder();
             ingredientsBuilder.append(ingredients);
             for (TextField field : additionalIngredientFields) {

@@ -8,12 +8,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -22,6 +26,7 @@ import services.RecetteService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class test {
 
@@ -242,6 +247,8 @@ public class test {
     @FXML
     private Label selectedVideoPathLabel;
     @FXML
+    private GridPane grid;
+    @FXML
     void MesRecette_btn(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/test.fxml"));
@@ -281,11 +288,30 @@ public class test {
     void browseImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image Files (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg");
+        fileChooser.getExtensionFilters().add(extFilter);
+
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
+            String[] allowedExtensions = {".png", ".jpg", ".jpeg"};
+            if (!isValidFileExtension(selectedFile, allowedExtensions)) {
+                showAlert("Le type de fichier image sélectionné n'est pas pris en charge. Veuillez sélectionner un fichier .png, .jpg ou .jpeg.");
+                return;
+            }
+
             selectedImagePathLabel.setText(selectedFile.getAbsolutePath());
         }
+    }
+
+    private boolean isValidFileExtension(File file, String[] allowedExtensions) {
+        for (String extension : allowedExtensions) {
+            if (file.getName().toLowerCase().endsWith(extension)) {
+                return true;
+            }
+        }
+        showAlert("Le type de fichier image sélectionné n'est pas pris en charge. Veuillez sélectionner un fichier .png, .jpg ou .jpeg.");
+        return false;
     }
 
 
@@ -293,9 +319,17 @@ public class test {
     void browseVideo(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Video File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Video Files (*.mp4)", "*.mp4");
+        fileChooser.getExtensionFilters().add(extFilter);
+
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
+            if (!selectedFile.getName().toLowerCase().endsWith(".mp4")) {
+                showAlert("Le type de fichier vidéo sélectionné n'est pas pris en charge. Veuillez sélectionner un fichier .mp4.");
+                return;
+            }
+
             selectedVideoPathLabel.setText(selectedFile.getAbsolutePath());
         }
     }
@@ -318,7 +352,6 @@ public class test {
             return;
         }
 
-        // Assuming you have a selected recipe to modify
         Recette selectedRecette = tv_recette.getSelectionModel().getSelectedItem();
 
         if (selectedRecette == null) {
@@ -327,7 +360,7 @@ public class test {
             return;
         }
 
-        // Check which fields have been modified
+
         if (!titre.equals(selectedRecette.getTitre())) {
             selectedRecette.setTitre(titre);
         }
@@ -356,7 +389,6 @@ public class test {
         // Assuming you have an instance of RecetteService
         RecetteService recetteService = new RecetteService();
         recetteService.update(selectedRecette);
-
         tv_recette.refresh();
         // Display a success message or reset the form
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -397,7 +429,7 @@ public class test {
             alert.setContentText("Recette est supprimer");
             alert.showAndWait();
         } else {
-            System.out.println("Aucune recette sélectionnée");
+            showAlert("Aucune recette sélectionnée");
         }
     }
 
@@ -435,7 +467,9 @@ public class test {
                 }
             }
         });
+
     }
+
 
     // Method to display the image in the ImageView
     private void displayImage(String imagePath) {

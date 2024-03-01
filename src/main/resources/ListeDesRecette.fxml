@@ -72,14 +72,14 @@
             </VBox>
          </left>
          <center>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="200.0" prefWidth="1079.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                      <children>
-                        <Label prefHeight="29.0" prefWidth="122.0" text="language" textFill="#c21a1a">
+                        <Label prefHeight="29.0" prefWidth="122.0" text="language :" textFill="#c21a1a">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
@@ -97,7 +97,7 @@
                         </Label>
                         <ImageView fitHeight="50.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@img/homme.png" />
+                              <Image url="@img/utilisateur.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -106,6 +106,11 @@
                      <children>
                         <Pane prefHeight="84.0" prefWidth="96.0" />
                         <Pane prefHeight="137.0" prefWidth="131.0" />
+                        <ImageView fitHeight="881.0" fitWidth="1078.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@img/img1.PNG" />
+                           </image>
+                        </ImageView>
                      </children>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="10.0" />
