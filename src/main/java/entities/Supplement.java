@@ -1,21 +1,26 @@
 package entities;
 
-public class Supplement extends Menu {
+public class Supplement {
     private int id_supp;
     private String nom;
     private double prix;
     private String image;
-    private int id_user;
 
-    public Supplement() {
-    }
-
-    public Supplement(int id_supp, String nom, double prix, String image, int id_user) {
+    public Supplement(int id_supp, String nom, double prix, String image) {
         this.id_supp = id_supp;
         this.nom = nom;
         this.prix = prix;
         this.image = image;
-        this.id_user = id_user;
+    }
+
+    public Supplement(String nom, double prix, String image) {
+        this.nom = nom;
+        this.prix = prix;
+        this.image = image;
+    }
+
+    public Supplement() {
+
     }
 
 
@@ -51,16 +56,6 @@ public class Supplement extends Menu {
     public void setImage(String image) {
         this.image = image;
     }
-
-    public int getId_user() {
-        return id_user;
-    }
-
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
-    }
-
-
 
     @Override
     public String toString() {

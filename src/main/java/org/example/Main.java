@@ -17,25 +17,20 @@ public class Main {
         menu.setNom("panuzzo");
         menu.setPrix(10.5);
         menu.setDescription("delicieux");
-        menu.setCategories("italien");
         menu.setCalories(1000);
         menu.setImage("image.jpg");
-        menu.setId_user(1);
         menuService.add(menu);
 
         // Update a menu
-        menu.setId_user(1);
         menu.setId_menu(13); // Assuming the ID of the menu to update is 13
         menu.setNom("kaskrout");
         menu.setPrix(5000);
         menu.setDescription("");
-        menu.setCategories("");
         menu.setCalories(50);
         menu.setImage("");
         menuService.update(menu);
 
         // Delete a menu
-        menu.setId_user(1);
         menu.setId_menu(50); // Assuming the ID of the menu to delete is 28
         menuService.delete(menu);
 
@@ -57,16 +52,13 @@ public class Main {
         }
 
         // Add a supplement
-        menu.setId_user(1);
         supplement.setNom("coca");
         supplement.setPrix(3.5);
         supplement.setImage("supp.jpg");
-        supplement.setId_user(1);
 
         supplementService.add(supplement);
 
         // Update a supplement
-        menu.setId_user(1);
 
         supplement.setId_supp(1); // Assuming the ID of the supplement to update is 1
         supplement.setNom("fanta");
@@ -75,7 +67,6 @@ public class Main {
         supplementService.update(supplement);
 
         // Delete a supplement
-        menu.setId_user(1);
 
         supplement.setId_supp(11); // Assuming the ID of the supplement to delete is 11
         supplementService.delete(supplement);

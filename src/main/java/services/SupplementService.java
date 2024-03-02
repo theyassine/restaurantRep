@@ -15,18 +15,16 @@ public class SupplementService implements IService<Supplement> {
     }
 
     @Override
-    public void add(Supplement supplement) {
-        String query = "INSERT INTO supplement (nom, prix, image, id_user) VALUES (?, ?, ?, ?)";
+    public  void add(Supplement supplement) {
+        String query = "INSERT INTO supplement (nom, prix) VALUES (?, ?)";
 
         try (PreparedStatement pst = connexion.prepareStatement(query)) {
             pst.setString(1, supplement.getNom());
             pst.setDouble(2, supplement.getPrix());
-            pst.setString(3, supplement.getImage());
-            pst.setInt(4, supplement.getId_user());
             pst.executeUpdate();
-            System.out.println("Supplement ajouté avec succès !");
+            System.out.println("Supplément ajouté avec succès !");
         } catch (SQLException ex) {
-            System.err.println("Erreur lors de l'ajout du supplement: " + ex.getMessage());
+            System.err.println("Erreur lors de l'ajout du supplément: " + ex.getMessage());
         }
     }
 
@@ -51,13 +49,12 @@ public class SupplementService implements IService<Supplement> {
 
     @Override
     public void update(Supplement supplement) {
-        String query = "UPDATE supplement SET nom = ?, prix = ?, image = ? WHERE id_supp = ?";
+        String query = "UPDATE supplement SET nom = ?, prix = ? WHERE id_supp = ?";
 
         try (PreparedStatement pst = connexion.prepareStatement(query)) {
             pst.setString(1, supplement.getNom());
             pst.setDouble(2, supplement.getPrix());
-            pst.setString(3, supplement.getImage());
-            pst.setInt(4, supplement.getId_supp());
+            pst.setInt(3, supplement.getId_supp());
 
             int updatedRows = pst.executeUpdate();
             if (updatedRows > 0) {
@@ -68,12 +65,10 @@ public class SupplementService implements IService<Supplement> {
         } catch (SQLException ex) {
             System.err.println("Erreur lors de la mise à jour du supplement: " + ex.getMessage());
         }
-
     }
 
     @Override
     public List<Supplement> readAll() {
-
         String query = "SELECT * FROM supplement";
         List<Supplement> supplementList = new ArrayList<>();
 
@@ -84,7 +79,8 @@ public class SupplementService implements IService<Supplement> {
                 supplement.setId_supp(resultSet.getInt("id_supp"));
                 supplement.setNom(resultSet.getString("nom"));
                 supplement.setPrix(resultSet.getDouble("prix"));
-                supplement.setImage(resultSet.getString("image"));
+                // Supplement might not have an 'image' field, consider your entity
+                // supplement.setImage(resultSet.getString("image"));
                 supplementList.add(supplement);
             }
         } catch (SQLException e) {
@@ -106,7 +102,7 @@ public class SupplementService implements IService<Supplement> {
                     supplement.setId_supp(resultSet.getInt("id_supp"));
                     supplement.setNom(resultSet.getString("nom"));
                     supplement.setPrix(resultSet.getDouble("prix"));
-                    supplement.setImage(resultSet.getString("image"));
+                    // supplement.setImage(resultSet.getString("image"));
                 }
             }
         } catch (SQLException e) {

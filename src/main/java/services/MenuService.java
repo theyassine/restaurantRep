@@ -16,22 +16,21 @@ public class MenuService implements IService<Menu>{
 
     @Override
     public void add(Menu menu) {
-        String query = "INSERT INTO menu (nom, prix, description, categories, calories, image, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO menu (nom, prix, description, calories, image) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement pst = connexion.prepareStatement(query)) {
             pst.setString(1, menu.getNom());
             pst.setDouble(2, menu.getPrix());
             pst.setString(3, menu.getDescription());
-            pst.setString(4, menu.getCategories());
-            pst.setInt(5, menu.getCalories());
-            pst.setString(6, menu.getImage());
-            pst.setInt(7, menu.getId_user());
+            pst.setInt(4, menu.getCalories());
+            pst.setString(5, menu.getImage());
             pst.executeUpdate();
             System.out.println("Menu ajouté avec succès !");
         } catch (SQLException ex) {
             System.err.println("Erreur lors de l'ajout du menu: " + ex.getMessage());
         }
     }
+
 
     @Override
     public void delete(Menu menu) {
@@ -53,16 +52,15 @@ public class MenuService implements IService<Menu>{
 
     @Override
     public void update(Menu menu) {
-        String query = "UPDATE menu SET nom = ?, prix = ?, description = ?, categories = ?, calories = ?, image = ? WHERE id_menu = ?";
+        String query = "UPDATE menu SET nom = ?, prix = ?, description = ?,  calories = ?, image = ? WHERE id_menu = ?";
 
         try (PreparedStatement pst = connexion.prepareStatement(query)) {
             pst.setString(1, menu.getNom());
             pst.setDouble(2, menu.getPrix());
             pst.setString(3, menu.getDescription());
-            pst.setString(4, menu.getCategories());
-            pst.setInt(5, menu.getCalories());
-            pst.setString(6, menu.getImage());
-            pst.setInt(7, menu.getId_menu());
+            pst.setInt(4, menu.getCalories());
+            pst.setString(5, menu.getImage());
+            pst.setInt(6, menu.getId_menu());
 
             int updatedRows = pst.executeUpdate();
             if (updatedRows > 0) {
@@ -88,7 +86,6 @@ public class MenuService implements IService<Menu>{
                 menu.setNom(resultSet.getString("nom"));
                 menu.setPrix(resultSet.getDouble("prix"));
                 menu.setDescription(resultSet.getString("description"));
-                menu.setCategories(resultSet.getString("categories"));
                 menu.setCalories(resultSet.getInt("calories"));
                 menu.setImage(resultSet.getString("image"));
                 menuList.add(menu);
@@ -113,7 +110,6 @@ public class MenuService implements IService<Menu>{
                     menu.setNom(resultSet.getString("nom"));
                     menu.setPrix(resultSet.getDouble("prix"));
                     menu.setDescription(resultSet.getString("description"));
-                    menu.setCategories(resultSet.getString("categories"));
                     menu.setCalories(resultSet.getInt("calories"));
                     menu.setImage(resultSet.getString("image"));
                 }
