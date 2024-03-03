@@ -58,6 +58,14 @@
             <artifactId>javase</artifactId>
             <version>3.4.1</version> <!-- Replace with the latest version available -->
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.memetix/microsoft-translator-java-api -->
+        <dependency>
+            <groupId>com.memetix</groupId>
+            <artifactId>microsoft-translator-java-api</artifactId>
+            <version>0.6.2</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

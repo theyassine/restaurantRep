@@ -149,5 +149,4 @@ public class AvisService implements IService<Avis>{
         }
         return list;
     }
-
 }

@@ -40,11 +40,8 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
+
+
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -145,6 +142,7 @@ public class AfficherRecetteController implements Initializable {
                         "|Steps: " + recette.getEtape();
 
 
+
                 BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 226, 174);
                 Image image = createImageFromBitMatrix(matrix);
                 qrCodeImageView.setImage(image);
@@ -243,7 +241,7 @@ public class AfficherRecetteController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
+    private int targetRecipeId;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -261,6 +259,7 @@ public class AfficherRecetteController implements Initializable {
         videoView.setFitHeight(250);
         AvisService avisService1 = new AvisService();
         List<Avis> allRecettes = avisService1.readAll();
+
 
         // Load and display each recipe in a CardRecette
         int columnIndex = 0;
@@ -292,6 +291,8 @@ public class AfficherRecetteController implements Initializable {
                 e.printStackTrace(); // Handle exception appropriately
             }
         }
+
+
     }
 
 
@@ -309,7 +310,6 @@ public class AfficherRecetteController implements Initializable {
     private PdfExporter pdfExporter = new PdfExporter();
     List<Recette> recettes = recetteService.readAll();
     private String outputPath = "recette.pdf";
-    private int targetRecipeId;
     private int targetAvisId;
 
     public void displayRecetteData(int recetteId) {

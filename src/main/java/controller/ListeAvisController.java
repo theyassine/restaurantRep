@@ -5,6 +5,9 @@ import entite.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import services.AvisService;
+
+import java.util.List;
+
 public class ListeAvisController {
 
     @FXML
@@ -18,7 +21,8 @@ public class ListeAvisController {
 
     @FXML
     private Label id_nom;
-
+    private int selectedAvisId;
+    private int targetRecipeId;
 
     private AvisService avisService = new AvisService();
 
@@ -35,6 +39,7 @@ public class ListeAvisController {
         }
         return stars.toString();
     }
+
     public void displayAvisData(int recetteId) {
         Avis avis = avisService.readById(recetteId);
 

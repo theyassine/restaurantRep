@@ -14,10 +14,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.ComboBox?>
 <ScrollPane prefHeight="1516.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AfficherRecetteController">
     <AnchorPane prefHeight="1509.0" prefWidth="1368.0" style="-fx-background-color: white;">
 
@@ -234,10 +237,20 @@
                <Font name="Berlin Sans FB Demi Bold" size="18.0" />
             </font>
          </Label>
+         <VBox fx:id="avisContainer" layoutX="231.0" layoutY="1132.0" prefHeight="200.0" prefWidth="100.0" />
         </children>
         <stylesheets>
          <URL value="@style/styleaffichageRecette.css" />
          <URL value="@dashboardDesign.css" />
       </stylesheets>
+        <ComboBox fx:id="languageComboBox" layoutX="1110.0" layoutY="1430.0" prefWidth="150.0" promptText="Select Language">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="en" />
+                    <String fx:value="fr" />
+                    <String fx:value="ar" />
+                </FXCollections>
+            </items>
+        </ComboBox>
     </AnchorPane>
 </ScrollPane>

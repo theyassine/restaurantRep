@@ -21,6 +21,8 @@ public class CardRecetteController {
     @FXML
     private ImageView img;
 
+
+
     @FXML
     void click(MouseEvent event) {
         // Handle the click event if needed
@@ -52,6 +54,9 @@ public class CardRecetteController {
                     e.printStackTrace();  // Handle the exception according to your needs
                 }
             }
+
         }
+
     }
+
 }
