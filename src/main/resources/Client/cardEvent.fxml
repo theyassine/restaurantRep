@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="273.0" prefWidth="376.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CardEventsController">
+    <styleClass>
+        <String fx:value="fruit-item" />
+        <String fx:value="shadow" />
+    </styleClass>
+    <children>
+        <ImageView fx:id="imageColumn" fitHeight="109.0" fitWidth="131.0" layoutX="196.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+        <Button fx:id="addres" layoutX="123.0" layoutY="217.0" mnemonicParsing="false" onAction="#addres" text="Ajouter reservation" />
+
+        <Text layoutX="14.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date debut :" />
+      <Text layoutX="14.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date fin  :" />
+      <Text layoutX="15.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="lieu  :" />
+      <Text layoutX="16.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="de" />
+      <Text layoutX="101.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="à" />
+      <Text layoutX="17.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Restaurant :" />
+          <Label fx:id="nom" layoutX="21.0" layoutY="14.0" prefHeight="54.0" prefWidth="178.0" text="nom" textFill="#b43f3f" textOverrun="CENTER_ELLIPSIS">
+              <font>
+                  <Font name="System Italic" size="33.0" />
+              </font>
+          </Label>
+      <Label fx:id="desc" layoutX="187.0" layoutY="139.0" prefHeight="38.0" prefWidth="178.0" text="desc" />
+          <Label fx:id="timeDebutColumn" layoutX="33.0" layoutY="138.0" prefHeight="18.0" prefWidth="69.0" text="timeDebutColumn" />
+          <Label fx:id="timeFinColumn" layoutX="112.0" layoutY="139.0" prefHeight="18.0" prefWidth="70.0" text="timeFinColumn" />
+          <Label fx:id="nomRestoColumn" layoutX="84.0" layoutY="173.0" prefHeight="29.0" prefWidth="100.0" text="nomRestoColumn" />
+          <Label fx:id="lieuEvenementColumn" layoutX="48.0" layoutY="119.0" prefHeight="18.0" prefWidth="111.0" text="lieuEvenementColumn" />
+          <Label fx:id="dateDebutColumn" layoutX="84.0" layoutY="78.0" prefHeight="18.0" prefWidth="78.0" text="dateDebutColumn" />
+          <Label fx:id="dateFinColumn" layoutX="85.0" layoutY="98.0" prefHeight="18.0" prefWidth="78.0" text="dateFinColumn" />
+      <Text layoutX="17.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="nombre :" />
+          <Label fx:id="nbrParticipantsColumn" layoutX="71.0" layoutY="159.0" prefHeight="18.0" prefWidth="95.0" text="nbrParticipantsColumn" />
+      <Text layoutX="186.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="description:" />
+    </children>
+</AnchorPane>

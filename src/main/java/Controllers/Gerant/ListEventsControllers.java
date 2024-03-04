@@ -9,9 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +22,7 @@ import java.io.IOException;
 public class ListEventsControllers {
     EvennementService evennementService = new EvennementService();
 
-    @FXML
+        @FXML
     private Button Addeventbutton;
 
     @FXML
@@ -63,7 +61,7 @@ public class ListEventsControllers {
     @FXML
     void AddEvent(javafx.event.ActionEvent event) {
         try {
-            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/AddEvent.fxml"));
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/Gerant/AddEvent.fxml"));
             Parent root1 = loader1.load();
 
             AddEventController addEventController = loader1.getController();
@@ -131,7 +129,44 @@ public class ListEventsControllers {
     }
 
     @FXML
-    void Supprimer(ActionEvent event) {
+    public void delete(javafx.event.ActionEvent actionEvent) {
+            Evennement selectedEvent = eventTableView.getSelectionModel().getSelectedItem();
 
+            if (selectedEvent != null) {
+                // Show a confirmation dialog before deleting
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Boîte de dialogue de confirmation");
+                alert.setHeaderText("Confirmation");
+                alert.setContentText("Êtes-vous sûr de vouloir supprimer cet événement ?");
+
+                // Customize the buttons (OK and Cancel)
+                ButtonType buttonTypeOK = new ButtonType("OK");
+                ButtonType buttonTypeCancel = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(buttonTypeOK, buttonTypeCancel);
+
+                // Show and wait for the user's choice
+                alert.showAndWait().ifPresent(buttonType -> {
+                    if (buttonType == buttonTypeOK) {
+                        // User clicked OK, proceed with deletion
+                        evennementService.delete(selectedEvent);
+
+                        // Refresh the TableView after deletion
+                        refreshTableView();
+                    } else {
+                        // User clicked Cancel or closed the dialog, do nothing
+                    }
+                });
+            } else {
+                // No item selected, show an error message or handle accordingly
+                System.out.println("Aucun événement sélectionné pour la suppression.");
+            }
+        }
+    private void refreshTableView() {
+        ObservableList<Evennement> observableList = FXCollections.observableList(evennementService.readAll());
+        eventTableView.setItems(observableList);
     }
+
+
+
+
 }

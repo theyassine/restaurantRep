@@ -61,10 +61,21 @@
 
         @FXML
         private ImageView imageView;
-        private String imageURL; // Updated variable name
+        private String imageURL;
 
         @FXML
-        void AjouterReservation(ActionEvent event) {
+        void ListEventUser(ActionEvent event) {
+            try {
+                FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/ListEventUser.fxml"));
+                Parent root1 = loader1.load();
+                ListEventUserController A1 = loader1.getController();
+                Scene scene = new Scene(root1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
         }
 
         @FXML
@@ -154,11 +165,9 @@
             evennement.setTime_debut(heureDebut + ":" + minuteDebut);
             evennement.setTime_fin(heureFin + ":" + minuteFin);
             evennement.setNameResto(restaurant);
-
-            // Set the image URL in the ImageView to clear it
             imageView.setImage(null);
 
-            evennementService.add(evennement);
+                    evennementService.add(evennement);
 
             showAlert("Événement ajouté avec succès !");
             clearForm();
