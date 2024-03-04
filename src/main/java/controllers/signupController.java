@@ -74,37 +74,36 @@ public class signupController implements Initializable {
     @FXML
     void signupAction(ActionEvent event) throws SQLException {
         alerteMessage alert = new alerteMessage();
-        if (inputNom.getText().isEmpty() || inputPrenom.getText().isEmpty() || inputEmail.getText().isEmpty() || inputPwd.getText().isEmpty() || confirmPwd.getText().isEmpty() || inputRole.getSelectionModel().getSelectedItem() == null) {
-            alert.errorMessage("tous les champs doivent être remplis !");
-
-        }
         Pattern pattern = Pattern.compile("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}");
-        if (!pattern.matcher(inputEmail.getText()).matches()) {
-            alert.errorMessage("email n'est pas valide !");
-
+        if (inputNom.getText().isEmpty() || inputPrenom.getText().isEmpty() || inputEmail.getText().isEmpty() || inputPwd.getText().isEmpty() || confirmPwd.getText().isEmpty() || inputRole.getSelectionModel().getSelectedItem() == null) {
+            alert.errorMessage("Tous les champs doivent être remplis !");
         }
-        if (inputPwd.getText().length() < 8) {
-            alert.errorMessage("mot de passe doit être minimum 8 caractères !");
+        else if (!pattern.matcher(inputEmail.getText()).matches()) {
+            alert.errorMessage("L'email n'est pas valide !");
         }
-        if (!inputPwd.getText().equals(confirmPwd.getText())) {
-            alert.errorMessage("le mot de passe n'est pas confirmé !");
-
+        else if (inputPwd.getText().length() < 8) {
+            alert.errorMessage("Le mot de passe doit comporter au moins 8 caractères !");
         }
 
-        String hashedPassword = BCrypt.hashpw(inputPwd.getText(), BCrypt.gensalt());
-        User newUser = new User(inputNom.getText(), inputPrenom.getText(), inputEmail.getText(), hashedPassword, inputRole.getValue());
+        else if (!inputPwd.getText().equals(confirmPwd.getText())) {
+            alert.errorMessage("Le mot de passe n'est pas confirmé !");
+        }
 
+        else {
+
+            String hashedPassword = BCrypt.hashpw(inputPwd.getText(), BCrypt.gensalt());
+            User newUser = new User(inputNom.getText(), inputPrenom.getText(), inputEmail.getText(), hashedPassword, inputRole.getValue());
             US.add(newUser);
-            alert.successMessage("Votre compte est enregistré avec succès !");
+            alert.successMessage("Votre compte a été enregistré avec succès !");
 
-    }
+    }}
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<entities.role> roleChoices = FXCollections.observableArrayList(
-                role.GERANT, role.LIVREUR
+                role.GERANT, role.LIVREUR , role.CLIENT
                 );
 
 

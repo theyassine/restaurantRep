@@ -14,7 +14,7 @@
 
 <BorderPane fx:id="signUp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.signupController">
    <left>
-      <AnchorPane prefHeight="400.0" prefWidth="228.0" style="-fx-background-color: #C85F5F;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="400.0" prefWidth="228.0" style="-fx-background-color: C21A1ADD;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="39.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -62,15 +62,15 @@
                </font>
             </Label>
             <PasswordField fx:id="confirmPwd" layoutX="180.0" layoutY="234.0" prefHeight="25.0" prefWidth="147.0" />
-            <ComboBox fx:id="inputRole" layoutX="89.0" layoutY="275.0" onAction="#selectRole" prefHeight="25.0" prefWidth="246.0" style="-fx-background-color: #C85F5F;" />
+            <ComboBox fx:id="inputRole" layoutX="89.0" layoutY="275.0" onAction="#selectRole" prefHeight="25.0" prefWidth="246.0" style="-fx-background-color: #C21A1ADD;" />
             <Label layoutX="19.0" layoutY="280.0" prefHeight="18.0" prefWidth="55.0" text="Vous êtes " textFill="#8d8282">
                <font>
                   <Font name="Segoe UI" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="registerButton" layoutX="244.0" layoutY="330.0" mnemonicParsing="false" onAction="#signupAction" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: #C85F5F;" text="suivant " />
+            <Button fx:id="registerButton" layoutX="244.0" layoutY="330.0" mnemonicParsing="false" onAction="#signupAction" prefHeight="25.0" prefWidth="71.0" style="-fx-background-color: C21A1ADD;" text="suivant " />
             <Hyperlink fx:id="hyperlinkLogin" layoutX="29.0" layoutY="331.0" onAction="#redirectToLogin" text="Se connecter à un compte existant" />
-            <Label layoutX="92.0" layoutY="42.0" text="Créer un compte" textFill="#c85f5f">
+            <Label layoutX="92.0" layoutY="42.0" text="Créer un compte" textFill="#c21a1a">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>

@@ -48,11 +48,13 @@ public class loginController implements Initializable {
         }
 
 
-
     }
 
     @FXML
-    void redirectToForgetPassword(ActionEvent event) {
+    void redirectToForgetPassword(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ForgetPassword.fxml"));
+        Parent root = loader.load();
+        inputEmail.getScene().setRoot(root);
 
     }
 

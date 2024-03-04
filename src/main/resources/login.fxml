@@ -13,7 +13,7 @@
 
 <BorderPane fx:id="showLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.loginController">
    <left>
-      <AnchorPane prefHeight="400.0" prefWidth="228.0" style="-fx-background-color: #C85F5F;" styleClass="backgroundColor" stylesheets="@StyleCss/style.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="400.0" prefWidth="228.0" style="-fx-background-color: C21A1ADD;" styleClass="backgroundColor" stylesheets="@StyleCss/style.css" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="150.0" fitWidth="179.0" layoutX="39.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -31,7 +31,7 @@
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="372.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="55.0" layoutY="40.0" prefHeight="53.0" prefWidth="232.0" text="Connectez-Vous" textFill="#c75f5f">
+            <Label layoutX="55.0" layoutY="40.0" prefHeight="53.0" prefWidth="232.0" text="Connectez-Vous" textFill="#c21a1a">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -48,7 +48,7 @@
                </font>
             </Label>
             <PasswordField fx:id="inputPassword" layoutX="39.0" layoutY="246.0" prefHeight="32.0" prefWidth="264.0" />
-            <Button fx:id="loginButton" layoutX="45.0" layoutY="313.0" mnemonicParsing="false" onAction="#loginAction" style="-fx-background-color: #c75f5f;" text="Se connecter" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="45.0" layoutY="313.0" mnemonicParsing="false" onAction="#loginAction" style="-fx-background-color: #C21A1ADD;" text="Se connecter" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

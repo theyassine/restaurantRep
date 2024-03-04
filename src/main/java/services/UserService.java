@@ -102,6 +102,7 @@ public class UserService implements IService<User> {
 
     @Override
     public void delete(User user) {
+        deleteById(user.getId());
 
     }
     public void deleteById(int id) {
@@ -172,4 +173,34 @@ public class UserService implements IService<User> {
     public User readById(int id) {
         return null;
     }
+
+    public void changePassword(String email, String pwd) {
+        String sql = "UPDATE user SET pwd = ? WHERE email = ?";
+        try {
+            PreparedStatement ste = conn.prepareStatement(sql);
+            String hashedPassword = BCrypt.hashpw(pwd, BCrypt.gensalt());
+            ste.setString(1, hashedPassword);
+            ste.setString(2, email);
+            ste.executeUpdate();
+            System.out.println("Mot de passe modifié avec succès");
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la modification du mot de passe : " + ex.getMessage());
+        }
+    }
+    public boolean emailExists(String email) {
+        String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+        try {
+            PreparedStatement ste = conn.prepareStatement(sql);
+            ste.setString(1, email);
+            ResultSet rs = ste.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la recherche de l'e-mail dans la base de données : " + ex.getMessage());
+        }
+        return false;
+    }
 }
+

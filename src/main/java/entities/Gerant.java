@@ -1,4 +1,6 @@
 package entities;
 
-public class Gerant {
+public class Gerant extends User {
+
+
 }
