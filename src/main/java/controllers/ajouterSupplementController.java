@@ -1,12 +1,17 @@
 package controllers;
+
 import entities.Supplement;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.SupplementService;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -32,6 +38,10 @@ public class ajouterSupplementController implements Initializable {
 
     @FXML
     private TableColumn<Supplement, Double> col_prixsupp;
+
+    @FXML
+    private TableColumn<Supplement, String> col_imagesupp;
+
 
     @FXML
     private TextField tf_nomsupp;
@@ -54,11 +64,14 @@ public class ajouterSupplementController implements Initializable {
         // Initialize table columns
         col_nomsupp.setCellValueFactory(new PropertyValueFactory<>("nom"));
         col_prixsupp.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        col_imagesupp.setCellValueFactory(new PropertyValueFactory<>("image"));
+
 
         populateSupplementTableView();
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            handleLiveSearch(newValue);
+         //   handleLiveSearch(newValue);
         });
+       // searchTextField.setOnAction(event -> searchInTableView());
     }
 
     private void populateSupplementTableView() {
@@ -79,12 +92,20 @@ public class ajouterSupplementController implements Initializable {
                 return;
             }
 
+
+
             // Validate price field
             if (!tf_prixsupp.getText().matches("\\d+(\\.\\d+)?")) {
                 showAlert("Le champ du prix doit contenir des chiffres (et un point décimal optionnel pour les décimales).", "Le supplément a été modifié avec succès.");
                 return;
             } else {
                 prix = Double.parseDouble(tf_prixsupp.getText());
+            }
+
+            // Vérifiez si une image a été importée
+            if (iv_supp.getImage() == null) {
+                showAlert("Veuillez importer une image pour le supplément.", "Erreur lors de l'ajout du supplément.");
+                return;
             }
 
             // Create a new Supplement object and set its properties
@@ -107,11 +128,6 @@ public class ajouterSupplementController implements Initializable {
             showAlert("Entrée invalide pour les nombres.", "Le supplément a été ajouté avec succès.");
         }
     }
-
-
-
-
-
     @FXML
     public void btn_importerimagesupp(javafx.event.ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -162,7 +178,6 @@ public class ajouterSupplementController implements Initializable {
             showAlert("Aucun supplement sélectionné.", "Le supplement a été modifié avec succès.");
         }
     }
-
 
     @FXML
     private void btn_modifiersupp() {
@@ -253,35 +268,34 @@ public class ajouterSupplementController implements Initializable {
             }
         });
     }
-
-    private void handleLiveSearch(String searchText) {
+    public void recherche(ActionEvent actionEvent) {
         try {
-            // Create a filtered list to store the filtered items
-            ObservableList<Supplement> filteredList = FXCollections.observableArrayList();
+            ObservableList<Supplement> observableList = FXCollections.observableList(supplementService.readAll());
+            FilteredList<Supplement> filteredList = new FilteredList<>(observableList, p -> true);
 
-            // If the search text is empty or null, display all items in the TableView
-            if (searchText == null || searchText.trim().isEmpty()) {
-                tv_supp.setItems(supplementData); // Use the original data
-                return; // Exit the method
-            }
+            // Bind the search field text to the filter predicate
+            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredList.setPredicate(supplement -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true; // Show all items when the filter is empty
+                    }
 
-            // Iterate through each item in the TableView and filter based on search text
-            for (Supplement supplement : supplementData) {
-                // Perform case-insensitive search on nom and prix attributes of the supplement
-                if (supplement.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
-                        String.valueOf(supplement.getPrix()).toLowerCase().contains(searchText.toLowerCase())) {
-                    filteredList.add(supplement);
-                }
-            }
+                    String lowerCaseFilter = newValue.toLowerCase();
 
-            // Update the TableView with the filtered data
-            tv_supp.setItems(filteredList);
+                    // Check if any property of the Supplement contains the filter text
+                    return supplement.getNom().toLowerCase().contains(lowerCaseFilter)
+                            || String.valueOf(supplement.getPrix()).contains(lowerCaseFilter);
+                });
+            });
+
+            SortedList<Supplement> sortedList = new SortedList<>(filteredList);
+            sortedList.comparatorProperty().bind(tv_supp.comparatorProperty());
+
+            tv_supp.setItems(sortedList);
+
         } catch (Exception e) {
-            e.printStackTrace(); // Proper error handling might include showing an alert to the user
+            throw new RuntimeException(e);
         }
     }
-
-
-
 
 }

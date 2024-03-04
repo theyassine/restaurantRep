@@ -42,6 +42,9 @@ public class AjouterMenuController implements Initializable {
     private TableColumn<Menu, Double> col_prixmenu;
 
     @FXML
+    private TableColumn<Menu, String> col_imagemenu;
+
+    @FXML
     private TextField tf_caloriesmenu;
 
     @FXML
@@ -69,11 +72,12 @@ public class AjouterMenuController implements Initializable {
         col_descriptionmenu.setCellValueFactory(new PropertyValueFactory<>("description"));
         col_caloriesmenu.setCellValueFactory(new PropertyValueFactory<>("calories"));
         col_prixmenu.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        col_imagemenu.setCellValueFactory(new PropertyValueFactory<>("image"));
+
 
         populateMenuTableView();
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            handleLiveSearch(newValue);
-        });
+
+
     }
 
     private void populateMenuTableView() {
@@ -110,6 +114,12 @@ public class AjouterMenuController implements Initializable {
                 return;
             } else {
                 prix = Double.parseDouble(tf_prixmenu.getText());
+            }
+
+            // Vérifiez si une image a été importée
+            if (iv_menu.getImage() == null) {
+                showAlert("Veuillez importer une image pour le menu.", "Erreur lors de l'ajout du menu.");
+                return;
             }
 
             // Create a new Menu object and set its properties
@@ -287,35 +297,6 @@ public class AjouterMenuController implements Initializable {
                 Platform.exit();
             }
         });
-    }
-
-    private void handleLiveSearch(String searchText) {
-        try {
-            // Create a filtered list to store the filtered items
-            ObservableList<Menu> filteredList = FXCollections.observableArrayList();
-
-            // If the search text is empty or null, display all items in the TableView
-            if (searchText == null || searchText.trim().isEmpty()) {
-                tv_menu.setItems(menuData); // Use the original data
-                return; // Exit the method
-            }
-
-            // Iterate through each item in the TableView and filter based on search text
-            for (Menu menu : menuData) {
-                // Perform case-insensitive search on all fields of the menu
-                if (menu.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
-                        menu.getDescription().toLowerCase().contains(searchText.toLowerCase()) ||
-                        String.valueOf(menu.getCalories()).toLowerCase().contains(searchText.toLowerCase()) ||
-                        String.valueOf(menu.getPrix()).toLowerCase().contains(searchText.toLowerCase())) {
-                    filteredList.add(menu);
-                }
-            }
-
-            // Update the TableView with the filtered data
-            tv_menu.setItems(filteredList);
-        } catch (Exception e) {
-            e.printStackTrace(); // Proper error handling might include showing an alert to the user
-        }
     }
 
 
