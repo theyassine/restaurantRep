@@ -9,13 +9,14 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterMenuController">
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterMenuController">
     <children>
         <Pane layoutX="223.0" layoutY="192.0" prefHeight="486.0" prefWidth="442.0" style="-fx-background-color: #f8f8f8; -fx-background-radius: 10; -fx-border-radius: 10;">
             <children>
@@ -85,43 +86,50 @@
         </Pane>
         <Pane prefHeight="768.0" prefWidth="200.0" style="-fx-background-color: #c21a1a;">
             <children>
-                <Button layoutX="10.0" layoutY="237.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="183.0" style="-fx-background-color: #808080;" text="Menu" textFill="WHITE">
+                <Button layoutX="11.0" layoutY="281.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="183.0" style="-fx-background-color: #808080;" text="Menu" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
                 </Button>
-                <Button layoutX="10.0" layoutY="281.0" mnemonicParsing="false" onAction="#versSupplement" prefHeight="36.0" prefWidth="183.0" style="-fx-background-color: #808080;" text="Supplement" textFill="WHITE">
+                <Button layoutX="11.0" layoutY="329.0" mnemonicParsing="false" onAction="#versSupplement" prefHeight="36.0" prefWidth="183.0" style="-fx-background-color: #808080;" text="Supplement" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                     <effect>
-                        <DropShadow>
-                            <color>
-                                <Color red="0.501960813999176" green="0.501960813999176" blue="0.501960813999176" />
-                            </color>
-                        </DropShadow>
+                        <DropShadow />
                     </effect>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </Button>
-                <Button layoutX="39.0" layoutY="699.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: #808080;" text="Exit" textFill="WHITE">
+                <Button layoutX="46.0" layoutY="699.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="36.0" prefWidth="104.0" style="-fx-background-color: #808080;" text="EXIT" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
+               <effect>
+                  <DropShadow />
+               </effect>
                 </Button>
+            <ImageView fitHeight="180.0" fitWidth="150.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../xampp/htdocs/img/yammi.jpg" />
+               </image>
+            </ImageView>
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
         </Pane>
-        <Pane layoutX="200.0" prefHeight="71.2" prefWidth="1366.4" style="-fx-background-color: #FFFF;">
+        <Pane layoutX="200.0" prefHeight="71.2" prefWidth="1366.4" style="-fx-background-color: #C0C0C0;">
             <effect>
                 <DropShadow>
                     <color>
@@ -147,7 +155,7 @@
                         <Font name="Arial Bold" size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="tf_filtremenu" layoutX="15.0" layoutY="45.0" prefHeight="40.0" prefWidth="752.0" promptText="Rechercher">
+                <TextField fx:id="searchTextField" layoutX="15.0" layoutY="45.0" prefHeight="40.0" prefWidth="752.0" promptText="Rechercher">
                     <font>
                         <Font size="18.0" />
                     </font>

@@ -1,6 +1,6 @@
 package controllers;
-
 import entities.Supplement;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +16,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.SupplementService;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -43,6 +42,9 @@ public class ajouterSupplementController implements Initializable {
     @FXML
     private ImageView iv_supp;
 
+    @FXML
+    private TextField searchTextField;
+
     private ObservableList<Supplement> supplementData = FXCollections.observableArrayList();
 
     private SupplementService supplementService = new SupplementService();
@@ -54,6 +56,9 @@ public class ajouterSupplementController implements Initializable {
         col_prixsupp.setCellValueFactory(new PropertyValueFactory<>("prix"));
 
         populateSupplementTableView();
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            handleLiveSearch(newValue);
+        });
     }
 
     private void populateSupplementTableView() {
@@ -96,11 +101,14 @@ public class ajouterSupplementController implements Initializable {
             // Add the new supplement to the TableView
             tv_supp.getItems().add(supplement);
             populateSupplementTableView();
+            clearTextFields();
 
         } catch (NumberFormatException e) {
             showAlert("Entrée invalide pour les nombres.", "Le supplément a été ajouté avec succès.");
         }
     }
+
+
 
 
 
@@ -187,6 +195,7 @@ public class ajouterSupplementController implements Initializable {
 
                 // Refresh the TableView
                 populateSupplementTableView();
+                clearTextFields();
             } catch (NumberFormatException e) {
                 showAlert("Erreur lors de la modification du supplement.", "Veuillez vérifier les valeurs entrées.");
             }
@@ -216,6 +225,59 @@ public class ajouterSupplementController implements Initializable {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void clearTextFields() {
+        tf_prixsupp.clear();
+        tf_nomsupp.clear(); // Clear choice box selection
+
+    }
+
+    @FXML
+    void handleExitButton(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmer");
+        alert.setHeaderText(null);
+        alert.setContentText("Voulez-vous vraiment quitter ?");
+
+        ButtonType yesButton = new ButtonType("Oui");
+        ButtonType noButton = new ButtonType("Non");
+
+        alert.getButtonTypes().setAll(yesButton, noButton);
+
+        alert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == yesButton) {
+                // Exit the application
+                Platform.exit();
+            }
+        });
+    }
+
+    private void handleLiveSearch(String searchText) {
+        try {
+            // Create a filtered list to store the filtered items
+            ObservableList<Supplement> filteredList = FXCollections.observableArrayList();
+
+            // If the search text is empty or null, display all items in the TableView
+            if (searchText == null || searchText.trim().isEmpty()) {
+                tv_supp.setItems(supplementData); // Use the original data
+                return; // Exit the method
+            }
+
+            // Iterate through each item in the TableView and filter based on search text
+            for (Supplement supplement : supplementData) {
+                // Perform case-insensitive search on nom and prix attributes of the supplement
+                if (supplement.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
+                        String.valueOf(supplement.getPrix()).toLowerCase().contains(searchText.toLowerCase())) {
+                    filteredList.add(supplement);
+                }
+            }
+
+            // Update the TableView with the filtered data
+            tv_supp.setItems(filteredList);
+        } catch (Exception e) {
+            e.printStackTrace(); // Proper error handling might include showing an alert to the user
         }
     }
 

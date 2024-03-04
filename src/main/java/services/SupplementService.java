@@ -16,11 +16,12 @@ public class SupplementService implements IService<Supplement> {
 
     @Override
     public  void add(Supplement supplement) {
-        String query = "INSERT INTO supplement (nom, prix) VALUES (?, ?)";
+        String query = "INSERT INTO supplement (nom, prix,image) VALUES (?, ?,?)";
 
         try (PreparedStatement pst = connexion.prepareStatement(query)) {
             pst.setString(1, supplement.getNom());
             pst.setDouble(2, supplement.getPrix());
+            pst.setString(3, supplement.getImage()); // Here, getImage() retrieves the image path
             pst.executeUpdate();
             System.out.println("Supplément ajouté avec succès !");
         } catch (SQLException ex) {
@@ -56,6 +57,7 @@ public class SupplementService implements IService<Supplement> {
             pst.setDouble(2, supplement.getPrix());
             pst.setInt(3, supplement.getId_supp());
 
+
             int updatedRows = pst.executeUpdate();
             if (updatedRows > 0) {
                 System.out.println("Supplement mis à jour avec succès !");
@@ -80,7 +82,7 @@ public class SupplementService implements IService<Supplement> {
                 supplement.setNom(resultSet.getString("nom"));
                 supplement.setPrix(resultSet.getDouble("prix"));
                 // Supplement might not have an 'image' field, consider your entity
-                // supplement.setImage(resultSet.getString("image"));
+                supplement.setImage(resultSet.getString("image"));
                 supplementList.add(supplement);
             }
         } catch (SQLException e) {
@@ -102,7 +104,7 @@ public class SupplementService implements IService<Supplement> {
                     supplement.setId_supp(resultSet.getInt("id_supp"));
                     supplement.setNom(resultSet.getString("nom"));
                     supplement.setPrix(resultSet.getDouble("prix"));
-                    // supplement.setImage(resultSet.getString("image"));
+                  supplement.setImage(resultSet.getString("image"));
                 }
             }
         } catch (SQLException e) {

@@ -20,10 +20,7 @@ public class Supplement {
     }
 
     public Supplement() {
-
     }
-
-
 
     public int getId_supp() {
         return id_supp;

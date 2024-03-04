@@ -8,13 +8,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ajouterSupplementController">
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #D3D3D3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ajouterSupplementController">
     <children>
         <Pane layoutX="230.0" layoutY="192.0" prefHeight="486.0" prefWidth="442.0" style="-fx-background-color: #f8f8f8; -fx-background-radius: 10; -fx-border-radius: 10;">
             <children>
@@ -73,11 +74,7 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                     <effect>
-                        <DropShadow>
-                            <color>
-                                <Color red="0.501960813999176" green="0.501960813999176" blue="0.501960813999176" />
-                            </color>
-                        </DropShadow>
+                        <DropShadow />
                     </effect>
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -94,7 +91,7 @@
                   <DropShadow />
                </effect>
             </Button>
-            <Button layoutX="67.0" layoutY="627.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #808080;" text="EXIT" textFill="WHITE">
+            <Button layoutX="60.0" layoutY="694.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #808080;" text="EXIT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -105,13 +102,18 @@
                   <DropShadow />
                </effect>
             </Button>
+            <ImageView fitHeight="194.0" fitWidth="150.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../xampp/htdocs/img/yammi.jpg" />
+               </image>
+            </ImageView>
 
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
             </cursor>
         </Pane>
-        <Pane layoutX="200.0" prefHeight="71.2" prefWidth="1366.4" style="-fx-background-color: #FFFF;">
+        <Pane layoutX="200.0" prefHeight="71.2" prefWidth="1366.4" style="-fx-background-color: #C0C0C0;">
 
             <effect>
                 <DropShadow>
@@ -123,14 +125,14 @@
         </Pane>
         <Pane layoutX="720.0" layoutY="192.0" prefHeight="486.0" prefWidth="541.0" style="-fx-background-color: #f8f8f8; -fx-background-radius: 10; -fx-border-radius: 10;">
             <children>
-                <Button layoutX="367.0" layoutY="434.0" mnemonicParsing="false" onAction="#btn_supprimersupp" prefHeight="38.0" prefWidth="98.0" style="-fx-background-color: #c21a1a; -fx-border-color: #000000; -fx-background-radius: 10; -fx-border-radius: 10;" text="Supprimer" textFill="WHITE">
+                <Button layoutX="403.0" layoutY="434.0" mnemonicParsing="false" onAction="#btn_supprimersupp" prefHeight="38.0" prefWidth="98.0" style="-fx-background-color: #c21a1a; -fx-border-color: #000000; -fx-background-radius: 10; -fx-border-radius: 10;" text="Supprimer" textFill="WHITE">
                     <font>
                         <Font size="16.0" />
                     </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-                <Button layoutX="255.0" layoutY="434.0" mnemonicParsing="false" onAction="#btn_modifiersupp" style="-fx-background-color: #c21a1a; -fx-border-color: #000000; -fx-background-radius: 10; -fx-border-radius: 10;" text="Modifier" textFill="WHITE">
+                <Button layoutX="310.0" layoutY="434.0" mnemonicParsing="false" onAction="#btn_modifiersupp" style="-fx-background-color: #c21a1a; -fx-border-color: #000000; -fx-background-radius: 10; -fx-border-radius: 10;" text="Modifier" textFill="WHITE">
                     <font>
                         <Font size="16.0" />
                     </font>
@@ -143,7 +145,7 @@
                     </font>
                 </Label>
 
-                <TextField fx:id="tf_filtresupp" layoutX="15.0" layoutY="45.0" prefHeight="40.0" prefWidth="510.0" promptText="Rechercher">
+                <TextField fx:id="searchTextField" layoutX="15.0" layoutY="45.0" prefHeight="40.0" prefWidth="510.0" promptText="Rechercher">
                     <font>
                         <Font size="18.0" />
                     </font></TextField>
