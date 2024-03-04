@@ -1,7 +1,12 @@
 package Controllers;
 
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import org.example.entities.Restaurant;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -10,9 +15,10 @@ import javafx.scene.input.MouseEvent;
 import org.example.Service.RestaurantService;
 
 import java.io.File;
+import java.io.IOException;
 
 
-public class CardRecetteController {
+public class CardRestoController {
 
     @FXML
     private Label TitreLabel;
@@ -27,13 +33,14 @@ public class CardRecetteController {
     private Label PlaceLabel;
 
     @FXML
-    private ImageView img;
+    private Label rate;
 
     @FXML
-    void click(MouseEvent event) {
+    private ImageView img;
 
-    }
+
     private RestaurantService RestaurantService = new RestaurantService();
+
     public void initialize() {
 
     }
@@ -46,6 +53,7 @@ public class CardRecetteController {
             descriptionLable.setText(recette.getDescription());
             PlaceLabel.setText(recette.getPlace());
             SpecLabel.setText(recette.getSpeciality());
+            rate.setText(recette.getRate());
 
             if (imagePath != null && !imagePath.isEmpty()) {
                 File file = new File(imagePath);
@@ -58,6 +66,30 @@ public class CardRecetteController {
             } else {
                 System.out.println("Le chemin de l'image est vide.");
             }
+        }
+    }
+
+    @FXML
+    void click(MouseEvent event) {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/affresto.fxml"));
+        try {
+            Parent root = loader.load();
+            affrestocontroller controller = loader.getController();
+            // Récupérer les informations du restaurant depuis la carte
+            String nom = TitreLabel.getText();
+            String description = descriptionLable.getText();
+            String speciality = SpecLabel.getText();
+            String place = PlaceLabel.getText();
+            String restaurantRate = rate.getText();
+            String imagePath = ""; // Remplacez ceci par le chemin de l'image si nécessaire
+            controller.displayRestaurantData(nom, description, speciality, place, restaurantRate, imagePath);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

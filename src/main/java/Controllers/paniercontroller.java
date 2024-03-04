@@ -1,54 +1,103 @@
 package Controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.example.Service.MenuService;
+import org.example.Service.PanierService;
+import org.example.Utils.Data;
 import org.example.entities.Menu;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
+import org.example.entities.Panier;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 
 public class paniercontroller {
-    private MenuService menuService = new MenuService(); // Instancier le service de menu
+
 
     @FXML
-    private TableView<Menu> menu_tableView;
+    private TableView<Panier> menu_tableView;
+
+    @FXML
+    private TableColumn<Panier, String> menu_col_productName;
+
+    @FXML
+    private TableColumn<Panier, String> menu_col_quantity;
+
+    @FXML
+    private TableColumn<Panier, String> menu_col_price;
 
     @FXML
     private Label menu_total;
 
-    private double totalP;
-    /*public void menuSelectOrder(MouseEvent mouseEvent) {
-        productData prod = menu_tableView.getSelectionModel().getSelectedItem();
-        int num = menu_tableView.getSelectionModel().getSelectedIndex();
+    @FXML
+    private Button totl;
 
-        if ((num - 1) < -1) {
-            return;
-        }
-        // TO GET THE ID PER ORDER
-        getid = prod.getId();
+
+    private double totalP;
+    private double change;
+    private double amount;
+    private Connection connexion;
+
+
+
+    @FXML
+    public void initialize() {
+        // Appel de votre service pour obtenir les données du panier depuis la base de données
+        PanierService panierService = new PanierService();
+        List<Panier> panierItems = panierService.readAll();
+
+        // Ajout des données à la TableView
+        menu_tableView.getItems().addAll(panierItems);
+
+        // Liaison des propriétés de l'objet Panier aux colonnes de la TableView
+        menu_col_productName.setCellValueFactory(cellData -> cellData.getValue().nom_produitProperty());
+        menu_col_quantity.setCellValueFactory(cellData -> cellData.getValue().quantiteProperty());
+        menu_col_price.setCellValueFactory(cellData -> cellData.getValue().prixProperty());
+
+
+
+
+
 
     }
-    private double totalP;
+    public paniercontroller() {
+        connexion= Data.getInstance().getCnx();
 
+    }
+
+
+
+    public void menuRestart() {
+        totalP = 0;
+        change = 0;
+        amount = 0;
+        menu_total.setText("$0.0");
+
+    }
     public void menuGetTotal() {
-        customerID();
-        String total = "SELECT SUM(price) FROM customer WHERE customer_id = " + cID;
-
-        connect = database.connectDB();
+        String total = "SELECT SUM(prix) FROM panier " ;
 
         try {
 
-            prepare = connect.prepareStatement(total);
-            result = prepare.executeQuery();
-
+            PreparedStatement statement = connexion.prepareStatement(total);
+            ResultSet result=statement.executeQuery();
             if (result.next()) {
-                totalP = result.getDouble("SUM(price)");
+                totalP = result.getDouble("SUM(prix)");
             }
 
         } catch (Exception e) {
@@ -56,203 +105,66 @@ public class paniercontroller {
         }
 
     }
-
     public void menuDisplayTotal() {
         menuGetTotal();
-        menu_total.setText("$" + totalP);
+        menu_total.setText("dt" + totalP);
     }
 
-    private double amount;
-    private double change;
 
-    public void menuAmount() {
-        menuGetTotal();
-        if (menu_amount.getText().isEmpty() || totalP == 0) {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid :3");
-            alert.showAndWait();
-        } else {
-            amount = Double.parseDouble(menu_amount.getText());
-            if (amount < totalP) {
-                menu_amount.setText("");
-            } else {
-                change = (amount - totalP);
-                menu_change.setText("$" + change);
-            }
-        }
-    }*/
 
-    public void menuPayBtn() {
-        if (totalP == 0) {
+    public void menuRemoveBtn() {
+        Panier selectedPanier = menu_tableView.getSelectionModel().getSelectedItem();
+        if (selectedPanier == null) {
+            // Aucune ligne sélectionnée, afficher un message d'erreur
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
-            alert.setContentText("Please choose your order first!");
+            alert.setContentText("Veuillez sélectionner la commande que vous souhaitez supprimer");
             alert.showAndWait();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("pay");
-            alert.setHeaderText(null);
-            alert.setContentText("Please pay");
-            alert.showAndWait();
+            // Une ligne est sélectionnée, procéder à la suppression
+            int panierId = selectedPanier.getId(); // Supposons que getId() retourne l'identifiant de la commande
+            PanierService panierService = new PanierService();
+            panierService.supprimer(panierId); // Appel à la méthode delete de PanierService
+            // Actualiser l'affichage des données après la suppression
+            menuShowOrderData(); // Vous devez implémenter cette méthode pour actualiser les données dans votre TableView
         }
-            // Logique pour effectuer le paiement ici
-            // Vous pouvez appeler des méthodes de service ou effectuer des opérations directement
-            // Par exemple, vous pouvez enregistrer les éléments du panier dans la base de données comme une transaction payée
-            // Assurez-vous d'ajuster cette log
-
-       /* if (totalP == 0) {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Please choose your order first!");
-            alert.showAndWait();
-        } else {
-            menuGetTotal();
-            String insertPay = "INSERT INTO receipt (customer_id, total, date, em_username) "
-                    + "VALUES(?,?,?,?)";
-
-            connect = database.connectDB();
-
-            try {
-
-                if (amount == 0) {
-                    alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error Messaged");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Something wrong :3");
-                    alert.showAndWait();
-                } else {
-                    alert = new Alert(AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Are you sure?");
-                    Optional<ButtonType> option = alert.showAndWait();
-
-                    if (option.get().equals(ButtonType.OK)) {
-                        customerID();
-                        menuGetTotal();
-                        prepare = connect.prepareStatement(insertPay);
-                        prepare.setString(1, String.valueOf(cID));
-                        prepare.setString(2, String.valueOf(totalP));
-
-                        Date date = new Date();
-                        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-
-                        prepare.setString(3, String.valueOf(sqlDate));
-                        prepare.setString(4, data.username);
-
-                        prepare.executeUpdate();
-
-                        alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Infomation Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Successful.");
-                        alert.showAndWait();
-
-                        menuShowOrderData();
-
-                    } else {
-                        alert = new Alert(AlertType.WARNING);
-                        alert.setTitle("Infomation Message");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Cancelled.");
-                        alert.showAndWait();
-                    }
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }*/
-
     }
+    public void menuShowOrderData() {
+        // Effacer les éléments actuels de la TableView
+        menu_tableView.getItems().clear();
 
-    public void menuRemoveBtn() {}
-/*
-        if (getid == 0) {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Please select the order you want to remove");
-            alert.showAndWait();
-        } else {
-            String deleteData = "DELETE FROM customer WHERE id = " + getid;
-            connect = database.connectDB();
-            try {
-                alert = new Alert(AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete this order?");
-                Optional<ButtonType> option = alert.showAndWait();
+        // Recharger les données depuis la base de données et les ajouter à la TableView
+        PanierService panierService = new PanierService();
+        List<Panier> panierItems = panierService.readAll();
+        ObservableList<Panier> observablePanierItems = FXCollections.observableArrayList(panierItems);
+        menu_tableView.setItems(observablePanierItems);
+    }
+    @FXML
+    void naviguezVersmenu(ActionEvent event) {
+        try {
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/liste.fxml"));
+            Parent root1 = loader1.load();
 
-                if (option.get().equals(ButtonType.OK)) {
-                    prepare = connect.prepareStatement(deleteData);
-                    prepare.executeUpdate();
-                }
+            // Passer des données à AfficherOffreController si nécessaire
+            ListeDesRstoController AO = loader1.getController();
+            // controller.setXXX(); // Définir les données à afficher
 
-                menuShowOrderData();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }*/
-
-
-    public void menuReceiptBtn() {
-            if (totalP == 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please order first");
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("you orderdered");
-                alert.setHeaderText(null);
-                alert.setContentText("you order");
-                alert.showAndWait();
-            }
+            Scene scene = new Scene(root1);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
-                // Logique pour imprimer le reçu
-                // Vous pouvez utiliser une bibliothèque de génération de rapports comme JasperReports pour générer le reçu à partir des données du panier
-                // Assurez-vous d'ajuster cette logique en fonction de votre architecture et de vos besoins spécifiques}
-
-
-       /* if (totalP == 0 || menu_amount.getText().isEmpty()) {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setContentText("Please order first");
-            alert.showAndWait();
-        } else {
-            HashMap map = new HashMap();
-            map.put("getReceipt", (cID - 1));
-
-            try {
-
-                JasperDesign jDesign = JRXmlLoader.load("C:\\Users\\WINDOWS 10\\Documents\\NetBeansProjects\\cafeShopManagementSystem\\src\\cafeshopmanagementsystem\\report.jrxml");
-                JasperReport jReport = JasperCompileManager.compileReport(jDesign);
-                JasperPrint jPrint = JasperFillManager.fillReport(jReport, map, connect);
-
-                JasperViewer.viewReport(jPrint, false);
-
-                menuRestart();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }*/
-
-
-
-    public void menuRestart() {
-            totalP = 0;
-            // Réinitialiser d'autres variables ou états nécessaires
-            menu_total.setText("$0.0");
     }
-
 
 }
+
+
+
+
+
+
+
+

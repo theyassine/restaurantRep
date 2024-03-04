@@ -68,7 +68,8 @@ public class RestaurantService implements ISevice<Restaurant> {
                 String query="UPDATE `restaurant` SET " +
                 "`id_categorie`=?,`nom`=?,`Speciality`=?," +
                 "`telephone`=?,`Description`=?," +
-                "`Place`=?,`Rate`=?,`image`=? WHERE id=?";
+                "`Place`=?,`Rate`=? WHERE id=?";
+
                 PreparedStatement preparedStatement=connexion.prepareStatement(query);
 
             preparedStatement.setInt(1,restaurant.getid_categorie());
@@ -79,7 +80,7 @@ public class RestaurantService implements ISevice<Restaurant> {
             preparedStatement.setString(6, restaurant.getPlace());
             preparedStatement.setString(7, restaurant.getRate());
             preparedStatement.setInt(8,restaurant.getId());
-            preparedStatement.setString(9, restaurant.getImage());
+
 
             preparedStatement.executeUpdate();
         }catch (SQLException e){
@@ -247,5 +248,58 @@ public class RestaurantService implements ISevice<Restaurant> {
 
         return filteredRestaurants;
     }
+    public int NbrDisTotal() {
+        String sql = "SELECT COUNT(*) AS total FROM restaurant";
+
+        try (PreparedStatement statement = connexion.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors du calcul du nombre total de restaurants : " + e.getMessage());
+        }
+
+        return 0; // Retourne 0 en cas d'erreur ou si aucun restaurant n'est trouvé
+    }
+
+    public List<Restaurant> read() {
+        List<Restaurant> lc=new ArrayList<>();
+        try{
+            String query="SELECT * FROM `restaurant`";
+            Statement st= connexion.createStatement();
+            ResultSet rs=st.executeQuery(query);
+            while(rs.next()){
+                Restaurant c=new Restaurant();
+
+                c.setNom(rs.getString("nom"));
+                c.setDescription(rs.getString("Description"));
+                c.setSpeciality(rs.getString("Speciality"));
+                c.setPlace(rs.getString("Place"));
+                c.setTelephone(rs.getString("telephone"));
+                c.setRate(rs.getString("Rate"));
+                c.setImage(rs.getString("image"));
+                lc.add(c);
+            }
+        }catch (SQLException e){
+            System.out.println("erreur:"+e.getMessage());
+        }
+
+        return lc;
+    }
+    public boolean restaurantExists(String nom, String place) {
+        String query = "SELECT * FROM restaurant WHERE nom = ? AND Place = ?";
+        try (PreparedStatement pst = connexion.prepareStatement(query)) {
+            pst.setString(1, nom);
+            pst.setString(2, place);
+            try (ResultSet resultSet = pst.executeQuery()) {
+                return resultSet.next(); // Si un résultat est trouvé, cela signifie qu'un restaurant avec le même nom et lieu existe déjà
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification de l'existence du restaurant : " + e.getMessage());
+            return false; // En cas d'erreur, retourne false par défaut
+        }
+    }
+
 
 }

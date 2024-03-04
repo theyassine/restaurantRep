@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" style="-fx-background-color: #ffffff;" stylesheets="style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.afficher">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" style="-fx-background-color: #e3e2e2;" stylesheets="mainFormDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.afficher">
     <children>
-        <ImageView fitHeight="848.0" fitWidth="1322.0" layoutX="255.0" layoutY="-2.0" opacity="0.66" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="848.0" fitWidth="1322.0" layoutX="255.0" layoutY="-2.0" opacity="0.6" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@image/resto.jpg" />
             </image>
         </ImageView>
-        <AnchorPane layoutY="-3.0" prefHeight="817.0" prefWidth="256.0" style="-fx-background-color: #ea0822;">
+        <AnchorPane layoutY="-3.0" prefHeight="817.0" prefWidth="256.0" style="-fx-background-color: rgba(194,26,26,0.87);">
             <children>
 
                 <ImageView fitHeight="249.0" fitWidth="186.0" layoutX="28.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
@@ -22,16 +22,32 @@
                         <Image url="@image/yammifood.png" />
                     </image>
                 </ImageView>
-            <Button layoutX="83.0" layoutY="463.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="40.0" prefWidth="90.0" text="Supprimer" textFill="#750505">
+            <Button layoutX="51.0" layoutY="438.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="39.0" prefWidth="123.0" stylesheets="@image.css" text="Supprimer" textFill="#750505">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font size="18.0" />
                </font></Button>
       
-              <Button layoutX="25.0" layoutY="381.0" mnemonicParsing="false" onAction="#AfficherDB" prefHeight="40.0" prefWidth="207.0" styleClass="AjouterUtilisateur" stylesheets="@style.css" text="Afficher les restaurants" textFill="#800c02">
+              <Button layoutX="51.0" layoutY="381.0" mnemonicParsing="false" onAction="#AfficherDB" prefHeight="45.0" prefWidth="209.0" stylesheets="@image.css" text="Afficher les restaurants" textFill="#800c02">
                   <font>
                       <Font size="18.0" />
                   </font>
             </Button>
+            <ImageView fitHeight="52.0" fitWidth="47.0" layoutX="21.0" layoutY="704.0" pickOnBounds="true" preserveRatio="true">
+                
+                    <image>
+                        <Image url="@image/icons8-logout-rounded-left-50 (1).png" />
+                    </image>
+                </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="35.0" layoutX="4.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@image/icons8-paid-bill-50.png" />
+                </image>
+            </ImageView>
+            <ImageView fitHeight="39.0" fitWidth="35.0" layoutX="11.0" layoutY="438.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@image/trash.png" />
+                </image>
+            </ImageView>
             </children>
         </AnchorPane>
       <ListView fx:id="labelfromdb" layoutX="309.0" layoutY="179.0" prefHeight="389.0" prefWidth="967.0" />

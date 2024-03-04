@@ -12,14 +12,14 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1315.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.modifier">
-   <ImageView fitHeight="848.0" fitWidth="1322.0" layoutX="255.0" layoutY="-2.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+   <ImageView fitHeight="848.0" fitWidth="1322.0" layoutX="255.0" layoutY="-2.0" opacity="0.62" pickOnBounds="true" preserveRatio="true">
     <image>
         <Image url="@image/resto.jpg" />
     </image>
    </ImageView>
-    <AnchorPane layoutY="-7.0" prefHeight="817.0" prefWidth="256.0" style="-fx-background-color: #ea0822;">
+    <AnchorPane layoutY="-7.0" prefHeight="817.0" prefWidth="256.0" style="-fx-background-color: rgba(194,26,26,0.87);">
       <children>
-         <Button layoutX="3.0" layoutY="388.0" mnemonicParsing="false" onAction="#modifier" prefHeight="42.0" prefWidth="272.0" text="Modifier dans votre restaurant" textFill="#860505">
+         <Button fx:id="modif" layoutX="3.0" layoutY="388.0" mnemonicParsing="false" onAction="#modifier" prefHeight="42.0" prefWidth="272.0" onMouseClicked="#modifier" stylesheets="mainFormDesign.css" text="Modifier dans votre restaurant" textFill="#860505">
             <font>
                <Font size="18.0" />
             </font></Button>
@@ -27,6 +27,12 @@
     <ImageView fitHeight="173.0" fitWidth="167.0" layoutX="47.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@image/yammifood.png" />
+        </image>
+    </ImageView>
+    <ImageView fitHeight="52.0" fitWidth="47.0" layoutX="21.0" layoutY="704.0" pickOnBounds="true" preserveRatio="true">
+
+        <image>
+            <Image url="@image/icons8-logout-rounded-left-50 (1).png" />
         </image>
     </ImageView>
 
@@ -41,13 +47,13 @@
          <TextField fx:id="Cte" prefHeight="48.0" prefWidth="408.0" promptText="Ctegories" />
         </children>
     </VBox>
-   <Text fill="#8a0404" layoutX="926.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier quelque chose dans votre restaurant " textAlignment="CENTER" wrappingWidth="321.0">
+   <Text fill="#8a0404" layoutX="926.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier quelque chose dans votre restaurant " textAlignment="CENTER" wrappingWidth="321.0">
       <font>
-         <Font name="System Bold" size="23.0" />
+         <Font name="System Bold" size="26.0" />
       </font>
    </Text>
    <ListView fx:id="list" layoutX="304.0" layoutY="221.0" onMouseClicked="#fillforum" prefHeight="477.0" prefWidth="536.0" />
-   <Text fill="#8a0404" layoutX="386.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choisir votre restaurant" wrappingWidth="330.13671875">
+   <Text fill="#8a0404" layoutX="376.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sélèctionner votre restaurant" wrappingWidth="437.13671875">
       <font>
          <Font name="System Bold" size="28.0" />
       </font>

@@ -6,10 +6,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="245.0" prefWidth="279.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CardRecetteController">
+<AnchorPane prefHeight="184.0" prefWidth="287.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CardRestoController">
 
     <children>
       <ImageView fx:id="img" fitHeight="246.0" fitWidth="123.0" layoutX="164.0" pickOnBounds="true" preserveRatio="true" />
@@ -31,14 +32,19 @@
                      <font>
                         <Font size="13.0" />
                      </font></Label>
+                  <Label fx:id="rate" text="Rate" />
                   <Label fx:id="PlaceLabel" prefHeight="17.0" prefWidth="191.0" text="Place">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="68.0" text="Menu" />
-            <HBox prefHeight="40.0" prefWidth="287.0" />
+            <Button mnemonicParsing="false" prefHeight="17.0" prefWidth="68.0" stylesheets="mainFormDesign.css" text="Menu" />
+            <Pane prefHeight="25.0" prefWidth="287.0" />
+            <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="287.0">
+               <children>
+                  <Button mnemonicParsing="false" onMouseClicked="#click" prefHeight="16.0" prefWidth="128.0" stylesheets="@mainFormDesign.css" text="Voir la restaurant" />
+               </children></HBox>
 
             </children>
         </VBox>

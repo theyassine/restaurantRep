@@ -1,0 +1,24 @@
+#pi_chart {
+    -fx-background-color: #f0f0f0; /* Couleur de fond */
+}
+
+/* Styles pour les libellés */
+.label-stat {
+    -fx-font-size: 18px; /* Taille de police */
+    -fx-text-fill: #333333; /* Couleur de texte */
+}
+.chart-pie {
+    /* Ajoutez ici les styles spécifiques aux tranches du PieChart */
+}
+
+/* Style pour les différentes tranches du PieChart */
+.chart-pie .chart-pie-series0 {
+    -fx-pie-color: #4d0202; /* Couleur de la première tranche */
+}
+
+.chart-pie .chart-pie-series1 {
+    -fx-pie-color: #b7b3b3; /* Couleur de la deuxième tranche */
+}
+.card{
+    -fx-background-color: #4d0202;
+}

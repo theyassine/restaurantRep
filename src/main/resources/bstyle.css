@@ -1,23 +1,23 @@
 .text-field {
-    -fx-background-color: linear-gradient(to bottom, #de465d, #800c02); /* Rouge dégradé */
+    -fx-background-color: linear-gradient(to bottom, #afabab, #e0dddc); /* Rouge dégradé */
     -fx-background-radius: 5;
     -fx-border-color: #990000; /* Bordure rouge foncé */
     -fx-border-radius: 5;
-    -fx-text-fill: #ffffff; /* Texte blanc */
+    -fx-text-fill: #800c02; /* Texte blanc */
     -fx-font-size: 14px;
 }
 
 .text-field:focused {
-    -fx-background-color: linear-gradient(to bottom, #de465d, #800c02); /* Rouge dégradé plus clair au focus */
+    -fx-background-color: linear-gradient(to bottom, #d7d7d7, #d3d1d1); /* Rouge dégradé plus clair au focus */
     -fx-border-color: #990000; /* Bordure rouge foncé au focus */
 }
 
 .text-field:hover {
-    -fx-background-color: linear-gradient(to bottom, #dc7171, #dc7171); /* Rouge dégradé plus clair au survol */
+    -fx-background-color: linear-gradient(to bottom, #b7b7b7, #c9c9c9); /* Rouge dégradé plus clair au survol */
 }
 
 .text-field .text-input {
-    -fx-background-color: transparent;
+    -fx-background-color: rgb(5, 5, 5);
 }
 
 

@@ -1,0 +1,21 @@
+#TitreLabel {
+    -fx-text-fill: #9a0736; /* Couleur du texte */
+}
+
+#descriptionLable {
+    -fx-font-size: 18px; /* Taille de la police */
+    -fx-alignment: center; /* Alignement du texte au centre */
+}
+
+#SpecLabel {
+    -fx-font-size: 13px; /* Taille de la police */
+    -fx-alignment: center; /* Alignement du texte au centre */
+}
+
+#rate {
+    /* Styles supplémentaires pour le taux, si nécessaire */
+}
+
+#PlaceLabel {
+    -fx-font-size: 14px; /* Taille de la police */
+}

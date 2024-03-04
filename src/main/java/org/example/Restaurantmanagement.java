@@ -1,16 +1,16 @@
 package org.example;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
 
 import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 public class Restaurantmanagement extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the FXML file
-        Parent root = FXMLLoader.load(getClass().getResource("/modifier.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Ajouterresto.fxml"));
 
         // Set the stage title
         primaryStage.setTitle("Recipe Application");
@@ -20,6 +20,8 @@ public class Restaurantmanagement extends Application{
 
         // Show the stage
         primaryStage.show();
+
+
     }
 
     public static void main(String[] args) {
