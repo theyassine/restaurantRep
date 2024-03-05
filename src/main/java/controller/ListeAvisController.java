@@ -27,7 +27,7 @@ public class ListeAvisController {
 
 
     public void initialize() {
-        displayAvisData(13);
+        displayAvisData(3,13);
     }
 
 
@@ -39,20 +39,23 @@ public class ListeAvisController {
         return stars.toString();
     }
 
-    public void displayAvisData(int recetteId) {
-        // Use readAvisByRecetteId to get only the reviews for the specified recipe
-        List<Avis> avisList = avisService.readAvisByRecetteId(recetteId);
+    public void displayAvisData(int idAvis, int recetteId) {
+        // Use readAvisByIdAndRecetteId to get the specific review for the specified recipe
+        Avis avis = avisService.readAvisByIdAndRecetteId(idAvis, recetteId);
 
-        // Assuming you want to display information for the latest review only
-        if (!avisList.isEmpty()) {
-            Avis latestAvis = avisList.get(0);
-            int totalAvisCount = latestAvis.getNote();
+        // Check if the avis exists for the given idavis and idrecette
+        if (avis != null) {
+            int totalAvisCount = avis.getNote();
             String totalAvisStars = convertCountToStars(totalAvisCount);
 
-            id_date.setText(latestAvis.getDate().toString());
-            id_commentaire.setText(latestAvis.getCommentaire());
+            id_date.setText(avis.getDate().toString());
+            id_commentaire.setText(avis.getCommentaire());
             id_nbreavis.setText(totalAvisStars);
-            id_nom.setText(getUserNomById(latestAvis.getIdUser()));
+            id_nom.setText(getUserNomById(avis.getIdUser()));
+        } else {
+            // Handle the case where the avis does not exist
+            // You can display a message or handle it based on your requirements
+            System.out.println("Avis not found for idavis: " + idAvis + " and recetteId: " + recetteId);
         }
     }
 

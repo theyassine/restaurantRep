@@ -13,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -46,7 +43,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AfficherRecetteController implements Initializable {
-
+    @FXML
+    private ListView<String> avisListView;
     @FXML
     private Label titleLabel;
 
@@ -222,6 +220,7 @@ public class AfficherRecetteController implements Initializable {
         try {
             avisService.add(avis);
             showAlert("Avis ajouté", "Votre avis a été ajouté avec succès.");
+            initialize(null, null);
         } catch (RuntimeException e) {
             showAlert("Erreur", "Une erreur est survenue lors de l'ajout de l'avis. Veuillez réessayer.");
             e.printStackTrace();
@@ -261,41 +260,8 @@ public class AfficherRecetteController implements Initializable {
         videoView.setFitHeight(250);
 
 
-        AvisService avisService1 = new AvisService();
-        List<Avis> allRecettes = avisService1.readAll();
 
 
-
-        // Load and display each recipe in a CardRecette
-        int columnIndex = 0;
-        int rowIndex = 1;
-
-        for (Avis avis : allRecettes) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeAvis.fxml"));
-                Node cardRecetteNode = loader.load();
-
-                ListeAvisController cardController = loader.getController();
-                cardController.displayAvisData(avis.getIdRecette());
-
-                // Set columnIndex to 0 for each recipe to place it in a new row
-                columnIndex = 0;
-
-                // Increment rowIndex for each new row
-                rowIndex++;
-
-                grid.add(cardRecetteNode, columnIndex, rowIndex);
-                this.grid.setMinWidth(-1.0);
-                this.grid.setPrefWidth(-1.0);
-                this.grid.setMaxWidth(Double.NEGATIVE_INFINITY);
-                this.grid.setMinHeight(-1.0);
-                this.grid.setPrefHeight(-1.0);
-                this.grid.setMaxHeight(Double.NEGATIVE_INFINITY);
-                GridPane.setMargin(cardRecetteNode, new Insets(10.0));
-            } catch (IOException e) {
-                e.printStackTrace(); // Handle exception appropriately
-            }
-        }
 
 
     }
@@ -362,6 +328,53 @@ public class AfficherRecetteController implements Initializable {
             int totalRating = avisService.getTotalRatingForRecipe(targetRecipeId);
             totalRatingLabel.setText("Note totale de cette recette: (" + totalRating+")");
     }
+       /* avisListView.getItems().clear(); // Clear existing items
+
+        AvisService avisService = new AvisService();
+        List<Avis> avisList = avisService.readAvisByRecetteId(targetRecipeId);
+
+        for (Avis avis : avisList) {
+            String avisText = "Note: " + avis.getNote() + ", Commentaire: " + avis.getCommentaire();
+            avisListView.getItems().add(avisText);
+        }
 
 
-}}
+        */
+        AvisService avisService1 = new AvisService();
+        List<Avis> allRecettes = avisService1.readAvisByRecetteId(targetRecipeId);
+
+
+
+        // Load and display each recipe in a CardRecette
+        int columnIndex = 0;
+        int rowIndex = 1;
+
+        for (Avis avis : allRecettes) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeAvis.fxml"));
+                Node cardRecetteNode = loader.load();
+
+                ListeAvisController cardController = loader.getController();
+                cardController.displayAvisData(avis.getIdAvis(),targetRecipeId);
+
+                // Set columnIndex to 0 for each recipe to place it in a new row
+                columnIndex = 0;
+
+                // Increment rowIndex for each new row
+                rowIndex++;
+
+                grid.add(cardRecetteNode, columnIndex, rowIndex);
+                this.grid.setMinWidth(-1.0);
+                this.grid.setPrefWidth(-1.0);
+                this.grid.setMaxWidth(Double.NEGATIVE_INFINITY);
+                this.grid.setMinHeight(-1.0);
+                this.grid.setPrefHeight(-1.0);
+                this.grid.setMaxHeight(Double.NEGATIVE_INFINITY);
+                GridPane.setMargin(cardRecetteNode, new Insets(10.0));
+            } catch (IOException e) {
+                e.printStackTrace(); // Handle exception appropriately
+            }
+        }
+
+    }
+}

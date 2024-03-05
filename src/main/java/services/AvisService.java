@@ -166,4 +166,29 @@ public class AvisService implements IService<Avis>{
 
         return totalRating;
     }
+    public Avis readAvisByIdAndRecetteId(int idAvis, int recetteId) {
+        String requete = "SELECT * FROM Avis WHERE id_avis = ? AND id_recette = ?";
+        Avis avis = null;
+
+        try (PreparedStatement pst = connexion.prepareStatement(requete)) {
+            pst.setInt(1, idAvis);
+            pst.setInt(2, recetteId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                avis = new Avis(
+                        rs.getInt("id_avis"),
+                        rs.getDate("Date"),
+                        rs.getInt("Note"),
+                        rs.getString("Commentaire"),
+                        rs.getInt("id_user"),
+                        rs.getInt("id_recette")
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return avis;
+    }
 }
