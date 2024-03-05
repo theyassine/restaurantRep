@@ -256,11 +256,11 @@ public class AfficherRecetteController implements Initializable {
         for (ImageView starImageView : starImageViews) {
             starImageView.setImage(emptyStarImage);
         }
-
+        avisService = new AvisService();
         videoView.setFitWidth(400);
         videoView.setFitHeight(250);
 
-        avisService = new AvisService();
+
         AvisService avisService1 = new AvisService();
         List<Avis> allRecettes = avisService1.readAll();
 
@@ -280,6 +280,7 @@ public class AfficherRecetteController implements Initializable {
 
                 // Set columnIndex to 0 for each recipe to place it in a new row
                 columnIndex = 0;
+
                 // Increment rowIndex for each new row
                 rowIndex++;
 

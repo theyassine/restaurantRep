@@ -40,6 +40,7 @@ public class ListeAvisController {
     }
 
     public void displayAvisData(int recetteId) {
+        // Use readAvisByRecetteId to get only the reviews for the specified recipe
         List<Avis> avisList = avisService.readAvisByRecetteId(recetteId);
 
         // Assuming you want to display information for the latest review only
