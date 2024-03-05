@@ -1,13 +1,17 @@
 package Controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import org.example.Service.RestaurantService;
 import org.example.entities.Restaurant;
 
@@ -90,6 +94,24 @@ public class affrestocontroller {
             }
         } else {
             System.out.println("Le chemin de l'image est vide.");
+        }
+    }
+    @FXML
+    public void diversionary(ActionEvent event) {
+        try {
+            FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/liste.fxml"));
+            Parent root1 = loader1.load();
+
+            // Passer des données à AfficherOffreController si nécessaire
+            modifier AO = loader1.getController();
+            // controller.setXXX(); // Définir les données à afficher
+
+            Scene scene = new Scene(root1);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 }

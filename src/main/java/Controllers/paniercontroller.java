@@ -25,6 +25,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.util.StringConverter;
+
 
 public class paniercontroller {
 
@@ -46,7 +50,8 @@ public class paniercontroller {
 
     @FXML
     private Button totl;
-
+    @FXML
+    private Spinner<Integer> spinner;
 
     private double totalP;
     private double change;
@@ -72,9 +77,29 @@ public class paniercontroller {
 
 
 
+        ObservableList<Integer> nombres = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(nombres);
+        spinner.setValueFactory(valueFactory);
 
+        // Convertisseur pour afficher les valeurs du spinner
+        spinner.getValueFactory().setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer value) {
+                return value.toString();
+            }
 
+            @Override
+            public Integer fromString(String string) {
+                return Integer.valueOf(string);
+            }
+        });
+
+        // Affichage des données dans la TableView
+        refreshTableView();
     }
+
+
+
     public paniercontroller() {
         connexion= Data.getInstance().getCnx();
 
@@ -130,6 +155,16 @@ public class paniercontroller {
             menuShowOrderData(); // Vous devez implémenter cette méthode pour actualiser les données dans votre TableView
         }
     }
+    void refreshTableView() {
+        // Effacement des éléments actuels de la TableView
+        menu_tableView.getItems().clear();
+
+        // Rechargement des données depuis la base de données
+        PanierService panierService = new PanierService();
+        List<Panier> panierItems = panierService.readAll();
+        ObservableList<Panier> observablePanierItems = FXCollections.observableArrayList(panierItems);
+        menu_tableView.setItems(observablePanierItems);
+    }
     public void menuShowOrderData() {
         // Effacer les éléments actuels de la TableView
         menu_tableView.getItems().clear();
@@ -158,6 +193,36 @@ public class paniercontroller {
             System.err.println(e.getMessage());
         }
     }
+    @FXML
+    void modifierQuantite(ActionEvent event) {
+        Panier selectedPanier = menu_tableView.getSelectionModel().getSelectedItem();
+        if (selectedPanier == null) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Aucun produit sélectionné",
+                    "Veuillez sélectionner un produit à modifier.");
+            return;
+        }
+
+        // Récupération de la nouvelle quantité depuis le spinner
+        int nouvelleQuantite = spinner.getValue();
+
+        // Mise à jour de la quantité dans la base de données
+        PanierService panierService = new PanierService();
+        selectedPanier.setQuantite(Integer.toString(nouvelleQuantite));
+
+        panierService.update1(selectedPanier);
+
+        // Actualisation de l'affichage dans la TableView
+        refreshTableView();
+    }
+
+    void showAlert(Alert.AlertType type, String title, String headerText, String contentText) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
 
 }
 

@@ -60,6 +60,7 @@ public class afficher implements Initializable {
 
             // Supprimer l'élément sélectionné de la liste
             labelfromdb.getItems().remove(selectedRestaurant);
+            showAlert("SUPPRESSION FAIT AVEC SUCCES ");
         }
     }
 

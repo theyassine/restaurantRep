@@ -76,3 +76,7 @@
     -fx-border-radius: 5px;
     -fx-border-width: 1.5px;
 }
+.spinner-text-field {
+    -fx-text-fill:  #fff;
+    -fx-font-size: 16px;/* Changez la couleur du texte selon vos préférences */
+}

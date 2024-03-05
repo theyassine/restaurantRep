@@ -343,6 +343,7 @@ private int SommeDiscipline;
         }
     }
 
+
     // Autres méthodes de la classe...
 }
 

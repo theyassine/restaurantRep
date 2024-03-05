@@ -39,11 +39,12 @@
                      </font></Label>
                </children>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="17.0" prefWidth="68.0" stylesheets="mainFormDesign.css" text="Menu" />
             <Pane prefHeight="25.0" prefWidth="287.0" />
             <HBox alignment="TOP_CENTER" prefHeight="39.0" prefWidth="287.0">
                <children>
                   <Button mnemonicParsing="false" onMouseClicked="#click" prefHeight="16.0" prefWidth="128.0" stylesheets="@mainFormDesign.css" text="Voir la restaurant" />
+                  <Pane prefHeight="39.0" prefWidth="30.0" />
+                  <Button mnemonicParsing="false" prefHeight="17.0" prefWidth="68.0" stylesheets="mainFormDesign.css" text="Menu" />
                </children></HBox>
 
             </children>

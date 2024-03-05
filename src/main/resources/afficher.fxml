@@ -22,14 +22,14 @@
                         <Image url="@image/yammifood.png" />
                     </image>
                 </ImageView>
-            <Button layoutX="51.0" layoutY="438.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="39.0" prefWidth="123.0" stylesheets="@image.css" text="Supprimer" textFill="#750505">
+            <Button layoutX="51.0" layoutY="442.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="198.0" stylesheets="@image.css" text="Supprimer" textFill="#750505">
                <font>
-                  <Font size="18.0" />
+                  <Font size="16.0" />
                </font></Button>
       
-              <Button layoutX="51.0" layoutY="381.0" mnemonicParsing="false" onAction="#AfficherDB" prefHeight="45.0" prefWidth="209.0" stylesheets="@image.css" text="Afficher les restaurants" textFill="#800c02">
+              <Button layoutX="51.0" layoutY="387.0" mnemonicParsing="false" onAction="#AfficherDB" prefHeight="39.0" prefWidth="198.0" stylesheets="@image.css" text="Afficher les restaurants" textFill="#800c02">
                   <font>
-                      <Font size="18.0" />
+                      <Font size="15.0" />
                   </font>
             </Button>
             <ImageView fitHeight="52.0" fitWidth="47.0" layoutX="21.0" layoutY="704.0" pickOnBounds="true" preserveRatio="true">

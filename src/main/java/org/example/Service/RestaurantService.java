@@ -90,6 +90,11 @@ public class RestaurantService implements ISevice<Restaurant> {
     }
 
     @Override
+    public void update1(Restaurant restaurant) {
+
+    }
+
+    @Override
     public List<Restaurant> readAll() {
         List<Restaurant> lc=new ArrayList<>();
         try{

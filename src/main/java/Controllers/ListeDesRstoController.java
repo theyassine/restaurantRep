@@ -126,7 +126,7 @@ public class ListeDesRstoController {
     @FXML
     void naviguezVersModifier(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/start.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/stat.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
 

@@ -19,7 +19,7 @@
    </ImageView>
     <AnchorPane layoutY="-7.0" prefHeight="817.0" prefWidth="256.0" style="-fx-background-color: rgba(194,26,26,0.87);">
       <children>
-         <Button fx:id="modif" layoutX="3.0" layoutY="388.0" mnemonicParsing="false" onAction="#modifier" prefHeight="42.0" prefWidth="272.0" onMouseClicked="#modifier" stylesheets="mainFormDesign.css" text="Modifier dans votre restaurant" textFill="#860505">
+         <Button fx:id="modif" layoutX="3.0" layoutY="388.0" mnemonicParsing="false" onAction="#modifier" onMouseClicked="#modifier" prefHeight="42.0" prefWidth="272.0" stylesheets="mainFormDesign.css" text="Modifier dans votre restaurant" textFill="#860505">
             <font>
                <Font size="18.0" />
             </font></Button>

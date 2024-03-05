@@ -76,6 +76,19 @@ public class PanierService implements ISevice<Panier> {
     }
 
 
+    @Override
+    public void update1(Panier panier) {
+        try {
+            String query = "UPDATE `panier` SET `quantite`=? WHERE id_panier=?";
+            PreparedStatement preparedStatement = connexion.prepareStatement(query);
+            preparedStatement.setString(1, panier.getQuantite());
+            preparedStatement.setInt(2, panier.getId()); // Ajoutez ceci pour spécifier l'identifiant du produit
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("erreur:" + e.getMessage());
+        }
+    }
 
     @Override
     public List<Panier> readAll() {
