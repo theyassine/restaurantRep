@@ -19,8 +19,6 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.ComboBox?>
 <ScrollPane prefHeight="1516.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AfficherRecetteController">
     <AnchorPane prefHeight="1509.0" prefWidth="1368.0" style="-fx-background-color: white;">
 
@@ -38,7 +36,11 @@
             <font>
                <Font name="System Bold" size="14.0" />
             </font></Label>
-
+            <Label fx:id="totalRatingLabel" layoutX="596.0" layoutY="1079.0" prefHeight="20.0" prefWidth="276.0" text="Total Rating : " textFill="#c21a1a">
+                <font>
+                    <Font name="System Bold" size="14.0" />
+                </font>
+            </Label>
             <!-- ... (modify ImageView as needed for video) -->
             <ImageView fx:id="imageView" fitHeight="157.0" fitWidth="212.0" layoutX="894.0" layoutY="169.0" styleClass="image-view">
             <image>
@@ -243,14 +245,6 @@
          <URL value="@style/styleaffichageRecette.css" />
          <URL value="@dashboardDesign.css" />
       </stylesheets>
-        <ComboBox fx:id="languageComboBox" layoutX="1110.0" layoutY="1430.0" prefWidth="150.0" promptText="Select Language">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="en" />
-                    <String fx:value="fr" />
-                    <String fx:value="ar" />
-                </FXCollections>
-            </items>
-        </ComboBox>
+
     </AnchorPane>
 </ScrollPane>

@@ -149,4 +149,21 @@ public class AvisService implements IService<Avis>{
         }
         return list;
     }
+    public int getTotalRatingForRecipe(int recetteId) {
+        String query = "SELECT SUM(Note) AS totalRating FROM Avis WHERE id_recette = ?";
+        int totalRating = 0;
+
+        try (PreparedStatement pst = connexion.prepareStatement(query)) {
+            pst.setInt(1, recetteId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                totalRating = rs.getInt("totalRating");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return totalRating;
+    }
 }

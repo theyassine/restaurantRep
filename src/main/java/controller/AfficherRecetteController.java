@@ -242,6 +242,8 @@ public class AfficherRecetteController implements Initializable {
         alert.showAndWait();
     }
     private int targetRecipeId;
+    @FXML
+    private Label totalRatingLabel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -254,11 +256,14 @@ public class AfficherRecetteController implements Initializable {
         for (ImageView starImageView : starImageViews) {
             starImageView.setImage(emptyStarImage);
         }
-        avisService = new AvisService();
+
         videoView.setFitWidth(400);
         videoView.setFitHeight(250);
+
+        avisService = new AvisService();
         AvisService avisService1 = new AvisService();
         List<Avis> allRecettes = avisService1.readAll();
+
 
 
         // Load and display each recipe in a CardRecette
@@ -271,11 +276,10 @@ public class AfficherRecetteController implements Initializable {
                 Node cardRecetteNode = loader.load();
 
                 ListeAvisController cardController = loader.getController();
-                cardController.displayAvisData(avis.getIdAvis());
+                cardController.displayAvisData(avis.getIdRecette());
 
                 // Set columnIndex to 0 for each recipe to place it in a new row
                 columnIndex = 0;
-
                 // Increment rowIndex for each new row
                 rowIndex++;
 
@@ -318,6 +322,7 @@ public class AfficherRecetteController implements Initializable {
         this.targetAvisId = recette.getId_user();
 
         if (recette != null) {
+
             titleLabel.setText("" + recette.getTitre());
             descriptionLabel.setText("" + recette.getDescription());
             ingredientsLabel.setText(String.join("\n", recette.getIngredients().split(", ")));
@@ -353,6 +358,8 @@ public class AfficherRecetteController implements Initializable {
             generateQRCode(targetRecipeId);
 
         }
+            int totalRating = avisService.getTotalRatingForRecipe(targetRecipeId);
+            totalRatingLabel.setText("Note totale de cette recette: (" + totalRating+")");
     }
 
 

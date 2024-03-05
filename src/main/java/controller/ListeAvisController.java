@@ -21,8 +21,7 @@ public class ListeAvisController {
 
     @FXML
     private Label id_nom;
-    private int selectedAvisId;
-    private int targetRecipeId;
+
 
     private AvisService avisService = new AvisService();
 
@@ -41,19 +40,21 @@ public class ListeAvisController {
     }
 
     public void displayAvisData(int recetteId) {
-        Avis avis = avisService.readById(recetteId);
+        List<Avis> avisList = avisService.readAvisByRecetteId(recetteId);
 
-        if (avis != null) {
-        int totalAvisCount = avis.getNote();
-        String totalAvisStars = convertCountToStars(totalAvisCount);
+        // Assuming you want to display information for the latest review only
+        if (!avisList.isEmpty()) {
+            Avis latestAvis = avisList.get(0);
+            int totalAvisCount = latestAvis.getNote();
+            String totalAvisStars = convertCountToStars(totalAvisCount);
 
-            id_date.setText(avis.getDate().toString());
-            id_commentaire.setText(avis.getCommentaire());
+            id_date.setText(latestAvis.getDate().toString());
+            id_commentaire.setText(latestAvis.getCommentaire());
             id_nbreavis.setText(totalAvisStars);
-            id_nom.setText(getUserNomById(avis.getIdUser()));
-
+            id_nom.setText(getUserNomById(latestAvis.getIdUser()));
         }
     }
+
     private String getUserNomById(int userId) {
         User user = avisService.getUserById(userId);
         return user != null ? user.getNom() : "Unknown User";
