@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.SupplementService;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -52,6 +50,8 @@ public class ajouterSupplementController implements Initializable {
     @FXML
     private ImageView iv_supp;
 
+    private String selectedImagePath;
+
     @FXML
     private TextField searchTextField;
 
@@ -65,13 +65,9 @@ public class ajouterSupplementController implements Initializable {
         col_nomsupp.setCellValueFactory(new PropertyValueFactory<>("nom"));
         col_prixsupp.setCellValueFactory(new PropertyValueFactory<>("prix"));
         col_imagesupp.setCellValueFactory(new PropertyValueFactory<>("image"));
-
-
         populateSupplementTableView();
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-         //   handleLiveSearch(newValue);
         });
-       // searchTextField.setOnAction(event -> searchInTableView());
     }
 
     private void populateSupplementTableView() {
@@ -112,6 +108,8 @@ public class ajouterSupplementController implements Initializable {
             Supplement supplement = new Supplement();
             supplement.setNom(nom);
             supplement.setPrix(prix);
+            supplement.setImage(selectedImagePath); // Set the image path
+
 
             // Add the new supplement to the database or service
             supplementService.add(supplement);
@@ -123,6 +121,7 @@ public class ajouterSupplementController implements Initializable {
             tv_supp.getItems().add(supplement);
             populateSupplementTableView();
             clearTextFields();
+            clearImageView();
 
         } catch (NumberFormatException e) {
             showAlert("Entrée invalide pour les nombres.", "Le supplément a été ajouté avec succès.");
@@ -140,7 +139,7 @@ public class ajouterSupplementController implements Initializable {
 
         if (selectedFile != null) {
             showAlert("Image sélectionnée : " + selectedFile.getName(), "Le supplement a été modifié avec succès.");
-            // Call the method to display the selected image
+            selectedImagePath = selectedFile.getAbsolutePath();
             afficherImage(selectedFile.getAbsolutePath());
         } else {
             showAlert("Aucune image sélectionnée.", "Le supplement a été modifié avec succès.");
@@ -153,6 +152,14 @@ public class ajouterSupplementController implements Initializable {
 
         // Set the image in the ImageView object
         iv_supp.setImage(image);
+
+
+
+    }
+
+
+    private void clearImageView() {
+        iv_supp.setImage(null);
     }
 
     private void showAlert(String message, String s) {
@@ -183,10 +190,11 @@ public class ajouterSupplementController implements Initializable {
     private void btn_modifiersupp() {
         Supplement selectedItem = tv_supp.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
-            // Populate the text fields with the selected menu item data
+            // Populate the text fields with the selected supplement data
             tf_nomsupp.setText(selectedItem.getNom());
             tf_prixsupp.setText(String.valueOf(selectedItem.getPrix()));
-
+            selectedImagePath = selectedItem.getImage(); // Store the current image path for modification
+            afficherImage(selectedImagePath); // Display the current image
         } else {
             showAlert("Aucun supplement sélectionné.", "Veuillez sélectionner un supplement à modifier.");
         }
@@ -197,19 +205,20 @@ public class ajouterSupplementController implements Initializable {
         Supplement selectedItem = tv_supp.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
             try {
-                // Update the selected menu item with the modified data
+                // Update the selected supplement with the modified data
                 selectedItem.setNom(tf_nomsupp.getText());
                 selectedItem.setPrix(Double.parseDouble(tf_prixsupp.getText()));
+                selectedItem.setImage(selectedImagePath); // Update the image path
 
-
-                // Update the menu item in the database or service
+                // Update the supplement in the database or service
                 supplementService.update(selectedItem);
 
                 // Show a success message
-                showAlert("supplement modifié avec succès", "Le supplement a été modifié avec succès.");
+                showAlert("Supplement modifié avec succès", "Le supplement a été modifié avec succès.");
 
                 // Refresh the TableView
                 populateSupplementTableView();
+                clearImageView();
                 clearTextFields();
             } catch (NumberFormatException e) {
                 showAlert("Erreur lors de la modification du supplement.", "Veuillez vérifier les valeurs entrées.");
@@ -218,6 +227,7 @@ public class ajouterSupplementController implements Initializable {
             showAlert("Aucun supplement sélectionné.", "Veuillez sélectionner un supplement à modifier.");
         }
     }
+
 
 
     @FXML
@@ -283,8 +293,8 @@ public class ajouterSupplementController implements Initializable {
                     String lowerCaseFilter = newValue.toLowerCase();
 
                     // Check if any property of the Supplement contains the filter text
-                    return supplement.getNom().toLowerCase().contains(lowerCaseFilter)
-                            || String.valueOf(supplement.getPrix()).contains(lowerCaseFilter);
+                    return supplement.getNom().toLowerCase().contains(lowerCaseFilter);
+
                 });
             });
 

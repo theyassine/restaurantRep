@@ -1,9 +1,12 @@
 package controllers;
 
 import entities.Menu;
+import entities.Supplement;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +61,9 @@ public class AjouterMenuController implements Initializable {
 
     @FXML
     private ImageView iv_menu;
+
+    private String selectedImagePath;
+
     @FXML
     private TextField searchTextField;
 
@@ -73,9 +79,9 @@ public class AjouterMenuController implements Initializable {
         col_caloriesmenu.setCellValueFactory(new PropertyValueFactory<>("calories"));
         col_prixmenu.setCellValueFactory(new PropertyValueFactory<>("prix"));
         col_imagemenu.setCellValueFactory(new PropertyValueFactory<>("image"));
-
-
         populateMenuTableView();
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+        });
 
 
     }
@@ -128,6 +134,8 @@ public class AjouterMenuController implements Initializable {
             menu.setDescription(description);
             menu.setCalories(calories);
             menu.setPrix(prix);
+            menu.setImage(selectedImagePath); // Set the image path
+
 
             // Add the new menu to the database or service
             menuService.add(menu);
@@ -139,6 +147,7 @@ public class AjouterMenuController implements Initializable {
             tv_menu.getItems().add(menu);
             populateMenuTableView();
             clearTextFields();
+            clearImageView();
 
 
 
@@ -164,7 +173,7 @@ public class AjouterMenuController implements Initializable {
 
         if (selectedFile != null) {
             showAlert("Image sélectionnée : " + selectedFile.getName(), "Le menu a été modifié avec succès.");
-            // Call the method to display the selected image
+            selectedImagePath = selectedFile.getAbsolutePath();
             afficherImage(selectedFile.getAbsolutePath());
         } else {
             showAlert("Aucune image sélectionnée.", "Le menu a été modifié avec succès.");
@@ -179,6 +188,9 @@ public class AjouterMenuController implements Initializable {
         iv_menu.setImage(image);
     }
 
+    private void clearImageView() {
+        iv_menu.setImage(null);
+    }
     private void showAlert(String message, String s) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
@@ -213,6 +225,8 @@ public class AjouterMenuController implements Initializable {
             tf_prixmenu.setText(String.valueOf(selectedItem.getPrix()));
             tf_caloriesmenu.setText(String.valueOf(selectedItem.getCalories()));
             tf_descmenu.setText(selectedItem.getDescription());
+            selectedImagePath = selectedItem.getImage(); // Store the current image path for modification
+            afficherImage(selectedImagePath);
         } else {
             showAlert("Aucun menu sélectionné.", "Veuillez sélectionner un menu à modifier.");
         }
@@ -228,6 +242,8 @@ public class AjouterMenuController implements Initializable {
                 selectedItem.setPrix(Double.parseDouble(tf_prixmenu.getText()));
                 selectedItem.setCalories(Integer.parseInt(tf_caloriesmenu.getText()));
                 selectedItem.setDescription(tf_descmenu.getText());
+                selectedItem.setImage(selectedImagePath); // Update the image path
+
 
                 // Update the menu item in the database or service
                 menuService.update(selectedItem);
@@ -238,6 +254,7 @@ public class AjouterMenuController implements Initializable {
                 // Refresh the TableView
                 populateMenuTableView();
                 clearTextFields();
+                clearImageView();
 
             } catch (NumberFormatException e) {
                 showAlert("Erreur lors de la modification du menu.", "Veuillez vérifier les valeurs entrées.");
@@ -297,6 +314,36 @@ public class AjouterMenuController implements Initializable {
                 Platform.exit();
             }
         });
+    }
+
+    public void recherche(ActionEvent actionEvent) {
+        try {
+            ObservableList<Menu> observableList = FXCollections.observableList(menuService.readAll());
+            FilteredList<Menu> filteredList = new FilteredList<>(observableList, p -> true);
+
+            // Bind the search field text to the filter predicate
+            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+                filteredList.setPredicate(supplement -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true; // Show all items when the filter is empty
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+
+                    // Check if any property of the Supplement contains the filter text
+                    return supplement.getNom().toLowerCase().contains(lowerCaseFilter);
+
+                });
+            });
+
+            SortedList<Menu> sortedList = new SortedList<>(filteredList);
+            sortedList.comparatorProperty().bind(tv_menu.comparatorProperty());
+
+            tv_menu.setItems(sortedList);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
