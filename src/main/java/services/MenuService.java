@@ -1,6 +1,7 @@
 package services;
 
 import entities.Menu;
+import entities.Supplement;
 import utils.DataSource;
 
 import java.sql.*;
@@ -119,4 +120,33 @@ public class MenuService implements IService<Menu>{
         }
         return menu;
     }
+
+    public List<Menu> searchByNom(String filter) {
+        List<Menu> filteredMenus = new ArrayList<>();
+        String sql = "SELECT * FROM menu WHERE nom LIKE ?";
+
+        try (PreparedStatement statement = connexion.prepareStatement(sql)) {
+            statement.setString(1, filter + "%");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Menu menu = new Menu(
+                        resultSet.getInt("id_menu"),
+                        resultSet.getString("nom"),
+                        resultSet.getDouble("prix"),
+                        resultSet.getString("description"),
+                        resultSet.getInt("calories"),
+                        resultSet.getString("image")
+                );
+                filteredMenus.add(menu);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error searching by nom: " + e.getMessage());
+        }
+
+        return filteredMenus;
+    }
+
+
+
 }

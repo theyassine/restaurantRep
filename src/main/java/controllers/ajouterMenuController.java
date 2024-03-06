@@ -11,16 +11,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.MenuService;
+import services.SupplementService;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -66,6 +73,8 @@ public class AjouterMenuController implements Initializable {
 
     @FXML
     private TextField searchTextField;
+
+    private GridPane grid;
 
     private ObservableList<Menu> menuData = FXCollections.observableArrayList();
 
@@ -216,7 +225,7 @@ public class AjouterMenuController implements Initializable {
     }
 
 
-    @FXML
+    @FXML 
     private void btn_modifiermenu() {
         Menu selectedItem = tv_menu.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -348,8 +357,21 @@ public class AjouterMenuController implements Initializable {
 
 
 
+    @FXML
+    void searchMenu(){
+        updateMenus(searchTextField.getText());
+    }
 
+    private void updateMenus(String filter) {
+        MenuService menuService = new MenuService();
+        List<Menu> filteredMenus =menuService.searchByNom(filter);
 
+        // Clear existing items in the TableView
+        tv_menu.getItems().clear();
+
+        // Add filtered supplements to the TableView
+        tv_menu.getItems().addAll(filteredMenus);
+    }
 
 
 

@@ -112,4 +112,31 @@ public class SupplementService implements IService<Supplement> {
         }
         return supplement;
     }
+
+
+    public List<Supplement> searchByNom(String filter) {
+        List<Supplement> filteredSupplements = new ArrayList<>();
+        String sql = "SELECT * FROM supplement WHERE nom LIKE ?";
+
+        try (PreparedStatement statement = connexion.prepareStatement(sql)) {
+            statement.setString(1, filter + "%");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Supplement supplement = new Supplement(
+                        resultSet.getInt("id_supp"), // Assuming id_supp is the correct column name
+                        resultSet.getString("nom"),
+                        resultSet.getDouble("prix"),
+                        resultSet.getString("image")
+                );
+                filteredSupplements.add(supplement);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error searching by nom: " + e.getMessage());
+        }
+
+        return filteredSupplements;
+    }
+
+
 }

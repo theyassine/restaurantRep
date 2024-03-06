@@ -155,7 +155,7 @@
                         <Font name="Arial Bold" size="18.0" />
                     </font>
                 </Label>
-                <TextField fx:id="searchTextField" layoutX="15.0" layoutY="45.0" prefHeight="40.0" prefWidth="752.0" promptText="Rechercher">
+                <TextField fx:id="searchTextField" layoutX="15.0" layoutY="45.0" prefHeight="40.0" prefWidth="752.0" promptText="Rechercher"  onKeyReleased="#searchMenu">
                     <font>
                         <Font size="18.0" />
                     </font>

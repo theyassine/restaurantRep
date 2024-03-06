@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.TableColumn;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -17,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.SupplementService;
@@ -54,6 +57,7 @@ public class ajouterSupplementController implements Initializable {
 
     @FXML
     private TextField searchTextField;
+    private GridPane grid;
 
     private ObservableList<Supplement> supplementData = FXCollections.observableArrayList();
 
@@ -87,7 +91,6 @@ public class ajouterSupplementController implements Initializable {
                 showAlert("Tous les champs doivent être remplis.", "Le supplément a été ajouté avec succès.");
                 return;
             }
-
 
 
             // Validate price field
@@ -127,6 +130,7 @@ public class ajouterSupplementController implements Initializable {
             showAlert("Entrée invalide pour les nombres.", "Le supplément a été ajouté avec succès.");
         }
     }
+
     @FXML
     public void btn_importerimagesupp(javafx.event.ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -152,7 +156,6 @@ public class ajouterSupplementController implements Initializable {
 
         // Set the image in the ImageView object
         iv_supp.setImage(image);
-
 
 
     }
@@ -229,7 +232,6 @@ public class ajouterSupplementController implements Initializable {
     }
 
 
-
     @FXML
     private void versMenu(ActionEvent event) {
         try {
@@ -278,34 +280,32 @@ public class ajouterSupplementController implements Initializable {
             }
         });
     }
-    public void recherche(ActionEvent actionEvent) {
-        try {
-            ObservableList<Supplement> observableList = FXCollections.observableList(supplementService.readAll());
-            FilteredList<Supplement> filteredList = new FilteredList<>(observableList, p -> true);
 
-            // Bind the search field text to the filter predicate
-            searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredList.setPredicate(supplement -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true; // Show all items when the filter is empty
-                    }
 
-                    String lowerCaseFilter = newValue.toLowerCase();
-
-                    // Check if any property of the Supplement contains the filter text
-                    return supplement.getNom().toLowerCase().contains(lowerCaseFilter);
-
-                });
-            });
-
-            SortedList<Supplement> sortedList = new SortedList<>(filteredList);
-            sortedList.comparatorProperty().bind(tv_supp.comparatorProperty());
-
-            tv_supp.setItems(sortedList);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    @FXML
+    void searchSupp() {
+        updateSupplements(searchTextField.getText());
     }
+
+    private void updateSupplements(String filter) {
+        SupplementService supplementService = new SupplementService();
+        List<Supplement> filteredSupplements = supplementService.searchByNom(filter);
+
+        // Convert the filtered supplements list to an observable list
+        ObservableList<Supplement> observableSupplements = FXCollections.observableArrayList(filteredSupplements);
+
+        // Create a sorted list
+        SortedList<Supplement> sortedSupplements = new SortedList<>(observableSupplements);
+
+        // Bind the sorted list comparator to the TableView comparator
+        sortedSupplements.comparatorProperty().bind(tv_supp.comparatorProperty());
+
+        // Clear existing items in the TableView
+        tv_supp.getItems().clear();
+
+        // Add sorted supplements to the TableView
+        tv_supp.getItems().addAll(sortedSupplements);
+    }
+
 
 }
