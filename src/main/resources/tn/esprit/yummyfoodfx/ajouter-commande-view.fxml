@@ -13,9 +13,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="819.0" prefWidth="1185.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.yummyfoodfx.controller.AjouterCommandeView">
+<AnchorPane prefHeight="819.0" prefWidth="1185.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.yummyfoodfx.controller.AjouterCommandeView">
    <children>
       <BorderPane prefHeight="819.0" prefWidth="1368.0">
          <left>
@@ -29,6 +30,14 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </ImageView>
+                  <Button alignment="CENTER" contentDisplay="BOTTOM" layoutX="10.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleExitButton" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: grey;" text="Quitter" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets right="10.0" top="550.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Button>
                </children>
             </VBox>
          </left>
@@ -36,8 +45,11 @@
             <AnchorPane prefHeight="819.0" prefWidth="956.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="tflong" layoutX="761.0" layoutY="209.0" prefHeight="25.0" prefWidth="200.0" promptText="longitude" />
-                  <Text layoutX="830.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande" />
-                  <Button layoutX="753.0" layoutY="691.0" mnemonicParsing="false" onAction="#ajouterCommande" text="Ajouter Commande" />
+                  <Text fill="#bf1a1a" layoutX="328.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commandes">
+                     <font>
+                        <Font name="System Bold" size="29.0" />
+                     </font></Text>
+                  <Button layoutX="751.0" layoutY="685.0" mnemonicParsing="false" onAction="#ajouterCommande" prefHeight="32.0" prefWidth="129.0" style="-fx-background-color: red;" text="Ajouter Commande" textFill="WHITE" />
                   <TextArea fx:id="taremarque" layoutX="761.0" layoutY="430.0" prefHeight="200.0" prefWidth="200.0" promptText="Remarque" />
                   <TextField fx:id="tfadresse" layoutX="761.0" layoutY="115.0" prefHeight="25.0" prefWidth="200.0" promptText="Adresse" style="-fx-background-color: #ededed; -fx-border-color: #575757;" />
                   <TextField fx:id="tflat" layoutX="761.0" layoutY="283.0" prefHeight="25.0" prefWidth="200.0" promptText="latitude" />
@@ -51,7 +63,7 @@
                         </GridPane>
                      </content>
                   </ScrollPane>
-                  <Button layoutX="909.0" layoutY="691.0" mnemonicParsing="false" onAction="#modifier" text="Modifier" />
+                  <Button layoutX="898.0" layoutY="685.0" mnemonicParsing="false" onAction="#modifier" prefHeight="31.0" prefWidth="72.0" style="-fx-background-color: red;" text="Modifier" textFill="WHITE" />
                </children>
             </AnchorPane>
          </center>

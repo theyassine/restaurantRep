@@ -10,8 +10,8 @@ import java.io.IOException;
 public class FXMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-       //FXMLLoader fxmlLoader = new FXMLLoader(FXMain.class.getResource("afficher-commande-livreur.fxml"));//LIVREUR
-        FXMLLoader fxmlLoader = new FXMLLoader(FXMain.class.getResource("ajouter-commande-view.fxml"));//USER
+       FXMLLoader fxmlLoader = new FXMLLoader(FXMain.class.getResource("afficher-commande-livreur.fxml"));//LIVREUR
+        //FXMLLoader fxmlLoader = new FXMLLoader(FXMain.class.getResource("ajouter-commande-view.fxml"));//USER
         //FXMLLoader fxmlLoader = new FXMLLoader(FXMain.class.getResource("afficher-commande-view.fxml"));//ADMIN
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
