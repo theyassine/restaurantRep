@@ -102,6 +102,7 @@
             <Button layoutX="205.0" layoutY="306.0" mnemonicParsing="false" onAction="#updateAction" style="-fx-background-color: C21A1ADD;" text="Modifier" textFill="WHITE" />
             <PasswordField fx:id="inputPwd" layoutX="274.0" layoutY="261.0" prefHeight="25.0" prefWidth="87.0" />
             <Text layoutX="195.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
+            <Button fx:id="exportButton" layoutX="20.0" layoutY="319.0" mnemonicParsing="false" onAction="#OnExport" style="-fx-background-color: C21A1ADD;" text="Exporter" textFill="WHITE" />
          </children>
       </AnchorPane>
    </center>

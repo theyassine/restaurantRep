@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.profileGerantController">
+    <top>
+        <HBox prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: C21A1ADD;" BorderPane.alignment="CENTER">
+            <children>
+                <ImageView fitHeight="40.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/img.png" />
+                    </image>
+                </ImageView>
+                <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="100.0" text="Yummy Food">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <AnchorPane prefHeight="360.0" prefWidth="99.0" style="-fx-background-color: C21A1ADD;" BorderPane.alignment="CENTER">
+            <children>
+                <Label layoutX="18.0" layoutY="56.0" text="Welcome," textFill="WHITE" />
+                <Label fx:id="prenom" layoutX="10.0" layoutY="65.0" prefHeight="32.0" prefWidth="68.0" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="22.0" />
+                    </font>
+                </Label>
+                <Line endX="50.0" layoutX="39.0" layoutY="107.0" startX="-39.0" stroke="WHITE" />
+                <Hyperlink layoutX="25.0" layoutY="129.0" onAction="#redirectToRestaurant" text="Restaurant" textFill="WHITE" />
+                <Hyperlink layoutX="25.0" layoutY="157.0" onAction="#rediretToMenu" prefHeight="23.0" prefWidth="60.0" text="Menu" textFill="WHITE" />
+                <Hyperlink layoutX="24.0" layoutY="186.0" onAction="#redirectToEvent" prefHeight="23.0" prefWidth="68.0" text="Evenement" textFill="WHITE" />
+                <Hyperlink layoutX="24.0" layoutY="216.0" onAction="#redirectToPub" prefHeight="23.0" prefWidth="68.0" text="Publication" textFill="WHITE" />
+                <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="5.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/restaurant.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="3.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/service-de-chambre.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="21.0" fitWidth="24.0" layoutX="4.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/event-management.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="5.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/relation-publique.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+    </left>
+    <center>
+        <AnchorPane prefHeight="360.0" prefWidth="509.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+            <children>
+                <AnchorPane layoutX="1.0" prefHeight="360.0" prefWidth="600.0" />
+            </children>
+        </AnchorPane>
+    </center>
+</BorderPane>

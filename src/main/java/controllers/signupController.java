@@ -91,8 +91,8 @@ public class signupController implements Initializable {
 
         else {
 
-            String hashedPassword = BCrypt.hashpw(inputPwd.getText(), BCrypt.gensalt());
-            User newUser = new User(inputNom.getText(), inputPrenom.getText(), inputEmail.getText(), hashedPassword, inputRole.getValue());
+
+            User newUser = new User(inputNom.getText(), inputPrenom.getText(), inputEmail.getText(), inputPwd.getText(), inputRole.getValue());
             US.add(newUser);
             alert.successMessage("Votre compte a été enregistré avec succès !");
 

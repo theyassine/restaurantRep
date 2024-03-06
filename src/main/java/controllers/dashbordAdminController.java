@@ -7,11 +7,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.mindrot.jbcrypt.BCrypt;
 import services.UserService;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +63,8 @@ public class dashbordAdminController implements Initializable {
     private ComboBox<entities.role> inputRole;
     @FXML
     private TableView<User> userTable;
+
+
 
     @FXML
     void addAction(ActionEvent event) {alerteMessage alert = new alerteMessage();
@@ -104,6 +114,42 @@ public class dashbordAdminController implements Initializable {
         }
 
     }
+    @FXML
+    void OnExport(ActionEvent event) {// Get data from ListView
+        // Create a new Excel workbook
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("User");
+
+            // Create headers
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("ID");
+            headerRow.createCell(1).setCellValue("Nom");
+            headerRow.createCell(2).setCellValue("Prénom");
+            headerRow.createCell(3).setCellValue("Email");
+            headerRow.createCell(4).setCellValue("Pwd");
+            headerRow.createCell(5).setCellValue("Role");
+
+            // Fill data rows
+            ObservableList<User> userList = userTable.getItems();
+            int rowNum = 1;
+            for (User utilisateur : userList) {
+                Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(utilisateur.getId());
+                row.createCell(1).setCellValue(utilisateur.getNom());
+                row.createCell(2).setCellValue(utilisateur.getPrenom());
+                row.createCell(3).setCellValue(utilisateur.getEmail());
+                row.createCell(4).setCellValue(utilisateur.getPwd());
+                row.createCell(5).setCellValue(utilisateur.getRole().toString());
+            }
+
+            try (FileOutputStream fileOut = new FileOutputStream("utilisateurs.xlsx")) {
+                workbook.write(fileOut);
+                System.out.println("Exported successfully to utilisateurs.xlsx");
+            }
+        } catch (IOException e) {
+            System.out.println("Error exporting to Excel: " + e.getMessage());
+        }
+    }
 
     @FXML
     void redirectToEvent(ActionEvent event) {
@@ -124,6 +170,9 @@ public class dashbordAdminController implements Initializable {
     void rediretToMenu(ActionEvent event) {
 
     }
+
+
+
 
     @FXML
     void updateAction(ActionEvent event) {// Vérifier si une ligne est sélectionnée dans le TableView

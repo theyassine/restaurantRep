@@ -58,7 +58,7 @@ public class UserService implements IService<User> {
             ste.setString(1, email);
             ResultSet rs = ste.executeQuery();
             if (rs.next()) {
-                String hashedPassword = rs.getString("password");
+                String hashedPassword = rs.getString("pwd");
                 if (BCrypt.checkpw(password, hashedPassword)) {
                     result = "success";
                     User user = new User();
@@ -66,26 +66,25 @@ public class UserService implements IService<User> {
                     user.setNom(rs.getString("nom"));
                     user.setPrenom(rs.getString("prenom"));
                     user.setEmail(rs.getString("email"));
-                    user.setPwd(rs.getString("pwd"));
                     user.setRole(role.valueOf(rs.getString("role")));
                     updateCurrentUser(user);
                     try {
                         LocalStorage localStorage = new LocalStorage();
                         localStorage.writeToStorage(user);
                     } catch (IOException ex) {
-                        System.out.println("failed init storage :" + ex.getMessage());
+                        System.out.println("Failed to initialize storage :" + ex.getMessage());
                         result = "failed init storage :" + ex.getMessage();
                     }
                 } else {
-                    System.out.println("mot de passe incorrect");
+                    System.out.println("Mot de passe incorrect");
                     result = "mot de passe incorrect";
                 }
             } else {
-                System.out.println("email introuvable");
+                System.out.println("Email introuvable");
                 result = "email introuvable";
             }
         } catch (SQLException ex) {
-            System.out.println("exception SQL :" + ex.getMessage());
+            System.out.println("Exception SQL :" + ex.getMessage());
             result = "exception SQL :" + ex.getMessage();
         }
         return result;

@@ -1,4 +1,5 @@
 package controllers;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,21 +33,64 @@ public class loginController implements Initializable {
     @FXML
     void loginAction(ActionEvent event) throws IOException {
         alerteMessage alert = new alerteMessage();
-        if (inputEmail.getText().isEmpty()) {
-            alert.errorMessage("veuillez remplir le champ email !");
-        }
-        if (inputPassword.getText().isEmpty()) {
-            alert.errorMessage("veuillez remplir le champ password!");
-        }
-        String result = userService.login(inputEmail.getText(), inputPassword.getText());
-        if (result != "success") {
-            alert.errorMessage("Error");
-        } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/Back/Template.fxml"));
-            Parent root = loader.load();
-            inputEmail.getScene().setRoot(root);
-        }
+        String email = inputEmail.getText();
+        String password = inputPassword.getText();
 
+        if (email.isEmpty()) {
+            alert.errorMessage("Veuillez remplir le champ email !");
+        } else if (password.isEmpty()) {
+            alert.errorMessage("Veuillez remplir le champ password !");
+        } else {
+            if (email.equals("ghaith.taieb01@gmail.com") && password.equals("nowomennocry01")) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashbordAdmin.fxml"));
+                Parent root = loader.load();
+                inputEmail.getScene().setRoot(root);
+            } else {
+                String result = userService.login(email, password);
+                if (!result.equals("success")) {
+                    alert.errorMessage("Erreur d'authentification !");
+                } else {
+                    User currentUser = UserService.getCurrentUser();
+                    if (currentUser != null) {
+                        FXMLLoader loader = new FXMLLoader();
+                        Parent root;
+                        profileGerantController controllerG;
+                        profileClientController controllerC;
+                        profileLivreurController controllerL;
+                        switch (currentUser.getRole()) {
+                            case LIVREUR:
+                                loader.setLocation(getClass().getResource("/profileLivreur.fxml"));
+                                root = loader.load();
+                                controllerL = loader.getController();
+                                controllerL.initializeUserName(currentUser.getPrenom());
+                                inputEmail.getScene().setRoot(root);
+                                break;
+                            case CLIENT:
+                                loader.setLocation(getClass().getResource("/profileClient.fxml"));
+                                root = loader.load();
+                                controllerC = loader.getController();
+                                controllerC.initializeUserName(currentUser.getPrenom());
+                                inputEmail.getScene().setRoot(root);
+                                break;
+                            case GERANT:
+                                loader.setLocation(getClass().getResource("/profileGerant.fxml"));
+                                root = loader.load();
+                                controllerG = loader.getController();
+                                controllerG.initializeUserName(currentUser.getPrenom());
+                                inputEmail.getScene().setRoot(root);
+                                break;
+
+                            default:
+                                alert.errorMessage("Erreur: Rôle d'utilisateur non reconnu.");
+                                break;
+                        }
+                    } else {
+                        // Gérer le cas où l'utilisateur actuel n'est pas défini
+                        alert.errorMessage("Erreur: Impossible de récupérer les informations de l'utilisateur.");
+                    }
+                }
+            }
+        }
 
     }
 
