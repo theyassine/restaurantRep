@@ -1,0 +1,19 @@
+
+J
+java:S1604+"(Make this anonymous inner class a lambda(öşÖıÿÿÿÿ8ˆõíÚà1
+W	java:S110"<This class has 6 parents which is greater than 5 authorized.(ñ¡ U8‹õíÚà1
+Q
+java:S1128
+"4Remove this unused import 'java.awt.event.KeyEvent'.(¬ğİÍ8¾øğÚà1
+T
+java:S1128"7Remove this unused import 'java.awt.event.KeyListener'.(ç„›û8¾øğÚà1
+M
+java:S1128"+Remove this unused import 'java.awt.Point'.(îŞ˜Úüÿÿÿÿ8¾øğÚà1
+Z
+java:S1128"8Remove this unused import 'java.awt.event.MouseAdapter'.( ÜÍÁûÿÿÿÿ8¾øğÚà1
+S
+java:S1128"6Remove this unused import 'java.awt.event.MouseEvent'.(›õ8¾øğÚà1
+O
+java:S1128"2Remove this unused import 'java.awt.geom.Point2D'.(ˆÕ­Ü8¾øğÚà1
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8¾øğÚà1

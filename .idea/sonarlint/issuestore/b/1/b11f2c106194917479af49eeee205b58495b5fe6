@@ -1,0 +1,18 @@
+
+k
+java:S1192"IDefine a constant instead of duplicating this literal "erreur: " 4 times.(ö³¶ıÿÿÿÿ8”ºÛà1
+q
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÄÓÃŠøÿÿÿÿ8º”ºÛà1
+q
+java:S20958"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÄÓÃŠøÿÿÿÿ8º”ºÛà1
+q
+java:S2095'"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÄÓÃŠøÿÿÿÿ8º”ºÛà1
+d
+java:S2095E"GUse try-with-resources or close this "Statement" in a "finally" clause.(ŸÒ‰×8º”ºÛà1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ö³¶ıÿÿÿÿ8¾”ºÛà1
+Z	java:S1060"9Replace this use of System.out or System.err by a logger.(ö³¶ıÿÿÿÿ8À”ºÛà1
+Z	java:S106<"9Replace this use of System.out or System.err by a logger.(ö³¶ıÿÿÿÿ8Á”ºÛà1
+Z	java:S106R"9Replace this use of System.out or System.err by a logger.(ö³¶ıÿÿÿÿ8Ä”ºÛà1
+]	java:S125^"<This block of commented-out lines of code should be removed.(Û†ê°şÿÿÿÿ8Å”ºÛà1
+t
+java:S6204a"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(íè¸úÿÿÿÿ8Æ”ºÛà1
