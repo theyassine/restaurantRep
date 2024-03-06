@@ -39,12 +39,12 @@ import java.io.IOException;
 import java.net.URL;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class AfficherRecetteController implements Initializable {
-    @FXML
-    private ListView<String> avisListView;
+
     @FXML
     private Label titleLabel;
 
@@ -130,29 +130,51 @@ public class AfficherRecetteController implements Initializable {
 
     private void generateQRCode(int recipeId) {
         try {
+
             Recette recette = recetteService.readById(recipeId);
 
             if (recette != null) {
-                // Customize the data string to include more details
-                String data = "RecipeID: " + recette.getId() +
-                        "|Title: " + recette.getTitre() +
-                        "|Ingredients: " + recette.getIngredients() +
-                        "|Steps: " + recette.getEtape();
 
+                StringBuilder formattedData = new StringBuilder();
+                formattedData.append("|Title: ").append(recette.getTitre())
+                        .append("|Ingredients: ").append(formatList(recette.getIngredients()))
+                        .append("\n|Les Etapes: ").append(formatSteps(recette.getEtape()));
 
+                byte[] utf8Bytes = formattedData.toString().getBytes(StandardCharsets.UTF_8);
+                String encodedData = new String(utf8Bytes, StandardCharsets.UTF_8);
 
-                BitMatrix matrix = new MultiFormatWriter().encode(data, BarcodeFormat.QR_CODE, 226, 174);
+                BitMatrix matrix = new MultiFormatWriter().encode(encodedData, BarcodeFormat.QR_CODE, 226, 174);
                 Image image = createImageFromBitMatrix(matrix);
                 qrCodeImageView.setImage(image);
             } else {
-                // Handle the case when the recipe with the given ID is not found
                 showAlert("Recipe Not Found", "Recipe not found for ID: " + recipeId);
             }
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Error", "An error occurred while generating the QR code.");
         }
+
     }
+
+    private String formatList(String list) {
+        // Split the list by commas and join with newline characters
+        return String.join("\n", list.split(", "));
+    }
+
+    private String formatSteps(String steps) {
+        // Split the steps by newline characters and prepend "Etape" to each
+        String[] stepArray = steps.split("\\n");
+        StringBuilder formattedSteps = new StringBuilder();
+        for (int i = 0; i < stepArray.length; i++) {
+            formattedSteps.append("Etape").append(i + 1).append(": ").append(stepArray[i]);
+            if (i < stepArray.length - 1) {
+                formattedSteps.append("\n");
+            }
+        }
+        return formattedSteps.toString();
+    }
+
+
 
     private Image createImageFromBitMatrix(BitMatrix bitMatrix) {
         int width = bitMatrix.getWidth();
@@ -282,7 +304,8 @@ public class AfficherRecetteController implements Initializable {
     List<Recette> recettes = recetteService.readAll();
     private String outputPath = "recette.pdf";
     private int targetAvisId;
-
+    @FXML
+    private Button deleteAvisButton;
     public void displayRecetteData(int recetteId) {
         Recette recette = recetteService.readById(recetteId);
         this.targetRecipeId = recetteId;
@@ -328,18 +351,7 @@ public class AfficherRecetteController implements Initializable {
             int totalRating = avisService.getTotalRatingForRecipe(targetRecipeId);
             totalRatingLabel.setText("Note totale de cette recette: (" + totalRating+")");
     }
-       /* avisListView.getItems().clear(); // Clear existing items
 
-        AvisService avisService = new AvisService();
-        List<Avis> avisList = avisService.readAvisByRecetteId(targetRecipeId);
-
-        for (Avis avis : avisList) {
-            String avisText = "Note: " + avis.getNote() + ", Commentaire: " + avis.getCommentaire();
-            avisListView.getItems().add(avisText);
-        }
-
-
-        */
         AvisService avisService1 = new AvisService();
         List<Avis> allRecettes = avisService1.readAvisByRecetteId(targetRecipeId);
 

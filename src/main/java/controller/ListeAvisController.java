@@ -3,6 +3,7 @@ package controller;
 import entite.Avis;
 import entite.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import services.AvisService;
 
@@ -21,6 +22,8 @@ public class ListeAvisController {
 
     @FXML
     private Label id_nom;
+    @FXML
+    private Button deleteButton;
 
 
     private AvisService avisService = new AvisService();
@@ -28,6 +31,7 @@ public class ListeAvisController {
 
     public void initialize() {
         displayAvisData(3,13);
+
     }
 
 
@@ -47,16 +51,15 @@ public class ListeAvisController {
         if (avis != null) {
             int totalAvisCount = avis.getNote();
             String totalAvisStars = convertCountToStars(totalAvisCount);
-
             id_date.setText(avis.getDate().toString());
             id_commentaire.setText(avis.getCommentaire());
             id_nbreavis.setText(totalAvisStars);
             id_nom.setText(getUserNomById(avis.getIdUser()));
         } else {
-            // Handle the case where the avis does not exist
-            // You can display a message or handle it based on your requirements
+
             System.out.println("Avis not found for idavis: " + idAvis + " and recetteId: " + recetteId);
         }
+
     }
 
     private String getUserNomById(int userId) {

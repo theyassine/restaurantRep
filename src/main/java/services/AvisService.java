@@ -49,6 +49,34 @@ public class AvisService implements IService<Avis>{
             throw new RuntimeException(e);
         }
     }
+    public void deleteAvis(int avisId) {
+        String requete = "DELETE FROM Avis WHERE id_avis = ?";
+
+        try {
+            pst = connexion.prepareStatement(requete);
+            pst.setInt(1, avisId);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void deleteAvis(int avisId, int userId) {
+        String requete = "DELETE FROM Avis WHERE id_avis = ? AND id_user = ?";
+
+        try {
+            pst = connexion.prepareStatement(requete);
+            pst.setInt(1, avisId);
+            pst.setInt(2, userId);
+            int rowCount = pst.executeUpdate();
+
+            if (rowCount == 0) {
+                throw new RuntimeException("Unable to delete the review. Either the review doesn't exist or the user does not have permission.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public void update(Avis avis) {
@@ -190,5 +218,16 @@ public class AvisService implements IService<Avis>{
         }
 
         return avis;
+    }
+    public void deleteAvisForUser(int idRecette, int idUser) {
+        String requete = "DELETE FROM Avis WHERE id_recette = ? AND id_user = ?";
+
+        try (PreparedStatement pst = connexion.prepareStatement(requete)) {
+            pst.setInt(1, idRecette);
+            pst.setInt(2, idUser);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
