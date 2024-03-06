@@ -96,14 +96,14 @@ public class affrestocontroller {
             System.out.println("Le chemin de l'image est vide.");
         }
     }
-    @FXML
+
     public void diversionary(ActionEvent event) {
         try {
             FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/liste.fxml"));
             Parent root1 = loader1.load();
 
             // Passer des données à AfficherOffreController si nécessaire
-            modifier AO = loader1.getController();
+            ListeDesRstoController AO = loader1.getController();
             // controller.setXXX(); // Définir les données à afficher
 
             Scene scene = new Scene(root1);

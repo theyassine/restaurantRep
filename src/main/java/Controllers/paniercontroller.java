@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.example.Service.MenuService;
+
 import org.example.Service.PanierService;
 import org.example.Utils.Data;
 import org.example.entities.Menu;

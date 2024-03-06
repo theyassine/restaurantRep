@@ -1,0 +1,1 @@
+{"role":"CLIENT","id":20,"pwd":null,"nom":"warda","prenom":"hlel","email":"warda.warda@gmail.com"}

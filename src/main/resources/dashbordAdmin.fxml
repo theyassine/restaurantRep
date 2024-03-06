@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.dashbordAdminController">
+   <top>
+      <HBox prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: C21A1ADD;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="40.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/img.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="100.0" text="Yummy Food">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <AnchorPane prefHeight="360.0" prefWidth="99.0" style="-fx-background-color: C21A1ADD;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="18.0" layoutY="56.0" text="Welcome," textFill="WHITE" />
+            <Label layoutX="10.0" layoutY="65.0" text="Admin" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+            </Label>
+            <Line endX="50.0" layoutX="39.0" layoutY="107.0" startX="-39.0" stroke="WHITE" />
+            <Hyperlink layoutX="25.0" layoutY="129.0" onAction="#redirectToRestaurant" text="Restaurant" textFill="WHITE" />
+            <Hyperlink layoutX="25.0" layoutY="157.0" onAction="#rediretToMenu" prefHeight="23.0" prefWidth="60.0" text="Menu" textFill="WHITE" />
+            <Hyperlink layoutX="24.0" layoutY="186.0" onAction="#redirectToEvent" prefHeight="23.0" prefWidth="68.0" text="Evenement" textFill="WHITE" />
+            <Hyperlink layoutX="24.0" layoutY="216.0" onAction="#redirectToPub" prefHeight="23.0" prefWidth="68.0" text="Publication" textFill="WHITE" />
+            <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="5.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/restaurant.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="22.0" fitWidth="25.0" layoutX="3.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/service-de-chambre.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="21.0" fitWidth="24.0" layoutX="4.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/event-management.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="19.0" fitWidth="19.0" layoutX="5.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/relation-publique.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <center>
+      <AnchorPane prefHeight="360.0" prefWidth="509.0" style="-fx-background-color: #FFFFFF;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="1.0" prefHeight="214.0" prefWidth="499.0">
+               <children>
+                  <TableView fx:id="userTable" layoutY="1.0" prefHeight="212.0" prefWidth="597.0" style="-fx-background-color: #FFFFFF;">
+                    <columns>
+                      <TableColumn fx:id="colId" prefWidth="86.0" text="Id" />
+                      <TableColumn fx:id="colNom" prefWidth="77.0" text="Nom" />
+                        <TableColumn fx:id="colPrenom" prefWidth="93.0" text="Prenom" />
+                        <TableColumn fx:id="colEmail" prefWidth="101.0" text="Email" />
+                        <TableColumn fx:id="colPwd" prefWidth="129.0" text="Mot de passe" />
+                        <TableColumn fx:id="colRole" prefWidth="110.0" text="Role" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="inputNom" layoutX="83.0" layoutY="226.0" prefHeight="25.0" prefWidth="84.0" />
+            <Text layoutX="24.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+            <Line endX="505.5" layoutX="66.0" layoutY="214.0" startX="-43.5" />
+            <Text layoutX="24.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom" />
+            <TextField fx:id="inputPrenom" layoutX="83.0" layoutY="256.0" prefHeight="25.0" prefWidth="85.0" />
+            <Text layoutX="195.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+            <Text layoutX="438.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
+            <TextField fx:id="inputEmail" layoutX="275.0" layoutY="226.0" prefHeight="25.0" prefWidth="84.0" />
+            <ComboBox fx:id="inputRole" layoutX="480.0" layoutY="248.0" prefHeight="25.0" prefWidth="85.0" style="-fx-background-color: C21A1ADD;" />
+            <Button layoutX="456.0" layoutY="306.0" mnemonicParsing="false" onAction="#addAction" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: C21A1ADD;" text="Ajouter" textFill="#fcfafa" />
+            <Button layoutX="333.0" layoutY="306.0" mnemonicParsing="false" onAction="#deleteAction" style="-fx-background-color: C21A1ADD;" text="Supprimer" textFill="WHITE" />
+            <Button layoutX="205.0" layoutY="306.0" mnemonicParsing="false" onAction="#updateAction" style="-fx-background-color: C21A1ADD;" text="Modifier" textFill="WHITE" />
+            <PasswordField fx:id="inputPwd" layoutX="274.0" layoutY="261.0" prefHeight="25.0" prefWidth="87.0" />
+            <Text layoutX="195.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe" />
+            <Button fx:id="exportButton" layoutX="20.0" layoutY="319.0" mnemonicParsing="false" onAction="#OnExport" style="-fx-background-color: C21A1ADD;" text="Exporter" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

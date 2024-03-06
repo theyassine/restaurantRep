@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="372.0" prefWidth="916.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CodeValidationController">
+   <children>
+      <Label alignment="CENTER" layoutX="28.0" layoutY="55.0" prefHeight="125.0" prefWidth="729.0" text="Please enter the one time password to verify your account" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="42.0" layoutY="189.0" prefHeight="43.0" prefWidth="721.0" text="A code has been sent to you">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <HBox fx:id="otpContainer" layoutX="207.0" layoutY="260.0" spacing="10.0">
+         <children>
+            <TextField fx:id="digit1TextField" prefHeight="60.0" prefWidth="60.0" />
+            <TextField fx:id="digit2TextField" prefHeight="60.0" prefWidth="60.0" />
+            <TextField fx:id="digit3TextField" prefHeight="60.0" prefWidth="60.0" />
+            <TextField fx:id="digit4TextField" prefHeight="60.0" prefWidth="60.0" />
+            <TextField fx:id="digit5TextField" prefHeight="60.0" prefWidth="60.0" />
+            <TextField fx:id="digit6TextField" prefHeight="60.0" prefWidth="60.0" />
+         </children>
+      </HBox>
+   </children>
+</Pane>

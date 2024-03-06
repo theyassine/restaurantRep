@@ -292,7 +292,7 @@ private int SommeDiscipline;
         gridPaneRestaurantDetails.getChildren().clear();
 
         // Charger le FXML et le contrôleur de la carte du restaurant
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/cardrecette.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CARD.fxml"));
         try {
             Parent cardRoot = loader.load();
             CardRestoController cardController = loader.getController();

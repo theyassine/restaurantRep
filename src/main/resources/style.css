@@ -21,7 +21,7 @@
 }
 
 .chosen-fruit-card{
-    -fx-background-color: #F16C31;
+    -fx-background-color: #6D071A;
     -fx-background-radius: 30;
 }
 
@@ -47,11 +47,56 @@
 
 .fruit-item{
     -fx-background-color: #FFFFFF;
-    -fx-background-radius: 30;
+        -fx-background-radius: 30;
 }
-.button {
-    -fx-background-color: #b7021b;
-    -fx-text-fill: #ffffff;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+#id_ajouter {
+    -fx-background-color: white;
+    -fx-text-fill: #6d071a; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Cambria";
+    -fx-font-weight: bold;
+    -fx-padding: 10 20; /* Top and bottom padding 10px, left and right padding 20px */
+    -fx-background-radius: 5; /* Rounded corners */
+    -fx-border-radius: 5;
+    -fx-border-color: #6d071a; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+}
+
+#id_ajouter:hover {
+    -fx-background-color: #6d071a; /* Hover background color */
+    -fx-text-fill: white; /* Hover text color */
+}
+#id_recette{
+
+    -fx-background-color: white;
+    -fx-text-fill: #6d071a; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Cambria";
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5; /* Rounded corners */
+    -fx-border-radius: 5;
+    -fx-border-color: #6d071a; /* Border color */
+    -fx-border-width: 2px; /* Border width */
+}
+#id_imageee,#id_logo {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 10, 0.0 , 0 , 1 );
+}
+.text-field {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 4px;
+    -fx-border-radius: 4px;
+    -fx-font-size: 13px;
+    -fx-font-family: Arial;
+}
+.text-area {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 4px;
+    -fx-border-radius: 4px;
+    -fx-font-size: 13px;
+    -fx-font-family: Arial;
 }

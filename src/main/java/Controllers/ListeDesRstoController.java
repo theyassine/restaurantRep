@@ -69,7 +69,7 @@ public class ListeDesRstoController {
             String imagePath = i < imagePaths.size() ? imagePaths.get(i) : null; // Chemin d'image correspondant
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/cardrecette.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/CARD.fxml"));
                 Node cardRecetteNode = loader.load();
                 CardRestoController cardController = loader.getController();
                 cardController.displayRecetteData(restaurant.getId(), imagePath); // Passer le chemin de l'image
